@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="http://leadingpace.pythonanywhere.com/trainingzones"
+        const api="https://leadingpace.pythonanywhere.com/trainingzones"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")

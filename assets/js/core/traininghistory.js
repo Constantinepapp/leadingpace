@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="http://leadingpace.pythonanywhere.com/traininghistory"
+        const api="https://leadingpace.pythonanywhere.com/traininghistory"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -109,7 +109,7 @@ class UI {
         
         var formData={"id":id_target}
         
-        var link="http://leadingpace.pythonanywhere.com/deleteentry"
+        var link="https://leadingpace.pythonanywhere.com/deleteentry"
         
         fetch(link,{
             method:'DELETE',
