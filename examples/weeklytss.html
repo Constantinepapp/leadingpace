@@ -1,0 +1,261 @@
+<!--
+
+=========================================================
+* Now UI Dashboard - v1.5.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/now-ui-dashboard
+* Copyright 2019 Creative Tim (http://www.creative-tim.com)
+
+* Designed by www.invisionapp.com Coded by www.creative-tim.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Leading Pace
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://npmcdn.com/chart.js@latest/dist/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.3/chartjs-plugin-zoom.js"></script>
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="custom">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        
+        <a href="#" class="simple-text logo-normal">
+          Leading Pace
+        </a>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="./dashboard.html">
+              <i><img src="../assets/img/dashboard.svg" style="width: 50px;height:30px"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="./input.html">
+              <i><img src="../assets/img/input.svg" style="width: 50px;height:30px"></i>
+              <p>Input</p>
+            </a>
+          </li>
+          <li>
+            <a href="./trainingload.html">
+              <i ><img src="../assets/img/graph2.svg" style="width: 50px;height:30px"></i>
+              <p>Training load</p>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i ><img src="../assets/img/graph.svg" style="width: 50px;height:30px"></i>
+                <p>analysis</p>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="./analysis.html">Weekly Mileage</a>
+                <a class="dropdown-item" href="./weeklytss.html">Weekly Stress Score</a>
+              </div>
+          </li>
+          <li>
+            <a href="./runningprogram.html">
+              <i ><img src="../assets/img/calendar.svg" style="width: 50px;height:30px"></i>
+              <p>Running Program</p>
+            </a>
+          </li>
+          <li>
+            <a href="./trainingzones.html">
+              <i ><img src="../assets/img/electrocardiogram.svg" style="width: 50px;height:30px"></i>
+              <p>Training zones</p>
+            </a>
+          </li>
+          <li>
+            <a href="./tools.html">
+              <i ><img src="../assets/img/list.svg" style="width: 50px;height:30px"></i>
+              <p>Runner's tools</p>
+            </a>
+          </li>
+          <li>
+            <a href="./traininghistory.html">
+              <i ><img src="../assets/img/history.svg" style="width: 50px;height:30px"></i>
+              <p>Training history</p>
+            </a>
+          </li>
+          <li>
+            <a href="./user.html">
+              <i ><img src="../assets/img/professions-and-jobs.svg" style="width: 50px;height:30px"></i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          <li>
+            <a href="./bulk.html">
+              <i ><img src="../assets/img/download.svg" style="width: 50px;height:30px"></i>
+              <p>Import/Export</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel" id="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="now-ui-icons media-2_sound-wave"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i><img src="../assets/img/question.svg" style="width: 50px;height:30px"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Help</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Help</a>
+                  <a class="dropdown-item" href="#">About</a>
+                  <a class="dropdown-item" href="#">Disclaimer</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" id="logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i><img src="../assets/img/off.svg" style="width: 48px;height:23px"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block" id="logout">Logout</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="panel-header panel-header-lg" style="height: fit-content;margin-top: -30px;">
+        <canvas id="weeklymilageChart" height="100"></canvas>
+      </div>
+      <div class="content text-warning" style="margin-top:20px ;">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card border-left-primary shadow h-100 py-2 text-white" style="background-color: rgb(41, 67, 68);">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Last 7 days</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">--</div>
+                    </div>
+                    <div class="col-auto">
+                      <img src="../assets/img/speed.svg" style="width: 50px;height:50px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card border-left-primary shadow h-100 py-2 bg-dark">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Last 30 days</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">--</div>
+                    </div>
+                    <div class="col-auto">
+                      <img src="../assets/img/speed.svg" style="width: 50px;height:50px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card border-left-primary shadow h-100 py-2 text-white" style="background-color: rgb(18, 44, 36);">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Average Last 30 days</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">--</div>
+                    </div>
+                    <div class="col-auto">
+                      <img src="../assets/img/speed.svg" style="width: 50px;height:50px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/weeklyTss.js"></script>
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+
+  <!-- Chart JS -->
+  
+  <!--  Notifications Plugin    -->
+
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+</body>
+
+</html>
