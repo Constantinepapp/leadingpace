@@ -132,7 +132,7 @@ class UI {
 
 
             if (response.message){
-                alert(response.message)
+                customAlert(response.message)
             }
         })
         
@@ -160,4 +160,11 @@ document.querySelector("#logout").addEventListener("click",logout)
 function logout(){
     window.localStorage.clear()
     window.location.replace("login.html")
+}
+
+
+function customAlert(message){
+    document.querySelector(".alert").setAttribute("class",`alert alert-${message[0]}`)
+    document.querySelector(".alertText").innerHTML = message[1]
+    setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 3000);
 }

@@ -33,14 +33,24 @@ function signUp(){
     })
     .then(response =>{
         console.debug(response);
-        if (response.message=="new user is created"){
-            alert('Account has been created, You are ready to log in ')
-        }
-        if (response.message=="user already exists"){
-            alert('User already exists')
+        if (response.message){
+            customAlert(response.message) 
         }
     })
     
 }
 
 document.getElementById('buttonSignUp').addEventListener('click',signUp)
+
+
+function customAlert(message){
+    document.querySelector(".alert").setAttribute("class",`alert alert-${message[0]}`)
+    document.querySelector(".alertText").innerHTML = message[1]
+    setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 3000);
+}
+
+
+
+
+    
+  

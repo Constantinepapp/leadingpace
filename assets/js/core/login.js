@@ -43,9 +43,11 @@ function login(){
             window.localStorage.setItem("age",age)
             window.localStorage.setItem("program_start",program_start)
             window.localStorage.setItem("male",male)
+            window.localStorage.setItem("username",username)
             window.location.replace("dashboard.html")
         }
     }).catch(error => {
         console.error(error);
     });
 }
+

@@ -43,8 +43,18 @@ class UI {
 
         var tss = response.tss
         var date = response.date
-       
-        //render chart bigDashboardChart
+        
+        var currentWeek = tss[tss.length - 1]
+        var currentMonth = tss[tss.length - 1] + tss[tss.length - 2] + tss[tss.length - 3] + tss[tss.length - 4] 
+        var averageMonth = (tss[tss.length - 1] + tss[tss.length - 2] + tss[tss.length - 3] + tss[tss.length - 4])/4 
+        document.querySelector("#currentWeek").innerHTML = currentWeek
+        document.querySelector("#currentMonth").innerHTML = currentMonth
+        document.querySelector("#averageMonth").innerHTML = averageMonth
+
+
+        UI.screenWidth()
+
+        
         
 
 

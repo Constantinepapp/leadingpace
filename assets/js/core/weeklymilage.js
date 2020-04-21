@@ -43,10 +43,14 @@ class UI {
 
         var weeklymilage = response.weeklymilage
         var date = response.date
-       
-        //render chart bigDashboardChart
-        
 
+        var currentWeek = weeklymilage[weeklymilage.length - 1]
+        var currentMonth = weeklymilage[weeklymilage.length - 1] + weeklymilage[weeklymilage.length - 2] + weeklymilage[weeklymilage.length - 3] + weeklymilage[weeklymilage.length - 4] 
+        var averageMonth = (weeklymilage[weeklymilage.length - 1] + weeklymilage[weeklymilage.length - 2] + weeklymilage[weeklymilage.length - 3] + weeklymilage[weeklymilage.length - 4])/4 
+        document.querySelector("#currentWeek").innerHTML = currentWeek
+        document.querySelector("#currentMonth").innerHTML = currentMonth
+        document.querySelector("#averageMonth").innerHTML = averageMonth
+        UI.screenWidth()
 
         UI.showChart(response)
 

@@ -14,6 +14,7 @@ class UI {
         })
         .then(response=>{
             if (response.status === 200) {
+              
 
                 return response.json();
               } else {
@@ -29,7 +30,7 @@ class UI {
             console.log(response)
 
             if (response.message){
-              alert(response.message)
+              customAlert(response.message)
             }
             
             UI.showEntries(response);
@@ -44,12 +45,18 @@ class UI {
 
         //show running index
         var median = response.median
-        median = median[Object.keys(median)[Object.keys(median).length-1]]
+        median = median[median.length-1]
         document.querySelector("#median").innerHTML = median
+        // show Vo2max
         var VO2max=response.VO2max
         document.querySelector("#VO2max").innerHTML = VO2max
-
-
+        // show trend
+        var median_two = response.median[response.median.length-2]
+        var median_three = response.median[response.median.length-3]
+        var y =  [median_three,median_two,median]
+        var x = [1,2,3]
+        var slope = linearRegression(y,x).toFixed(2)
+        document.querySelector("#trend").innerHTML = slope
         //render chart
 
         
@@ -126,9 +133,8 @@ class UI {
                             unitStepSize: 1,
                             
                             quarter: 'MMM YYYY'
-                            
                         }
-                    }
+                      }
                     }],
                     yAxes: [{
                         display: true,
@@ -140,8 +146,8 @@ class UI {
                           labelString: 'Value'
                         },
                         ticks: {
-                          suggestedMin: 30,   
-                          suggestedMax: 50
+                          suggestedMin: 35,   
+                          suggestedMax: 45
                         },
                       }]
                     }
@@ -159,9 +165,41 @@ document.addEventListener("DOMContentLoaded",UI.screenWidth)
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
 
+
 document.querySelector("#logout").addEventListener("click",logout)
 
 function logout(){
     window.localStorage.clear()
     window.location.replace("login.html")
+}
+
+function customAlert(message){
+  document.querySelector(".alert").setAttribute("class",`alert alert-${message[0]}`)
+  document.querySelector(".alertText").innerHTML = message[1]
+  setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 3000);
+}
+
+
+function linearRegression(y,x){
+  var slope = 0;
+  var n = y.length;
+  var sum_x = 0;
+  var sum_y = 0;
+  var sum_xy = 0;
+  var sum_xx = 0;
+  var sum_yy = 0;
+
+  for (var i = 0; i < y.length; i++) {
+
+      sum_x += x[i];
+      sum_y += y[i];
+      sum_xy += (x[i]*y[i]);
+      sum_xx += (x[i]*x[i]);
+      sum_yy += (y[i]*y[i]);
+  } 
+
+  slope = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
+  
+
+  return slope;
 }

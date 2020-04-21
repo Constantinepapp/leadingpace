@@ -5,8 +5,8 @@ class UI {
         if (token == null){
             window.location.replace("login.html")
         }
-
-        const myHeaders={"x-access-token":token}
+        var timeFrame = localStorage.getItem("timeFrame")
+        const myHeaders={"x-access-token":token,"timeFrame":timeFrame}
         
         fetch(api,{
             method:"GET",
@@ -48,7 +48,7 @@ class UI {
         var form = response.form
         var currentForm = form[Object.keys(form)[Object.keys(form).length-1]]
         localStorage.setItem("currentFitness",currentFitness)
-        localStorage.setItem("currentFatigue",currentFatigue)
+        localStorage.setItem("currentFatiygue",currentFatigue)
         //render chart bigDashboardChart
         document.querySelector("#currentFatigue").innerHTML = currentFatigue.toFixed(1)
         document.querySelector("#currentFitness").innerHTML = currentFitness.toFixed(1)
@@ -181,8 +181,10 @@ class UI {
                         type: 'time',
                         time: 
                         {
-                        unit: 'month',
-                        displayFormats: { 'day': 'MMM DD' }
+                            unit: 'month',
+                            displayFormats: { 'day': 'MMM DD' }//,
+                            //min: new Date(dateMin),
+                            //max: new Date(dateMax)
                         }
 
                     }],
@@ -224,9 +226,17 @@ function roundNumber(list){
     return listRound
 }
 
+
 document.addEventListener("DOMContentLoaded",UI.screenWidth)
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
+document.querySelector("#timeFrame").addEventListener("click",reloadGraph)
+
+function reloadGraph(){
+    timeFrame = document.querySelector("#timeFrameSelection").value
+    localStorage.setItem("timeFrame",timeFrame)
+    window.location.replace("trainingload.html")
+}
 
 document.querySelector("#logout").addEventListener("click",logout)
 

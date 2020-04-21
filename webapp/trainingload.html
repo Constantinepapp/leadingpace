@@ -158,7 +158,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Help</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#trainingLoadHelp">Training Load</a>
                   <a class="dropdown-item" href="#">About</a>
                   <a class="dropdown-item" href="#">Disclaimer</a>
                 </div>
@@ -177,7 +177,7 @@
       </nav>
       <!-- End Navbar -->
       <div class="panel-header panel-header-lg" style="height: fit-content;margin-top: -70px;">
-        <canvas id="trainingloadChart" height="130"></canvas>
+        <canvas id="trainingloadChart" height="130" name="trainingloadChart"></canvas>
       </div>
       <div class="content text-warning">
         <div class="row">
@@ -229,6 +229,64 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1"class="text-warning">Timeframe</label>
+              <select class="form-control text-info bg-dark" id="timeFrameSelection">
+                <option value="one">One year</option>
+                <option value="two">Two years</option>
+                <option value="all">All time</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4" align="center">
+              
+          </div>
+          
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4 ml-4">
+                <div class="btn btn-info btn-md text-dark" style="margin-left:80px;" id="timeFrame">Timeframe</div>
+            </div>
+            <div class="col-md-4" align="center">
+                
+            </div>
+            
+        </div>
+        <!--Modal training load-->
+        <div class="modal" tabindex="-1" role="dialog" id="trainingLoadHelp">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-dark text-info">
+                <h5 class="modal-title">Training Load</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body bg-dark text-white">
+                <p><span style="font-weight: 800; color: rgb(231, 235, 47);">Fatigue </span>is a representation of acute training load. This is the impact that each individual workout has on the overall training load. A multiple hour workout, or a workout with very high intensity will have a greater ATL score than a recovery workout or a very short run. Fatigue is an exponentially weighted average of your training stress scores from the past 7 days which provides an estimate of your fatigue accounting for the workouts you have done recently.<br>
+
+                  <span style="font-weight: 800; color: cyan;">Fitness or Chronic Training Load</span> is an indication of the cumulative effects that training has had over time. With consistent training and workouts this will continue to climb. During periods of lower training stress, recovery weeks and down times your CTL will decrease. You can even see periods of decrease when doing incredibly hard VO2 intervals. Because this is based on frequency, intensity and duration a change the decrease in duration can cause a downward shift in CTL. Fitness (CTL) is an exponentially weighted average of your last 42 days of training stress scores (TSS) and reflects the training you have done over the last 6 weeks. However, the workouts you did 15 days ago will impact your Fitness more than the workouts you did 30 days ago.
+                  
+                  <br><span style="font-weight: 800; color: rgb(252, 131, 122);">Form or Training Stress balance</span> is the difference between Chronic and Accute training loads resulting in an estimation of your level of fatigue/freshness. This is a gauge of where your fatigue level and a low or even a negative number is a good indication that the body is being stressed, which, with recovery, will ultimately lead to fitness gains.
+                  
+                  <br><br><a href="https://www.researchgate.net/publication/321637829_Performance_Estimation_using_the_Fitness-Fatigue_Model_with_Kalman_Filter_Feedback">source: Busso, 2003; Calvert, T. W., Banister, E. W., Savage, M. V., & Bach, T., 1976.</a>
+              </div>
+              <div class="modal-footer bg-dark">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
