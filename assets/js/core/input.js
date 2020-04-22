@@ -25,7 +25,7 @@ function calcTrimpTss(entry){
        var hr_lthr = (lactate_th - rest_hr)/(max_hr - rest_hr)
        var hour_lthr = 60 * hr_lthr * 0.64 * Math.exp(1.92 * hr_lthr)
        var tss =  (trimp/hour_lthr)*100
-
+       
        return [trimp,tss.toFixed(2)]
 
 }    

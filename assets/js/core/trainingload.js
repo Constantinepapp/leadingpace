@@ -42,18 +42,18 @@ class UI {
     static showEntries(response){
 
         var fatigue = response.fatigue
-        var currentFatigue = fatigue[Object.keys(fatigue)[Object.keys(fatigue).length-1]]
+        var currentFatigue = fatigue[Object.keys(fatigue)[Object.keys(fatigue).length-31]]
         var fitness = response.fitness
-        var currentFitness = fitness[Object.keys(fitness)[Object.keys(fitness).length-1]]
+        var currentFitness = fitness[Object.keys(fitness)[Object.keys(fitness).length-31]]
         var form = response.form
-        var currentForm = form[Object.keys(form)[Object.keys(form).length-1]]
+        var currentForm = form[Object.keys(form)[Object.keys(form).length-31]]
         localStorage.setItem("currentFitness",currentFitness)
         localStorage.setItem("currentFatiygue",currentFatigue)
         //render chart bigDashboardChart
         document.querySelector("#currentFatigue").innerHTML = currentFatigue.toFixed(1)
         document.querySelector("#currentFitness").innerHTML = currentFitness.toFixed(1)
         document.querySelector("#currentForm").innerHTML = currentForm.toFixed(1)
-
+        
 
         UI.showChart(response)
 

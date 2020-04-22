@@ -46,6 +46,8 @@ class UI {
         document.querySelector("#aer1").innerHTML = response.aer1
         document.querySelector("#threSpeed").innerHTML = response.threSpeed
         document.querySelector("#aerSpeed").innerHTML = response.aerobicSpeed
+        document.querySelector("#intervalSpeed").innerHTML = response.intervalSpeed.toFixed(2)
+        document.querySelector("#aerobicOneSpeed").innerHTML = response.aerobicOneSpeed.toFixed(2)
 
         localStorage.setItem("aerobicSpeed",response.aerobicSpeed)
         localStorage.setItem("tempoSpeed",response.threSpeed)        
