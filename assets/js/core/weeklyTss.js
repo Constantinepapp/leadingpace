@@ -47,9 +47,9 @@ class UI {
         var currentWeek = tss[tss.length - 1]
         var currentMonth = tss[tss.length - 1] + tss[tss.length - 2] + tss[tss.length - 3] + tss[tss.length - 4] 
         var averageMonth = (tss[tss.length - 1] + tss[tss.length - 2] + tss[tss.length - 3] + tss[tss.length - 4])/4 
-        document.querySelector("#currentWeek").innerHTML = currentWeek
-        document.querySelector("#currentMonth").innerHTML = currentMonth
-        document.querySelector("#averageMonth").innerHTML = averageMonth
+        document.querySelector("#currentWeek").innerHTML = currentWeek.toFixed(2)
+        document.querySelector("#currentMonth").innerHTML = currentMonth.toFixed(2)
+        document.querySelector("#averageMonth").innerHTML = averageMonth.toFixed(2)
 
 
         UI.screenWidth()
@@ -168,7 +168,7 @@ class UI {
 
     static screenWidth(){
         if (screen.width<800){
-            document.querySelector("#trainingloadChart").height = 250
+            document.querySelector("#weeklymilageChart").height = 250
         }
     }
 

@@ -56,7 +56,7 @@ class UI {
         row.setAttribute("class","text-white")
         row.innerHTML+=
         `
-        <br>${entry.date},${entry.duration},${entry.distance},${entry.avgHr},${entry.ascent},${entry.descent}
+        <br>${formatDate(entry.date)},${entry.duration},${entry.distance},${entry.avgHr},${entry.ascent},${entry.descent},0
         `
 
         
@@ -204,6 +204,17 @@ function calcTrimpTss(entry){
 
 }    
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [month, day, year].join('/');
+}
 
 
 

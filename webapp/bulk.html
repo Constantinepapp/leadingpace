@@ -104,7 +104,7 @@
     </div>
     <div class="main-panel" id="main-panel">
      <!-- Navbar -->
-     <nav class="navbar navbar-expand-lg  bg-dark  navbar-absolute" style="opacity: 0.5;">
+     <nav class="navbar navbar-expand-lg  bg-dark  navbar-absolute">
       <div class="container-fluid">
         <div class="navbar-wrapper">
           <div class="navbar-toggle">
@@ -140,7 +140,7 @@
                 </p>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Help</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#importHelp">Import/Export Data</a>
                 <a class="dropdown-item" href="#">About</a>
                 <a class="dropdown-item" href="#">Disclaimer</a>
               </div>
@@ -185,7 +185,7 @@
                     </div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                     </div>
-                    <i><img src="../assets/img/question.svg" style="width: 50px;height:30px"></i>
+                    <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#importHelp" style="width: 50px;height:30px"></i>
                     <div class="col-auto">
                       <img src="../assets/img/list.svg" style="width: 50px;height:50px">
                     </div>
@@ -216,14 +216,14 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <p id="exportText">Date,Duration,Distance,HeartRate,up,down</p>
-                                
+                                <p id="exportText">date,duration,distance,hr,up,down,end</p>
+
                             </div>
                         </div>
                     </div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                     </div>
-                    <i><img src="../assets/img/question.svg" style="width: 50px;height:30px"></i>
+                    <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#importHelp" style="width: 50px;height:30px"></i>
                     <div class="col-auto">
                       <img src="../assets/img/list.svg" style="width: 50px;height:50px">
                     </div>
@@ -233,6 +233,45 @@
             </div>
           </div>
         </div>
+  </div>
+   <!--Modal import export-->
+   <div class="modal" tabindex="-1" role="dialog" id="importHelp">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-info">
+          <h5 class="modal-title">Training Load</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-dark text-white">
+          <p style="text-align: center;"><strong>Import / Export Data</strong></p>
+          <p>In this tab you can import export data easily to the app with a csv file. Most fitness apps offer a bulk export functionality to a csv file so you can use this file to transfer the data from apps like Strava,Garmin connect,Polar flow...</p>
+          <p>Unfortunately all those apps offer a different csv format export so you should customize it first in order Leading pace to import it succesfully.</p>
+          <p style="text-align: center;"><strong>Export from Leading Pace</strong></p>
+          <p>Click the download button. All your activity data will appear in a comma seperated value form on the screen. Copy and Paste this data to a blank txt file on your device. As this app is in an early stage and changes and lost of data my happen it is adviced to do this regurarly in order to not lose your data. The format of the exported data is the same as the format Leading Pace accepts as an import.&nbsp;</p>
+          <p style="text-align: center;">&nbsp; <strong>Import to Leading Pace</strong></p>
+          <p style="text-align: left;">Format your activity data in the below format.</p>
+          <table style="border: none;border-collapse: collapse;width:192pt;">
+              <tbody>
+                  <tr>
+                      <td colspan="4">date,duration,distance,hr,AvSpeed,runningIndex,up,down,end</td>
+                  </tr>
+                  <tr>
+                      <td colspan="4">11/26/2019,27.17,3920.0,171,8.7,40,0,0,0</td>
+                  </tr>
+                  <tr>
+                      <td colspan="4">11/26/2019,27.17,3920.0,171,8.7,40,0,0,0<br><br>Caution:<br>1)date format should be mm/dd/year seperated with &quot;/&quot; like above<br><br>2)duration is in minutes<br>3)distance in meters<br>4)every column should be named exactly like above<br>5)the last column should me &quot;end&quot;</td>
+                  </tr>
+              </tbody>
+          </table>
+          <p>Save the txt file and then import it with the import function above.</p>
+        </div>
+        <div class="modal-footer bg-dark">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
           
         

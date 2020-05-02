@@ -18,6 +18,9 @@ function login(){
         if (response.status === 200) {
             return response.json();
           } else {
+            if (response.message){
+                customAlert(response.message) 
+            }
             throw new Error('Something went wrong on api server!');
           }
     })
@@ -34,6 +37,9 @@ function login(){
         program_start=response.program_start
         male=response.male
         console.log(token)
+        if (response.message){
+            customAlert(response.message) 
+        }
         if (response!==""){
             window.localStorage.setItem("token",token)
             window.localStorage.setItem("max_hr",max_hr)
@@ -47,7 +53,17 @@ function login(){
             window.location.replace("dashboard.html")
         }
     }).catch(error => {
+        if (response.message){
+            customAlert(response.message) 
+        }
         console.error(error);
     });
+}
+
+
+function customAlert(message){
+    document.querySelector(".alert").setAttribute("class",`alert alert-${message[0]}`)
+    document.querySelector(".alertText").innerHTML = message[1]
+    setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 3000);
 }
 
