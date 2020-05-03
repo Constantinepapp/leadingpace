@@ -85,17 +85,17 @@ class UI {
                     {
                         label: "Running Index",
                         fill:true,
-                        borderColor:"rgba(255, 160, 0,1)",
-                        backgroundColor: "rgba(255, 255, 0,0)",
-                        pointBackgroundColor: "#7efcf8",
+                        borderColor:"rgba(255, 255, 255,1)",
+                        backgroundColor: "rgba(255, 255, 255,0.1)",
+                        pointBackgroundColor: "rgba(255, 255, 255,0.1)",
                         
                         data: Object.values(chartMedian)
                     },
                     {
                         label:"Raw values",
-                        borderColor:"#e8e237",
-                        backgroundColor: "#e8e237",
-                        pointBackgroundColor: "#e8e237",
+                        borderColor:"#7ED8F6",
+                        backgroundColor: "#7ED8F6",
+                        pointBackgroundColor: "#7ED8F6",
                         
                         showLine: false,
                         data:Object.values(chartRawValues)

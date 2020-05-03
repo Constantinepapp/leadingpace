@@ -52,9 +52,6 @@ class UI{
     static saveEntryToDatabase(){
         var entryforSave = new Entry()
         
-        if (checkDate(entryforSave.date)==false){
-            return entryforSave.date 
-        }
 
         entryforSave.runningIndex = calcRunningIndex(entryforSave)
         var output = calcTrimpTss(entryforSave)
@@ -103,19 +100,6 @@ document.querySelector("#calculateRunningIndex").addEventListener("click",UI.cal
 document.querySelector("#saveToDatabase").addEventListener("click",UI.saveEntryToDatabase)
 
 
-function checkDate(date){
-    date = date.split("/")
-
-    for (var i=0; i<date.length;i++){
-        if (date[i].length<2){
-            alert("wrong date format")
-            return false
-        }
-        else{
-            return true
-        }
-    }
-}
 
 
 

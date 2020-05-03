@@ -26,10 +26,16 @@ start.onclick=function (){
 }, 1000);
 }
 
+function cooperTest(){
+  var distance = document.querySelector("#inputDistance").value
+  vomax=(distance-504.9)/44.73;
+  document.querySelector("#result").innerHTML = vomax.toFixed(2)
+}
+
 
 
 document.querySelector("#logout").addEventListener("click",logout)
-
+document.querySelector("#cooperCalculate").addEventListener("click",cooperTest)
 function logout(){
     window.localStorage.clear()
     window.location.replace("login.html")
