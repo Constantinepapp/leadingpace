@@ -13,7 +13,7 @@ html{
 #first-section{
     background-image: url(webapp/background.jpg);
     background-size: cover;
-    background-position:top center;
+    background-position:top right;
     position: relative;
     min-height:100vh;
     width: 100%;
@@ -21,6 +21,8 @@ html{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    align-items: center;
+   
 }
 
 #first-section img{
@@ -28,7 +30,7 @@ html{
     width:fit-content;
     font-size: 4rem;
     height: 90%;
-    width: 90%;
+    width: 100%;
     position: relative;
 
 }
