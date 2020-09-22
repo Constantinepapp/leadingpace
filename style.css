@@ -1,0 +1,178 @@
+* {
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size:10px;
+    font-family:'Montserrat', sans-serif;
+}
+
+
+#first-section{
+    background-image: url(webapp/background.jpg);
+    background-size: cover;
+    background-position:top center;
+    position: relative;
+    min-height:100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#first-section img{
+    display: block;
+    width:fit-content;
+    font-size: 4rem;
+    height: 90%;
+    width: 90%;
+    position: relative;
+
+}
+
+.learn-more{
+    display: inline-block;
+    text-decoration:none;
+    text-align: center;
+    padding: 10px;
+    text-transform: ;
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(252, 183, 80);
+    width: 150px;
+    height: 50px;
+    border-radius: 40px;
+    font-size:2rem;
+    margin-top: 20px;
+    transition: .3s ease background-color;
+    letter-spacing: .1rem;
+    align-items: center;
+}
+
+.learn-more:hover{
+    color:white;
+    background-color: rgb(238, 155, 31);
+}
+
+
+#second-section{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    background-color: rgb(255, 245, 233);
+
+}
+
+.description{
+    margin-top: 30px;
+}
+
+.features{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    margin-top:50px;
+}
+
+.card-feature{
+    display:flex;
+    flex-basis:80%;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 10px;
+    background-image: url(webapp/top.jpg);
+    background-size: cover;
+    margin:10px 5%;
+    text-align: start;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    color:white;
+}
+.title-card{
+    margin-top: 50px;
+    transition: 1s;
+}
+.title-card:hover{
+    margin-top: 50px;
+    color: rgb(250, 153, 7);
+    transform: translateY(-1rem);
+}
+.text-card{
+    margin-top: 20px;
+    transition: 1s;
+}
+.text-card:hover{
+    color: lightskyblue;
+    transform: translateY(-1rem);
+}
+
+.image{
+   transition: 1s;
+}
+.image:hover{
+    transform: translateY(-1rem);
+}
+.card-feature::after{
+    content:'';
+    background-color:black;
+    left:0;
+    right:0;
+    height: 100%;
+    width:100%;
+    position: absolute;
+    opacity:0.7;
+    border-radius: 10px;
+    z-index: -1;
+}
+.fatigue{
+    background-image: url(assets/img/fatigue.png);
+    background-size: cover;
+    
+}
+
+.program{
+    background-image: url(assets/img/program.png);
+    background-size: cover;
+    
+}
+
+@media only screen and (min-width:760px){
+    .features{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .card-feature{
+        margin: 2.5%;
+        flex-basis: 45%;
+        
+    }
+}
+
+
+@media only screen and (min-width:1200px){
+    .features{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .card-feature{
+        margin: 2.5%;
+        flex-basis: 28%;
+        
+    }
+}
+
+
+
