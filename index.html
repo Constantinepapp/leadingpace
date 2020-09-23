@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leading Pace running app</title>
   <link rel="stylesheet" href="assets/scss/style.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/scss/animation.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   <script
@@ -14,13 +15,17 @@
 </head>
 <body>
   <nav class="nav-bar">
-    <div class="logo-header">
-      <a href="#"></a>
-    </div>
+    <label class="toggle" id="js-navbar-toggle" for="chkToggle">
+      <i class="fa fa-bars"></i>
+    </label>
+      <img src="webapp/logo2.png" id="logo-header" alt="Leading Pace">
+      <input type="checkbox" href="#"  id="chkToggle"></input>
     <ul class="nav-links">
-      <li><a href="#">About</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="#second-section">Features</a></li>
+      <li><a href="#">News</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Sign up</a></li>
     </ul>
   </nav>
   <main>
@@ -29,7 +34,7 @@
           <img src="webapp/logo2.png" alt="Leading Pace">
       </div>
       <div class="first-buttons">
-        <a href="#" type="button" class="learn-more"><p>Learn more</p></a>
+        <a href="#second-section" type="button" class="learn-more"><p>Learn more</p></a>
       </div>
     </section>
     <section id="second-section">
@@ -89,7 +94,7 @@
   </main>
   <script>
     $(window).on("load",function(){
-      $(".loader-wrapper").fadeOut("slow");
+      $(".loader-wrapper").fadeOut(3000);
     })
   </script>
 </body>
