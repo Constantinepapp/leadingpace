@@ -9,6 +9,27 @@ html{
     font-family:'Montserrat', sans-serif;
 }
 
+.nav-bar{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    padding: 0 100px;
+    box-sizing: border-box;
+    background-color: rgba(255,255,255,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: .5s;
+    z-index: 10;
+
+}
+
+ul{
+    position: relative;
+    margin:0;
+    padding:0;
+    display: flex;
+    float:right;
+    transition: 0.5s;
+}
 
 #first-section{
     background-image: url(../img/background.jpg);
@@ -40,7 +61,6 @@ html{
     text-decoration:none;
     text-align: center;
     padding: 10px;
-    text-transform: ;
     color: rgb(255, 255, 255);
     border: 2px solid rgb(252, 183, 80);
     width: 150px;
@@ -93,7 +113,7 @@ html{
     flex-direction: column;
     padding: 30px;
     border-radius: 10px;
-    background-image: url(webapp/top.jpg);
+    background-image: url(../img/bg5.jpg);
     background-size: cover;
     margin:10px 5%;
     text-align: start;
@@ -140,13 +160,13 @@ html{
     z-index: -1;
 }
 .fatigue{
-    background-image: url(assets/img/fatigue.png);
+    background-image: url(../img/fatigue.png);
     background-size: cover;
     
 }
 
 .program{
-    background-image: url(assets/img/program.png);
+    background-image: url(../img/program.png);
     background-size: cover;
     
 }
