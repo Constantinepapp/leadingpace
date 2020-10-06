@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="http://127.0.0.1:5000/traininghistory"
+        const api="https://leadingpace.pythonanywhere.com/traininghistory"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -137,7 +137,7 @@ function sendToDatabase(result){
     
     
     
-    var link="http://127.0.0.1:5000/bulk_import"
+    var link="https://leadingpace.pythonanywhere.com/bulk_import"
     
 
     fetch(link,{
