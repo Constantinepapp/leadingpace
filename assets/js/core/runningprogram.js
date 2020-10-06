@@ -16,7 +16,7 @@ function createTimeStamp(tss_target){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/generateprogram"
+    var link="http://127.0.0.1:5000/generateprogram"
     
 
     fetch(link,{
@@ -60,7 +60,7 @@ function tss_target(){
 
 
 function getDatabaseData(){
-    const api="https://leadingpace.pythonanywhere.com/showprogram"
+    const api="http://127.0.0.1:5000/showprogram"
     const token = window.localStorage.getItem("token")
     if (token == null){
         window.location.replace("login.html")
@@ -122,10 +122,14 @@ function showRunningProgram(response){
     createTargetActivity(tss_target)
     
 }
-
+function aerobicSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    const aerSpeed=(runningIndex-5.668)/3.82
+    return (aerSpeed.toFixed(2))
+}
 function createTargetActivity(tss_target){
     
-    var aerobicSpeed = localStorage.getItem("aerobicSpeed")
+    aerobicSpeed = aerobicSpeedCalculate()
     var tempoSpeed = localStorage.getItem("threSpeed")
     var plan = "basic_aerobic"
     if (plan=="basic_aerobic"){

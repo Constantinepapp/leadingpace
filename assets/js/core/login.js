@@ -4,7 +4,7 @@ document.querySelector("#buttonLogin").addEventListener("click",login)
 function login(){
     username = document.querySelector("#usernameLogin").value
     password = document.querySelector("#passwordLogin").value
-    var link="https://leadingpace.pythonanywhere.com/login"
+    var link="http://127.0.0.1:5000/login"
 
     const myHeaders = new Headers();
     myHeaders.append('Authorization', 'Basic ' + btoa(username + ":" + password));

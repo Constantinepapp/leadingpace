@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="https://leadingpace.pythonanywhere.com/weeklymileage"
+        const api="http://127.0.0.1:5000/weeklymileage"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -53,6 +53,7 @@ class UI {
         UI.screenWidth()
 
         UI.showChart(response)
+        UI.raceReadiness(response)
 
     }
     static showChart(response){
@@ -159,6 +160,36 @@ class UI {
             
         })
     }
+    static raceReadiness(response){
+        const marathonPercent = marathonReadiness(response.weeklymilage,42)
+        const marathonBarColor = barColor(marathonPercent)
+
+        const halfMarathonPercent = marathonReadiness(response.weeklymilage,21)
+        const halfMarathonBarColor = barColor(halfMarathonPercent)
+
+        const tenKPercent = marathonReadiness(response.weeklymilage,10)
+        const tenKBarColor = barColor(tenKPercent)
+
+        const fiveKPercent = marathonReadiness(response.weeklymilage,5)
+        const fiveKBarColor = barColor(fiveKPercent)
+
+
+        document.querySelector("#marathonReadiness").innerHTML = marathonPercent.toFixed(2)+" %"
+        document.querySelector("#marathonBar").style = `width:${marathonPercent}%`
+        document.querySelector("#marathonBar").className = `progress-bar bg-c-${marathonBarColor}`
+
+        document.querySelector("#halfMarathonReadiness").innerHTML = halfMarathonPercent.toFixed(2)+" %"
+        document.querySelector("#halfMarathonBar").style = `width:${halfMarathonPercent}%`
+        document.querySelector("#halfMarathonBar").className = `progress-bar bg-c-${halfMarathonBarColor}`
+
+        document.querySelector("#tenkReadiness").innerHTML = tenKPercent.toFixed(2)+" %"
+        document.querySelector("#tenkBar").style = `width:${tenKPercent}%`
+        document.querySelector("#tenkBar").className = `progress-bar bg-c-${tenKBarColor}`
+
+        document.querySelector("#fivekReadiness").innerHTML = fiveKPercent.toFixed(2)+" %"
+        document.querySelector("#fivekBar").style = `width:${fiveKPercent}%`
+        document.querySelector("#fivekBar").className = `progress-bar bg-c-${fiveKBarColor}`
+    }
 
     static screenWidth(){
         if (screen.width<800){
@@ -168,11 +199,51 @@ class UI {
 
 }
 
-
+//64 + 57 *0.6 + 47*0.5 + 45*0.4
 document.addEventListener("DOMContentLoaded",UI.screenWidth)
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
+function marathonReadiness(weeklymilage,distance){
+    var readiness = weeklymilage[weeklymilage.length-1] + weeklymilage[weeklymilage.length-2] *0.6 + weeklymilage[weeklymilage.length-3]*0.5 + weeklymilage[weeklymilage.length-4]*0.4
+    
+    readiness = readiness/2.5
+    console.log(readiness)
+    
+    if (distance==42){
+        readiness = readiness*1.7
+    }
+    if (distance==21){
+        readiness = readiness*3
+    }
+    if (distance==10){
+        readiness = readiness*4.2
+    }
+    if (distance==5){
+        readiness = readiness*10
+    }
+    
+    if (readiness>100){
+        readiness = 100
+    }
+    return (readiness)
+}
 
+function barColor(value){
+    var barColor = "yellow"
+    if (value>=90){
+        barColor = "green"
+    }
+    else if(value>75){
+        barColor = "blue"
+    }
+    else if(value>50){
+        barColor = "yellow"
+    }
+    else{
+        barColor = "red"
+    }
+    return(barColor)
+}
 document.querySelector("#logout").addEventListener("click",logout)
 
 function logout(){

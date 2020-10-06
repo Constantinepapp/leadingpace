@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="https://leadingpace.pythonanywhere.com/dashboard"
+        const api="http://127.0.0.1:5000/dashboard"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -26,9 +26,6 @@ class UI {
               }
         })
         .then(response => {
-            console.debug(response);
-            console.log(response)
-
             if (response.message){
               customAlert(response.message)
             }
@@ -47,6 +44,7 @@ class UI {
         var median = response.median
         median = median[median.length-1]
         document.querySelector("#median").innerHTML = median
+        localStorage.setItem("runningIndex",median)
         // show Vo2max
         var VO2max=response.VO2max
         document.querySelector("#VO2max").innerHTML = VO2max
@@ -73,7 +71,6 @@ class UI {
         var dates=response.date;
         //create date objects from strings
         
-        console.log(dates)
         
     
         const ctx = document.querySelector("#runningIndexChart")
@@ -163,6 +160,7 @@ class UI {
 
 document.addEventListener("DOMContentLoaded",UI.screenWidth)
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
+document.addEventListener("DOMContentLoaded",UI.raceReadiness)
 
 
 
@@ -178,6 +176,8 @@ function customAlert(message){
   document.querySelector(".alertText").innerHTML = message[1]
   setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 3000);
 }
+
+
 
 
 function linearRegression(y,x){
