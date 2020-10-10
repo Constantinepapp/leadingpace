@@ -1,5 +1,5 @@
 document.querySelector("#buttonLogin").addEventListener("click",login)
-
+//https://leadingpace.pythonanywhere.com/
 
 function login(){
     username = document.querySelector("#usernameLogin").value
@@ -36,6 +36,8 @@ function login(){
         age=response.age
         program_start=response.program_start
         male=response.male
+        stravaConnected = response.strava_connected
+        stravaRefreshToken = response.strava_refresh_token
         console.log(token)
         if (response.message){
             customAlert(response.message) 
@@ -50,6 +52,8 @@ function login(){
             window.localStorage.setItem("program_start",program_start)
             window.localStorage.setItem("male",male)
             window.localStorage.setItem("username",username)
+            window.localStorage.setItem("stravaConnected",stravaConnected)
+            window.localStorage.setItem("stravaRefreshToken",stravaRefreshToken)
             window.location.replace("dashboard.html")
         }
     }).catch(error => {

@@ -1,5 +1,6 @@
 class UI {
     static callDatabase(){
+        
         const api="https://leadingpace.pythonanywhere.com/traininghistory"
         const token = window.localStorage.getItem("token")
         if (token == null){
@@ -38,6 +39,7 @@ class UI {
                 var down=response.entries[i].descent
                 var entry = {"id":id,"date": date,"duration":duration,"distance":distance,"avgHr":avgHr,"runningIndex":runningIndex,"stressScore":stressScore,"ascent":up,"descent":down}
                 UI.showEntry(entry)
+                
 
                 if (response.message){
                     alert(response.message)
@@ -58,11 +60,6 @@ class UI {
         `
         <br>${formatDate(entry.date)},${entry.duration},${entry.distance},${entry.avgHr},${entry.ascent},${entry.descent},0
         `
-
-        
-        
-
-
 
     }
 
@@ -137,7 +134,7 @@ function sendToDatabase(result){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/bulk_import"
+    var link="https://leadingpace.pythonanywhere.com/strava_import"
     
 
     fetch(link,{
@@ -148,7 +145,7 @@ function sendToDatabase(result){
 
     .then(response =>{
         if (response.status === 200){
-            alert("saved succesfully")
+            console.log(response.message)
             return response.json();
         } else{
             console.log('error');
@@ -178,8 +175,6 @@ function calcRunningIndex(entry){
     var RIO = (213.9/entry.duration) * Math.pow(d/1000,1.06) +3.5
     var runningIndex = RIO/x
 
-    console.log(entry.hr,entry.distance,max_hr,x,d,RIO,runningIndex,entry.up)
-    
     return runningIndex.toFixed(2)
 }
        
@@ -223,4 +218,199 @@ document.querySelector("#logout").addEventListener("click",logout)
 function logout(){
     window.localStorage.clear()
     window.location.replace("login.html")
+}
+
+
+document.querySelector("#stravaAuth").addEventListener("click",stravaAuth)
+
+function stravaAuth(){
+    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=http://127.0.0.1:5501/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
+    window.open(url)
+    
+}
+
+document.addEventListener("DOMContentLoaded",checkUrl)
+
+function checkUrl(){
+    const currentUrl = window.location.href 
+    const stravaStatus = localStorage.getItem("stravaConnected")
+    if (stravaStatus == "true"){
+        syncActivitiesAppear()
+    }
+    if (currentUrl.includes("state")){
+        if (document.querySelector("#conectivityStatus").innerHTML == "Not connected"){
+            linkToStrava()
+        }
+
+    }
+}
+function syncActivitiesAppear(){
+    document.querySelector("#conectivityStatus").innerHTML = "Connected"
+    document.querySelector("#conectivityStatus").style = "color:green"
+    document.querySelector("#syncActivities").style ="border-radius: 30px; background-color:green"
+    document.querySelector("#syncActivities").innerHTML ="Sync Activities"
+}
+
+function linkToStrava(){
+    const currentUrl = window.location.href 
+    authCode = splitUrl(currentUrl)
+    console.log(authCode)
+    const token = window.localStorage.getItem("token")
+    authLink = `https://leadingpace.pythonanywhere.com/strava_auth`
+    const myBody = {
+        authCode:authCode
+    }
+
+    const myHeaders = {
+        "x-access-token":token,
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json' 
+    }
+    fetch(authLink,{
+        method:'POST',
+        headers:myHeaders,
+        body: JSON.stringify(myBody)
+    })
+
+    .then(response =>{
+        if (response.status === 200){
+            
+            return response.json();
+        } else{
+            console.log('error');
+            
+            
+        }
+    })
+    .then(response => {
+        console.debug(response);
+        if (response.data){
+
+            syncActivitiesAppear()
+
+            console.log(response)
+            console.log(response.data.access_token)
+            localStorage.setItem("data",response.data)
+        }
+        
+      }).catch(error => {
+        console.error(error);
+      });
+}
+
+ 
+
+class Activity{
+    constructor(activity){
+        this.id = activity.id
+        this.distance = activity.distance
+        const duration = activity.elapsed_time/60
+        this.duration = duration.toFixed(2)
+        this.date = activity.start_date
+        this.hr = activity.average_heartrate
+        if (activity.elev_high){
+            this.up = activity.elev_high
+        }
+        else{
+            this.up = 0
+        }
+        if (activity.elev_down){
+            this.down = activity.elev_down
+        }
+        else{
+            this.down = 0
+        }
+        
+    }
+}
+class StravaUI {
+    static refreshToken(){
+        const token = localStorage.getItem("token")
+        const refreshTokenLink="https://leadingpace.pythonanywhere.com/strava_refresh_token"
+        const refreshToken = window.localStorage.getItem("stravaRefreshToken")
+        const myHeaders = {"x-access-token":token,
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json' }
+        const myBody = {refreshToken:refreshToken}
+
+
+        fetch(refreshTokenLink,{
+            method: 'POST',
+            headers: myHeaders,
+            body:JSON.stringify(myBody)
+        })
+        .then(response =>{
+            if (response.status === 200){
+                
+                return response.json();
+            } else{
+                console.log('error');
+                console.log("Something Went Wrong ")
+               
+                
+                
+            }
+        })
+        .then(response => {
+            
+            if (response.access_token){
+                console.log(response.access_token)
+                const accessToken = response.access_token
+                StravaUI.getActivities(accessToken)
+        
+            }
+            
+          }).catch(error => {
+            console.error(error);
+          });
+
+    }
+    
+    static getActivities(accessToken){
+        const activitiesLink = "https://www.strava.com/api/v3/athlete/activities"
+        const myHeaders = {Authorization:`Bearer ${accessToken}`}
+        fetch(activitiesLink,{
+            method: 'GET',
+            headers: myHeaders
+        })
+        .then(response =>{
+            if (response.status === 200){
+                
+                return response.json();
+            } else{
+                console.log('error');
+                console.log("Something Went Wrong ")
+            }
+        })
+        .then(response =>{
+            console.log(response)
+            StravaUI.saveActivities(response)
+        })
+    }
+    static saveActivities(activities){
+        for (var i=0;i<activities.length-1;i++){
+            if (activities[i].type == "Run"){
+                var entryForSave = new Activity(activities[i])
+                entryForSave.runningIndex = calcRunningIndex(entryForSave)
+                var output = calcTrimpTss(entryForSave)
+                entryForSave.tss = output[1]
+                entryForSave.trimp = output[0]
+                sendToDatabase(entryForSave)
+                
+            }
+        }
+
+    }
+
+}
+document.querySelector("#syncActivities").addEventListener("click",StravaUI.refreshToken)
+
+https://leadingpace.pythonanywhere.com/
+
+function splitUrl(url){
+    str1 = url.split("=")
+    str2 = str1[2]
+    str3 = str2.split("&")
+    str4 = str3[0]
+    return (str4)
 }

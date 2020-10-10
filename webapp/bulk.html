@@ -20,6 +20,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <link href="../assets/scss/animation.css" rel="stylesheet" />
+  <a href="https://icons8.com/icon/zpXCg1p4u4Ej/strava">Strava icon by Icons8</a>
 </head>
 
 <body class="">
@@ -180,6 +181,7 @@
                                     <input type="file" class="csvupload" multiple>
                                   </a>
                                   <div class="btn btn-info" id="csvSubmit">Submit</div>
+                                  
                                 </div>
                             </form>
                         </div>
@@ -233,7 +235,42 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-12">
+            <div class="">
+              <div class="card border-left-primary shadow h-100 py-2 text-white bg-dark">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Import From Strava</div>
+                      <div class="row">
+                        <div class="col-12">
+                            <form class="md-form">
+                                <div class="file-field big">
+                              
+                                  <div class="btn" style="border-radius: 30px; background-color: rgb(243, 97, 29);" id="stravaAuth"><img src="https://img.icons8.com/windows/32/000000/strava.png"/> Link Strava</div>
+                                  <h5>Current Status: <span id="conectivityStatus">Not connected</span></h5>
+                                  <div class="input-group form-group" id="sync">
+                                    <div class="btn" style="border-radius: 30px;" id="syncActivities">Sync Activities:Link to strava first</div>
+                                </div>
+                                  
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                    </div>
+                    <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#importHelp" style="width: 50px;height:30px"></i>
+                    <div class="col-auto">
+                      <img src="../assets/img/list.svg" style="width: 50px;height:50px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+    </div>
+        
   </div>
    <!--Modal import export-->
    <div class="modal" tabindex="-1" role="dialog" id="importHelp">
@@ -282,7 +319,8 @@
         <path class="beat-loader" d="M0.5,38.5 L16,38.5 L19,25.5 L24.5,57.5 L31.5,7.5 L37.5,46.5 L43,38.5 L53.5,38.5" id="Path-2" stroke-width="2" sketch:type="MSShapeGroup"></path>
       </g>
     </svg>
-  </div>          
+  </div>     
+  
         
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
