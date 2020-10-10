@@ -1,7 +1,7 @@
 class UI {
     static callDatabase(){
         
-        const api="https://leadingpace.pythonanywhere.com/traininghistory"
+        const api="http://127.0.0.1:5000/traininghistory"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -125,22 +125,22 @@ function csvJSON(csv){
     sendToDatabase(result)
 }
 
-function sendToDatabase(result){
+function sendToDatabase(activitiesList){
 
     
-    console.log(JSON.stringify(result))
+    console.log(JSON.stringify(activitiesList))
     var token=window.localStorage.getItem('token')
     const myHeaders={"x-access-token":token,"Content-Type": "application/json",'access-control-allow-origin':"*"}
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/strava_import"
+    var link="http://127.0.0.1:5000/strava_import"
     
 
     fetch(link,{
         method:'POST',
         headers:myHeaders,
-        body: JSON.stringify(result)
+        body: JSON.stringify(activitiesList)
     })
 
     .then(response =>{
@@ -256,7 +256,7 @@ function linkToStrava(){
     authCode = splitUrl(currentUrl)
     console.log(authCode)
     const token = window.localStorage.getItem("token")
-    authLink = `https://leadingpace.pythonanywhere.com/strava_auth`
+    authLink = `http://127.0.0.1:5000/strava_auth`
     const myBody = {
         authCode:authCode
     }
@@ -291,6 +291,7 @@ function linkToStrava(){
             console.log(response)
             console.log(response.data.access_token)
             localStorage.setItem("data",response.data)
+            
         }
         
       }).catch(error => {
@@ -326,7 +327,7 @@ class Activity{
 class StravaUI {
     static refreshToken(){
         const token = localStorage.getItem("token")
-        const refreshTokenLink="https://leadingpace.pythonanywhere.com/strava_refresh_token"
+        const refreshTokenLink="http://127.0.0.1:5000/strava_refresh_token"
         const refreshToken = window.localStorage.getItem("stravaRefreshToken")
         const myHeaders = {"x-access-token":token,
         'Accept': 'application/json, text/plain, */*',
@@ -388,6 +389,7 @@ class StravaUI {
         })
     }
     static saveActivities(activities){
+        const activitiesList = []
         for (var i=0;i<activities.length-1;i++){
             if (activities[i].type == "Run"){
                 var entryForSave = new Activity(activities[i])
@@ -395,17 +397,18 @@ class StravaUI {
                 var output = calcTrimpTss(entryForSave)
                 entryForSave.tss = output[1]
                 entryForSave.trimp = output[0]
-                sendToDatabase(entryForSave)
+                activitiesList.push(entryForSave)
                 
             }
         }
-
+        sendToDatabase(activitiesList)
     }
+    
 
 }
 document.querySelector("#syncActivities").addEventListener("click",StravaUI.refreshToken)
 
-https://leadingpace.pythonanywhere.com/
+//http://127.0.0.1:5000/
 
 function splitUrl(url){
     str1 = url.split("=")
