@@ -136,7 +136,7 @@ function sendToDatabase(activitiesList){
     
     var link="https://leadingpace.pythonanywhere.com/strava_import"
     
-
+    
     fetch(link,{
         method:'POST',
         headers:myHeaders,
