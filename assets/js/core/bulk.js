@@ -368,7 +368,7 @@ class StravaUI {
     }
     
     static getActivities(accessToken){
-        const activitiesLink = "https://www.strava.com/api/v3/athlete/activities"
+        const activitiesLink = "https://www.strava.com/api/v3/athlete/activities?per_page=200"
         const myHeaders = {Authorization:`Bearer ${accessToken}`}
         fetch(activitiesLink,{
             method: 'GET',
