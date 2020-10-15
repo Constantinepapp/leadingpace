@@ -16,7 +16,7 @@ function createTimeStamp(tss_target){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/generateprogram"
+    var link="http://127.0.0.1:5000/generateprogram"
     
 
     fetch(link,{
@@ -60,7 +60,7 @@ function tss_target(){
 
 
 function getDatabaseData(){
-    const api="https://leadingpace.pythonanywhere.com/showprogram"
+    const api="http://127.0.0.1:5000/showprogram"
     const token = window.localStorage.getItem("token")
     if (token == null){
         window.location.replace("login.html")
@@ -124,10 +124,67 @@ function showRunningProgram(response){
 }
 function aerobicSpeedCalculate(){
     const runningIndex = localStorage.getItem("runningIndex")
-    const aerSpeed=(runningIndex-5.668)/3.82
-    return (aerSpeed.toFixed(2))
+    var aerSpeed=(runningIndex-5.668)/3.82
+    aerSpeed = convertMetrics(aerSpeed)
+    return (aerSpeed)
 }
+
+function convertMetrics(speed){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+      
+    if (measurementSystem == "Imperial mile/hr"){
+        $("div.metric").html("miles/hr");
+        speed = speed * 0.6213
+        return (speed.toFixed(2))
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        $("div.metric").html("min/mile");
+        speed = 96.56/speed
+        speed = timeConvert(speed)
+        return (speed)
+    }
+    if (measurementSystem == "Metric min/km"){
+        $("div.metric").html("min/km");
+        speed = 60/speed
+        speed = timeConvert(speed)
+        return (speed)
+    }
+    else{
+        $("div.metric").html("km/hr");
+        return(speed.toFixed(2))
+    }
+}
+function metric(){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+    if (measurementSystem == "Imperial miles/hr"){
+        return ("mile/hr")
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        return ("min/mile")
+    }
+    if (measurementSystem == "Metric min/km"){
+        return ("min/km")
+    }
+    else{
+        return("km/hr")
+    }
+}
+
+function timeConvert(time) {
+    var min = Math.floor(time)
+    var sec = time % 60-Math.floor(time)
+    sec = sec*60
+    sec = sec.toFixed(0)
+    if (sec<10){
+        sec = `0${sec}`
+    }
+    return (min+':'+sec);
+}
+    
+    
 function createTargetActivity(tss_target){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var aerSpeed=(runningIndex-5.668)/3.82
     
     aerobicSpeed = aerobicSpeedCalculate()
     var tempoSpeed = localStorage.getItem("threSpeed")
@@ -135,7 +192,7 @@ function createTargetActivity(tss_target){
     if (plan=="basic_aerobic"){
         for(var i=1;i<=3;i++){
             duration = duration_aerobic_two(tss_target)
-            est_distance = ((duration * aerobicSpeed*0.98)*1000/60).toFixed(0)
+            est_distance = ((duration * aerSpeed*0.98)*1000/60).toFixed(0)
             
             activity = new Activity(type="basic aerobic",duration,est_distance,tss_target/3)
             console.log(activity)
@@ -179,7 +236,7 @@ function createTableRow(activity,speed){
         ${activity.type}
     </td>
     <td class="text-white">
-        <span class="text-info">${activity.duration}</span> min at <span class="text-success">${speed}</span> km/hr speed
+        <span class="text-info">${activity.duration}</span> min at <span class="text-success">${speed}</span> ${metric()} speed
     </td>
     <td class="text-info">
         ${activity.distance} m

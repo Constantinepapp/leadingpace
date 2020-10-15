@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="https://leadingpace.pythonanywhere.com/trainingzones"
+        const api="http://127.0.0.1:5000/trainingzones"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -35,7 +35,6 @@ class UI {
     }
     
     static showEntries(response){
-
         document.querySelector("#max2").innerHTML = response.max2
         document.querySelector("#max1").innerHTML = response.max1
         document.querySelector("#thre2").innerHTML = response.thre2
@@ -44,10 +43,10 @@ class UI {
         document.querySelector("#aer3").innerHTML = response.aer3
         document.querySelector("#aer2").innerHTML = response.aer2
         document.querySelector("#aer1").innerHTML = response.aer1
-        document.querySelector("#threSpeed").innerHTML = response.threSpeed
-        document.querySelector("#aerSpeed").innerHTML = response.aerobicSpeed
-        document.querySelector("#intervalSpeed").innerHTML = response.intervalSpeed.toFixed(2)
-        document.querySelector("#aerobicOneSpeed").innerHTML = response.aerobicOneSpeed.toFixed(2)
+        document.querySelector("#threSpeed").innerHTML = convertMetrics(response.threSpeed)
+        document.querySelector("#aerSpeed").innerHTML = convertMetrics(response.aerobicSpeed)
+        document.querySelector("#intervalSpeed").innerHTML = convertMetrics(response.intervalSpeed)
+        document.querySelector("#aerobicOneSpeed").innerHTML = convertMetrics(response.aerobicOneSpeed)
 
         localStorage.setItem("aerobicSpeed",response.aerobicSpeed)
         localStorage.setItem("tempoSpeed",response.threSpeed)        
@@ -55,7 +54,45 @@ class UI {
     }
 }
 
+function convertMetrics(speed){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+      
+    if (measurementSystem == "Imperial mile/hr"){
+        $("div.metric").html("miles/hr");
+        speed = speed * 0.6213
+        return (speed.toFixed(2))
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        $("div.metric").html("min/mile");
+        speed = 96.56/speed
+        speed = timeConvert(speed)
+        return (speed)
+    }
+    if (measurementSystem == "Metric min/km"){
+        $("div.metric").html("min/km");
+        speed = 60/speed
+        speed = timeConvert(speed)
+        return (speed)
+    }
+    else{
+        $("div.metric").html("km/hr");
+        return(speed.toFixed(2))
+    }
+}
 
+function timeConvert(time) {
+    var min = Math.floor(time)
+    var sec = time % 60-Math.floor(time)
+    sec = sec*60
+    sec = sec.toFixed(0)
+    if (sec<10){
+        sec = `0${sec}`
+    }
+    return (min+':'+sec);
+    }
+    
+    console.log(timeConvert(200));
+    
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
 

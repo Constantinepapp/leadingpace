@@ -1,10 +1,10 @@
 document.querySelector("#buttonLogin").addEventListener("click",login)
-//https://leadingpace.pythonanywhere.com/
+//http://127.0.0.1:5000/
 
 function login(){
     username = document.querySelector("#usernameLogin").value
     password = document.querySelector("#passwordLogin").value
-    var link="https://leadingpace.pythonanywhere.com/login"
+    var link="http://127.0.0.1:5000/login"
 
     const myHeaders = new Headers();
     myHeaders.append('Authorization', 'Basic ' + btoa(username + ":" + password));
@@ -38,6 +38,7 @@ function login(){
         male=response.male
         stravaConnected = response.strava_connected
         stravaRefreshToken = response.strava_refresh_token
+        measurementSystem = response.measurementSystem
         console.log(token)
         if (response.message){
             customAlert(response.message) 
@@ -54,6 +55,7 @@ function login(){
             window.localStorage.setItem("username",username)
             window.localStorage.setItem("stravaConnected",stravaConnected)
             window.localStorage.setItem("stravaRefreshToken",stravaRefreshToken)
+            window.localStorage.setItem("measurementSystem",measurementSystem)
             window.location.replace("dashboard.html")
         }
     }).catch(error => {

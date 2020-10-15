@@ -1,7 +1,7 @@
 class UI {
     static callDatabase(){
         
-        const api="https://leadingpace.pythonanywhere.com/traininghistory"
+        const api="http://127.0.0.1:5000/traininghistory"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -134,7 +134,7 @@ function sendToDatabase(activitiesList){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/strava_import"
+    var link="http://127.0.0.1:5000/strava_import"
     
     
     fetch(link,{
@@ -224,7 +224,7 @@ function logout(){
 document.querySelector("#stravaAuth").addEventListener("click",stravaAuth)
 
 function stravaAuth(){
-    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.netlify.app/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
+    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=http://127.0.0.1:5501/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
     window.open(url)
     
 }
@@ -256,7 +256,7 @@ function linkToStrava(){
     authCode = splitUrl(currentUrl)
     console.log(authCode)
     const token = window.localStorage.getItem("token")
-    authLink = `https://leadingpace.pythonanywhere.com/strava_auth`
+    authLink = `http://127.0.0.1:5000/strava_auth`
     const myBody = {
         authCode:authCode
     }
@@ -327,7 +327,7 @@ class Activity{
 class StravaUI {
     static refreshToken(){
         const token = localStorage.getItem("token")
-        const refreshTokenLink="https://leadingpace.pythonanywhere.com/strava_refresh_token"
+        const refreshTokenLink="http://127.0.0.1:5000/strava_refresh_token"
         const refreshToken = window.localStorage.getItem("stravaRefreshToken")
         const myHeaders = {"x-access-token":token,
         'Accept': 'application/json, text/plain, */*',
@@ -408,7 +408,7 @@ class StravaUI {
 }
 document.querySelector("#syncActivities").addEventListener("click",StravaUI.refreshToken)
 
-//https://leadingpace.pythonanywhere.com/
+//http://127.0.0.1:5000/
 
 function splitUrl(url){
     str1 = url.split("=")

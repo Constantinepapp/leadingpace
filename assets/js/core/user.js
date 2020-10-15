@@ -6,6 +6,7 @@ function pageload(){
     //document.querySelector("#password").placeholder = localStorage.getItem("password")
     document.querySelector("#lactate").value = localStorage.getItem("lactate_th")
     document.querySelector("#age").value = localStorage.getItem("age")
+    document.querySelector("#measurementSystem").value = localStorage.getItem("measurementSystem")
 
     if (localStorage.getItem("male")){
         document.querySelector("#sex").value = "Male"
@@ -25,6 +26,7 @@ class Entry{
         this.password = document.querySelector("#password").value
         this.lactate = document.querySelector("#lactate").value
         this.age = document.querySelector("#age").value
+        this.measurementSystem = document.getElementById("measurementSystem").value
     }
 }
 
@@ -42,7 +44,7 @@ function saveEntryToDatabase(){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/account"
+    var link="http://127.0.0.1:5000/account"
     
 
     fetch(link,{
@@ -59,6 +61,7 @@ function saveEntryToDatabase(){
             localStorage.setItem("lactate_th",entryforUpdate.lactate)
             localStorage.setItem("username",entryforUpdate.username)
             localStorage.setItem("age",entryforUpdate.age)
+            localStorage.setItem("measurementSystem",entryforUpdate.measurementSystem)
             return response.json(); 
         } else{
             console.log('error');
