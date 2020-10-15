@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="http://127.0.0.1:5000/trainingzones"
+        const api="https://leadingpace.pythonanywhere.com/trainingzones"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -89,9 +89,9 @@ function timeConvert(time) {
         sec = `0${sec}`
     }
     return (min+':'+sec);
-    }
+}
     
-    console.log(timeConvert(200));
+    
     
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
