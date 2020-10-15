@@ -16,7 +16,7 @@ function createTimeStamp(tss_target){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/generateprogram"
+    var link="http://127.0.0.1:5000/generateprogram"
     
 
     fetch(link,{
@@ -60,7 +60,7 @@ function tss_target(){
 
 
 function getDatabaseData(){
-    const api="https://leadingpace.pythonanywhere.com/showprogram"
+    const api="http://127.0.0.1:5000/showprogram"
     const token = window.localStorage.getItem("token")
     if (token == null){
         window.location.replace("login.html")
@@ -207,7 +207,6 @@ function createTargetActivity(tss_target){
 }
 document.addEventListener("DOMContentLoaded",getDatabaseData)
 document.querySelector("#generateProgram").addEventListener("click",tss_target)
-
 
 
 function duration_aerobic_two(tss){

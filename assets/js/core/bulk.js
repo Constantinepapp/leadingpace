@@ -1,7 +1,7 @@
 class UI {
     static callDatabase(){
         
-        const api="https://leadingpace.pythonanywhere.com/traininghistory"
+        const api="http://127.0.0.1:5000/traininghistory"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -134,7 +134,7 @@ function sendToDatabase(activitiesList){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/strava_import"
+    var link="http://127.0.0.1:5000/strava_import"
     
     
     fetch(link,{
@@ -215,10 +215,7 @@ function formatDate(date) {
 
 document.querySelector("#logout").addEventListener("click",logout)
 
-function logout(){
-    window.localStorage.clear()
-    window.location.replace("login.html")
-}
+
 
 
 document.querySelector("#stravaAuth").addEventListener("click",stravaAuth)
@@ -256,7 +253,7 @@ function linkToStrava(){
     authCode = splitUrl(currentUrl)
     console.log(authCode)
     const token = window.localStorage.getItem("token")
-    authLink = `https://leadingpace.pythonanywhere.com/strava_auth`
+    authLink = `http://127.0.0.1:5000/strava_auth`
     const myBody = {
         authCode:authCode
     }
@@ -274,7 +271,7 @@ function linkToStrava(){
 
     .then(response =>{
         if (response.status === 200){
-            
+            logout()
             return response.json();
         } else{
             console.log('error');
@@ -290,7 +287,7 @@ function linkToStrava(){
 
             console.log(response)
             console.log(response.data.access_token)
-            localStorage.setItem("data",response.data)
+            logout()
             
         }
         
@@ -327,7 +324,7 @@ class Activity{
 class StravaUI {
     static refreshToken(){
         const token = localStorage.getItem("token")
-        const refreshTokenLink="https://leadingpace.pythonanywhere.com/strava_refresh_token"
+        const refreshTokenLink="http://127.0.0.1:5000/strava_refresh_token"
         const refreshToken = window.localStorage.getItem("stravaRefreshToken")
         const myHeaders = {"x-access-token":token,
         'Accept': 'application/json, text/plain, */*',
@@ -370,6 +367,7 @@ class StravaUI {
     static getActivities(accessToken){
         const activitiesLink = "https://www.strava.com/api/v3/athlete/activities?per_page=200"
         const myHeaders = {Authorization:`Bearer ${accessToken}`}
+        document.querySelector("#syncMessage").innerHTML = "Waiting"
         fetch(activitiesLink,{
             method: 'GET',
             headers: myHeaders
@@ -385,8 +383,13 @@ class StravaUI {
         })
         .then(response =>{
             console.log(response)
+            
             StravaUI.saveActivities(response)
         })
+        .then(response =>{
+            document.querySelector("#syncMessage").innerHTML = "Done!!!!"
+        })
+        
     }
     static saveActivities(activities){
         const activitiesList = []
@@ -408,7 +411,7 @@ class StravaUI {
 }
 document.querySelector("#syncActivities").addEventListener("click",StravaUI.refreshToken)
 
-//https://leadingpace.pythonanywhere.com/
+//http://127.0.0.1:5000/
 
 function splitUrl(url){
     str1 = url.split("=")
@@ -416,4 +419,10 @@ function splitUrl(url){
     str3 = str2.split("&")
     str4 = str3[0]
     return (str4)
+}
+
+
+function logout(){
+    window.localStorage.clear()
+    window.location.replace("login.html")
 }
