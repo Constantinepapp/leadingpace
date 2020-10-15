@@ -221,7 +221,7 @@ document.querySelector("#logout").addEventListener("click",logout)
 document.querySelector("#stravaAuth").addEventListener("click",stravaAuth)
 
 function stravaAuth(){
-    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.pythonanywhere.com/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
+    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.netlify.app/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
     window.open(url)
     
 }
