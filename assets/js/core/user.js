@@ -7,8 +7,10 @@ function pageload(){
     document.querySelector("#lactate").value = localStorage.getItem("lactate_th")
     document.querySelector("#age").value = localStorage.getItem("age")
     document.querySelector("#measurementSystem").value = localStorage.getItem("measurementSystem")
+    document.querySelector("#email").placeholder = localStorage.getItem("email")
+    document.querySelector("#sex").value = localStorage.getItem("sex")
 
-    if (localStorage.getItem("male")){
+    if (localStorage.getItem("male")=='true'){
         document.querySelector("#sex").value = "Male"
     }
     else{
@@ -27,6 +29,7 @@ class Entry{
         this.lactate = document.querySelector("#lactate").value
         this.age = document.querySelector("#age").value
         this.measurementSystem = document.getElementById("measurementSystem").value
+        this.sex = document.getElementById("sex").value
     }
 }
 
@@ -62,6 +65,7 @@ function saveEntryToDatabase(){
             localStorage.setItem("username",entryforUpdate.username)
             localStorage.setItem("age",entryforUpdate.age)
             localStorage.setItem("measurementSystem",entryforUpdate.measurementSystem)
+            logout()
             return response.json(); 
         } else{
             console.log('error');
@@ -83,3 +87,9 @@ function saveEntryToDatabase(){
 
 document.addEventListener("DOMContentLoaded",pageload)
 document.querySelector("#saveToDatabase").addEventListener("click",saveEntryToDatabase)
+
+document.querySelector("#logout").addEventListener("click",logout)
+function logout(){
+    window.localStorage.clear()
+    window.location.replace("login.html")
+}

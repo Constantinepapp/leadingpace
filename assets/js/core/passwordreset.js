@@ -18,13 +18,14 @@ function sendMail(){
     
     .then(response =>{
         if (response.status === 200){
-            window.location.replace("passwordreset.html")
+            window.location.replace("login.html")
             return response.json();
         } else {
             console.log("error");
         }
     })
     .then(response =>{
+        
         console.debug(response);
         if (response.message){
             customAlert(response.message) 

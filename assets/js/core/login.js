@@ -39,11 +39,12 @@ function login(){
         stravaConnected = response.strava_connected
         stravaRefreshToken = response.strava_refresh_token
         measurementSystem = response.measurementSystem
+        email = response.email
         console.log(token)
         if (response.message){
             customAlert(response.message) 
         }
-        if (response!==""){
+        else{
             window.localStorage.setItem("token",token)
             window.localStorage.setItem("max_hr",max_hr)
             window.localStorage.setItem("rest_hr",rest_hr)
@@ -56,6 +57,7 @@ function login(){
             window.localStorage.setItem("stravaConnected",stravaConnected)
             window.localStorage.setItem("stravaRefreshToken",stravaRefreshToken)
             window.localStorage.setItem("measurementSystem",measurementSystem)
+            window.localStorage.setItem("email",email)
             window.location.replace("dashboard.html")
         }
     }).catch(error => {

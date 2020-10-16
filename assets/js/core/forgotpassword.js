@@ -26,6 +26,7 @@ function sendMail(){
     .then(response =>{
         console.debug(response);
         if (response.message){
+            window.location.replace("passwordreset.html")
             customAlert(response.message) 
         }
     })

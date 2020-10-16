@@ -2,11 +2,12 @@ class UI {
     static callDatabase(){
         const api="https://leadingpace.pythonanywhere.com/weeklymileage"
         const token = window.localStorage.getItem("token")
+        var timeFrame = localStorage.getItem("timeFrame")
         if (token == null){
             window.location.replace("login.html")
         }
 
-        const myHeaders={"x-access-token":token}
+        const myHeaders={"x-access-token":token,"timeFrame":timeFrame}
         
         fetch(api,{
             method:"GET",
@@ -199,7 +200,14 @@ class UI {
 
 }
 
-//64 + 57 *0.6 + 47*0.5 + 45*0.4
+document.querySelector("#timeFrame").addEventListener("click",reloadGraph)
+
+function reloadGraph(){
+    timeFrame = document.querySelector("#timeFrameSelection").value
+    localStorage.setItem("timeFrame",timeFrame)
+    window.location.replace("analysis.html")
+}
+
 document.addEventListener("DOMContentLoaded",UI.screenWidth)
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
