@@ -212,15 +212,15 @@
                     </thead>
                     <tbody class="text-white">
                     
-                    <tr class="bg-warning text-dark" style="font-weight:800;">
+                    <tr  style="font-weight:800;">
                       <td>
-                        Summary
+                        Month program
                       </td>
                       <td>
-                        ----
+                        ---
                       </td>
                       <td>
-                        -- km
+                        ---
                       </td>
                       <td id="summaryTss">
                         ---
@@ -268,55 +268,101 @@
                       
                   </div>
               </div>
+              <div class="row mt-5">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-6" align="center">
+                  <div class="form-group">
+                    <label for="planChooser"class="text-warning">Plan Chooser</label>
+                    <select class="form-control text-info bg-dark" id="planChooser">
+                      <option value="BasicPlan">Basic plan</option>
+                      <option value="Custom">Custom</option>
+                    </select>
+                    <div class="col-md-6 ml-6" align="center">
+                      <div class="btn btn-warning btn-sm text-dark" id="planChooseButton" style="border-radius: 50px;">Choose program</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3" align="center">
+                    <i><img src="../assets/img/question.svg" style="width: 50px;height:30px"></i>
+                </div>
+              </div>
+              <div class="card bg-dark" align="center" >
+                <div class="container" style="padding: 40px;">    
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="week1Chooser"class="text-warning">Week 1</label>
+                      <select class="form-control text-info bg-dark" id="week1Chooser" disabled="true">
+                        <option>Base</option>
+                        <option>Aerobic</option>
+                        <option>LongRun-Aerobic</option>
+                        <option>Aerobic-Tempo</option>
+                        <option>Easy-LongRun-Tempo</option>
+                        <option>LongRun-Interval-Easy</option>                      
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="week2Chooser"class="text-warning">Week 2</label>
+                      <select class="form-control text-info bg-dark" id="week2Chooser" disabled>
+                        <option>Base</option>
+                        <option>Aerobic</option>
+                        <option>LongRun-Aerobic</option>
+                        <option>Aerobic-Tempo</option>
+                        <option>Easy-LongRun-Tempo</option>
+                        <option>LongRun-Interval-Easy</option>    
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="week3Chooser"class="text-warning">Week 3</label>
+                      <select class="form-control text-info bg-dark" id="week3Chooser" disabled>
+                        <option>Base</option>
+                        <option>Aerobic</option>
+                        <option>LongRun-Aerobic</option>
+                        <option>Aerobic-Tempo</option>
+                        <option>Easy-LongRun-Tempo</option>
+                        <option>LongRun-Interval-Easy</option>    
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="week4Chooser"class="text-warning">Week 4</label>
+                      <select class="form-control text-info bg-dark" id="week4Chooser" disabled>
+                        <option>Base</option>
+                        <option>Aerobic</option>
+                        <option>LongRun-Aerobic</option>
+                        <option>Aerobic-Tempo</option>
+                        <option>Easy-LongRun-Tempo</option>
+                        <option>LongRun-Interval-Easy</option>    
+                      </select>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <div class="row">
+                  <div class="col-md-3">
+
+                  </div>
+                  <div class="col-md-6 ml-6" align="center">
+                      <div class="btn btn-info btn-lg text-dark" id="generateProgram">Generate week's program</div>
+                  </div>
+                  <div class="col-md-3" align="center">
+          
+                  </div>
+              </div>
                 <div class="row mt-5">
                   <div class="col-md-4">
 
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1"class="text-warning">Training Type</label>
-                      <select class="form-control text-info bg-dark" id="exampleFormControlSelect1">
-                        <option>Basic Aerobic</option>
-                        
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                      
-                  </div>
                   
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1"class="text-warning">Timeframe</label>
-                      <select class="form-control text-info bg-dark" id="exampleFormControlSelect1">
-                        <option>Week plan (recomended)</option>
-                        
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4" align="center">
-                      <i><img src="../assets/img/question.svg" style="width: 50px;height:30px"></i>
-                  </div>
                   
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-4">
 
-                    </div>
-                    <div class="col-md-4 ml-4">
-                        <div class="btn btn-info btn-lg text-dark" id="generateProgram">Generate week's program</div>
-                    </div>
-                    <div class="col-md-4" align="center">
-                        
-                    </div>
-                    
-                </div>
+               
                 <div class="loader-wrapper">
                   <span class="logo-dot"></span>
                   <svg width="108px" height="128px" viewBox="0 0 54 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">

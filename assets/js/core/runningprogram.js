@@ -8,7 +8,7 @@ class Activity{
     }
 }
 
-function createTimeStamp(tss_target){
+function createTimeStamp(tss_target,runningProgram){
     
 
     var token=window.localStorage.getItem('token')
@@ -18,11 +18,10 @@ function createTimeStamp(tss_target){
     
     var link="https://leadingpace.pythonanywhere.com/generateprogram"
     
-
     fetch(link,{
         method:'PUT',
         headers:myHeaders,
-        body: JSON.stringify({"tss_target":tss_target})
+        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram})
     })
 
     .then(response =>{
@@ -48,14 +47,25 @@ function createTimeStamp(tss_target){
 function tss_target(){
     var currentFitness=localStorage.getItem("currentFitness")
     var currentFatigue=localStorage.getItem("currentFatigue")
+    const planType = document.querySelector("#planChooser").value
+    var runningProgram = ["Base","Aerobic","Aerobic-Tempo","Easy-LongRun-Tempo"]
+    if (planType == "Custom"){
+        const weekOne = document.querySelector("#week1Chooser").value
+        const weekTwo = document.querySelector("#week2Chooser").value
+        const weekThree = document.querySelector("#week3Chooser").value
+        const weekFour = document.querySelector("#week4Chooser").value
+
+        runningProgram = [weekOne,weekTwo,weekThree,weekFour]
+        
+    }
+    
 
     if (currentFitness==undefined){
         
         return alert("please visit training load page first")
     }
     var tss_target = (1.116*currentFitness-0.16*currentFatigue+11.9)*7 + 1.5/currentFitness
-
-    createTimeStamp(tss_target)
+    createTimeStamp(tss_target,runningProgram)
 }   
 
 
@@ -109,25 +119,299 @@ function showRunningProgram(response){
     var enddate = response.program_ends
     var tss_target = response.tss_target
     var tss_until_now = response.tss_until_now
+    var program_duration = 4
+    var program_runs_per_week = 3
+    var runningProgram = response.runningProgram
+    
+    var programType = runningProgram
 
     var percentageGoal = (tss_until_now/tss_target)*100
     document.querySelector("#percentageGoal").innerHTML = percentageGoal.toFixed(0) + " %"
     document.querySelector("#percentageBar").setAttribute("style",`width: ${percentageGoal.toFixed(0)}%`)
-    document.querySelector("#summaryTss").innerHTML = tss_target.toFixed(0)
     document.querySelector("#startDate").innerHTML = startdate
     document.querySelector("#endDate").innerHTML = enddate
     document.querySelector("#currentTss").innerHTML = tss_until_now.toFixed(0)
-    document.querySelector("#goalTss").innerHTML = tss_target.toFixed(0)
-
-    createTargetActivity(tss_target)
+    
+    var TotalStressScore = 0
+    for (var week=1;week<=program_duration;week++){
+        var stressScoreTarget = calculateStressScoreTarget(week)
+        TotalStressScore =TotalStressScore+stressScoreTarget
+        var weekType = programType[week-1]
+        createTargetProgram(weekType,stressScoreTarget,week,program_runs_per_week)
+    }
+    document.querySelector("#summaryTss").innerHTML = TotalStressScore.toFixed(0)
+    document.querySelector("#goalTss").innerHTML = TotalStressScore.toFixed(0)
+    
+    
     
 }
-function aerobicSpeedCalculate(){
-    const runningIndex = localStorage.getItem("runningIndex")
-    var aerSpeed=(runningIndex-5.668)/3.82
-    aerSpeed = convertMetrics(aerSpeed)
-    return (aerSpeed)
+
+function createTargetProgram(weekType,tss_target,week,program_runs_per_week){
+    
+    const [runType,tss_activity] = runTypePick(weekType,program_runs_per_week)
+
+    console.log(runType,tss_activity)
+    createWeekRow(week,weekType,runType)
+    
+    for(var i=1;i<=program_runs_per_week;i++){
+        var duration = durationCalculate(tss_activity[i-1]*tss_target,runType[i-1])
+
+        var speed = calculateActivitySpeed(runType[i-1])
+ 
+
+        var est_distance = ((duration * speed*0.98)*1000/60).toFixed(0) 
+
+        activity = new Activity(type=runType[i-1],duration,est_distance,tss=tss_activity[i-1]*tss_target)
+        console.log(activity)
+
+        createTableRow(activity,speed)
+        }
+    
+    
 }
+
+function runTypePick(weekType,program_runs_per_week){
+    //"Aerobic","Base","Aerobic-Tempo","Easy-longRun-Tempo"
+    var runType = ["Aerobic","Aerobic","Aerobic","Aerobic","Aerobic"]
+    var ratioFactor = 1/program_runs_per_week
+    var ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
+
+    if (weekType=="Base"){
+        runType = ["Base","Base","Base","Base","Base"]
+        ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
+    }
+    if (weekType=="Aerobic-Tempo"){
+        runType = ["Aerobic","Aerobic","Tempo","Easy","Easy"]
+        ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
+    }
+    if (weekType=="Easy-LongRun-Tempo"){
+        runType = ["Long run","Easy","Tempo","Easy","Easy"]
+        ratio = [ratioFactor*1.25,ratioFactor*0.85,ratioFactor*0.9,ratioFactor,ratioFactor]
+    }
+    if (weekType=="LongRun-Aerobic"){
+        runType = ["Long run","Aerobic","Aerobic","Easy","Base"]
+        ratio = [ratioFactor*1.25,ratioFactor*0.9,ratioFactor*0.9,ratioFactor,ratioFactor]
+    }
+    if (weekType=="LongRun-Tempo-Easy"){
+        runType = ["Long run","Easy","Tempo","Easy","Easy"]
+        ratio = [ratioFactor*1.25,ratioFactor*0.85,ratioFactor*0.9,ratioFactor,ratioFactor]
+    }
+    if (weekType=="LongRun-Interval-Easy"){
+        runType = ["Long run","Easy","Interval","Easy","Easy"]
+        ratio = [ratioFactor*1.25,ratioFactor*0.85,ratioFactor*0.9,ratioFactor,ratioFactor]
+    }
+    
+    return [runType,ratio]
+}
+
+
+function createTableRow(activity,speed){
+    var table = document.querySelector("#weekplan")
+    var row = document.createElement("tr")
+    var color = "success"
+    if (activity.type == "Interval"){
+        color = "danger"
+        var intervalTime = (activity.duration/3).toFixed(0)
+        var intervalLowTime = (activity.duration*2/3).toFixed(0)
+        var estDistance = intervalTime * speed*1000/60 + intervalLowTime *0.8* speed*1000/60
+        row.innerHTML=`
+        <td class="text-${color}">
+            ${activity.type} 1-2 ratio
+        </td>
+        <td class="text-white">
+            <span class="text-info">${intervalTime}</span> min at <span class="text-${color}">${speed}</span> ${metric()} speed
+            and
+            <span class="text-info">${intervalLowTime}</span> min at <span class="text-success">${speed*0.8}</span> ${metric()} speed
+        </td>
+        <td class="text-info">
+            ${estDistance.toFixed(0)} m
+        </td>
+        <td class="text-warning">
+            ${activity.tss.toFixed(0)}
+        </td>`
+    }
+    else{
+        if (activity.type == "Tempo"){
+            color = "warning"
+        }
+        if (activity.type == "Base"){
+            color = "info"
+        }
+        if (activity.type == "Long run"){
+            color = "success"
+        }
+        
+        row.innerHTML=`
+        <td class="text-${color}">
+            ${activity.type}
+        </td>
+        <td class="text-white">
+            <span class="text-info">${activity.duration}</span> min at <span class="text-${color}">${speed}</span> ${metric()} speed
+        </td>
+        <td class="text-info">
+            ${activity.distance} m
+        </td>
+        <td class="text-warning">
+            ${activity.tss.toFixed(0)}
+        </td>`
+    }
+    
+
+    table.appendChild(row);
+}
+
+function createWeekRow(week,runType){
+    var table = document.querySelector("#weekplan")
+    var row = document.createElement("tr")
+    
+
+    row.innerHTML=`
+        <td class="text-info">
+            <h5>${runType}</h5> 
+        </td>
+        <td class="text-white">
+            <h5>Week   - <span class="text-info"> ${week}</span></h5>
+        </td>
+        <td class="text-info">
+           
+        </td>
+        <td class="text-warning">
+            
+        </td>`
+    
+    table.appendChild(row);
+    
+    
+    
+}
+
+function durationCalculate(tss,runType){
+
+    var hour_lthr = 165
+    var rest = localStorage.getItem("rest_hr")
+    var maxh = localStorage.getItem("max_hr")
+
+
+
+    if (runType == "Tempo"){
+        var hr = 176
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))  
+    }
+    if (runType == "Aerobic"){
+        var hr = 169
+    
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
+    }
+    if (runType == "Long run"){
+        var hr = 164
+
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))     
+    }
+    if (runType == "Base"){
+        var hr = 157
+       
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))     
+    } 
+    if (runType == "Interval"){
+        var hr = 197
+      
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
+    } 
+    if (runType == "Easy"){
+        var hr = 166
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
+    } 
+    return (duration.toFixed(0))
+    
+}
+
+function duration_aerobic_one(){
+
+}
+
+function duration_tempo(){
+
+}
+
+function intervals(){
+
+}
+
+
+
+function calculateActivitySpeed(runType){
+    var speed = AerobicSpeedCalculate()
+    if (runType == "Tempo"){
+        var speed = TempoSpeedCalculate()
+        
+    }
+    if (runType == "Long run"){
+        var aerobicSpeed = AerobicSpeedCalculate()
+        var baseSpeed = BaseSpeedCalculate()
+        var speed = (parseFloat(aerobicSpeed)+parseFloat(baseSpeed))/2
+        
+    }
+    if (runType == "Base"){
+        var speed = BaseSpeedCalculate()
+        
+    }
+    if (runType == "Easy"){
+        var speed = AerobicSpeedCalculate()
+        
+    }
+    if (runType == "Interval"){
+        var speed = IntervalSpeedCalculate()
+        
+    }
+    speed = convertMetrics(speed)
+    return (speed)
+}
+
+
+
+
+
+
+
+
+function calculateStressScoreTarget(week){
+    stressScoreTarget = 8.18*week+78.31
+    stressScoreTarget = stressScoreTarget
+    return(stressScoreTarget)
+}
+function AerobicSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var speed=(runningIndex-5.668)/3.82
+    return (speed)
+}
+function BaseSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var speed=(0.21*runningIndex) - 0.68
+    return (speed)
+}
+function TempoSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var speed=(runningIndex-2.84)/3.75
+    return (speed)
+}
+function IntervalSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var speed=(runningIndex * 0.2979) - 0.8774
+    return (speed)
+}
+
 
 function convertMetrics(speed){
     const measurementSystem = localStorage.getItem("measurementSystem")
@@ -180,72 +464,22 @@ function timeConvert(time) {
     }
     return (min+':'+sec);
 }
+function planChooser(){
+    var planType = document.querySelector("#planChooser").value
     
-    
-function createTargetActivity(tss_target){
-    const runningIndex = localStorage.getItem("runningIndex")
-    var aerSpeed=(runningIndex-5.668)/3.82
-    
-    aerobicSpeed = aerobicSpeedCalculate()
-    var tempoSpeed = localStorage.getItem("threSpeed")
-    var plan = "basic_aerobic"
-    if (plan=="basic_aerobic"){
-        for(var i=1;i<=3;i++){
-            duration = duration_aerobic_two(tss_target)
-            est_distance = ((duration * aerSpeed*0.98)*1000/60).toFixed(0)
-            
-            activity = new Activity(type="basic aerobic",duration,est_distance,tss_target/3)
-            console.log(activity)
-
-            createTableRow(activity,aerobicSpeed,tempoSpeed)
-        }
+    if (planType == "Custom"){
+        document.querySelector("#week1Chooser").disabled = false
+        document.querySelector("#week2Chooser").disabled = false
+        document.querySelector("#week3Chooser").disabled = false
+        document.querySelector("#week4Chooser").disabled = false
     }
+}   
     
-
-    
-
-}
 document.addEventListener("DOMContentLoaded",getDatabaseData)
 document.querySelector("#generateProgram").addEventListener("click",tss_target)
+document.querySelector("#planChooseButton").addEventListener("click",planChooser)
 
 
-function duration_aerobic_two(tss){
-    return ((tss/3 - 0.001141)/1.293).toFixed(0)
-}
-
-function duration_aerobic_one(){
-
-}
-
-function duration_tempo(){
-
-}
-
-function intervals(){
-
-}
-
-
-
-function createTableRow(activity,speed){
-    var table = document.querySelector("#weekplan")
-    var row = document.createElement("tr")
-    row.innerHTML=`
-    <td class="text-success">
-        ${activity.type}
-    </td>
-    <td class="text-white">
-        <span class="text-info">${activity.duration}</span> min at <span class="text-success">${speed}</span> ${metric()} speed
-    </td>
-    <td class="text-info">
-        ${activity.distance} m
-    </td>
-    <td class="text-warning">
-        ${activity.tss.toFixed(0)}
-    </td>`
-
-    table.insertBefore(row, table.firstChild);
-}
 
 
 function logout(){
