@@ -140,7 +140,7 @@
               <span class="navbar-toggler-bar bar3"></span>
             </button>
           </div>
-          <a class="navbar-brand" href="#pablo">Training History</a>
+          <a class="navbar-brand" href="#pablo">Contact</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -151,13 +151,13 @@
           
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="../webapp/contact.html">
-                <i><img src="../assets/img/contact.svg" style="width: 30px;height:20px"></i>
-                <p>
-                  <span class="d-lg-none d-md-block">Contact</span>
-                </p>
-              </a>
-          </li>
+                <a class="nav-link" href="../webapp/contact.html">
+                  <i><img src="../assets/img/contact.svg" style="width: 30px;height:20px"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Contact</span>
+                  </p>
+                </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="../webapp/about.html">
                 <i class="now-ui-icons media-2_sound-wave"></i>
@@ -192,59 +192,47 @@
       </div>
     </nav>
       <!-- End Navbar -->
-      
-          <div class="col-md-12">
-            <div class="card card-plain">
-              <div class="card-header">
-                <h4 class="card-title"> Table on Plain Background</h4>
-                <p class="category"></p>
-                <div class="alert alert-info collapse" role="alert">
-                  <p class="alertText text-dark" style="font-weight: 800;">This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.</p>
-                  <button type="button" class="close" id="closeAlert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+      <div class="container-fluid " style="padding:100px">
+        <form align="center">
+            <div class="row" align="center">
+                <div class="form-group col-md-12">
+                    <label for="subjectPicker"class="text-warning">Subject</label>
+                    <select class="form-control text-info" id="subjectPicker">
+                      <option value="Report">Report a bug</option>
+                      <option value="Trooble">Troobleshooting</option>
+                      <option value="General">General question</option>
+                      <option value="Next">What i want to see next</option>
+                      <option value="Program">Running program Feedback</option>
+                      <option value="Feedback">General feedback</option>
+                      <option value="Other">Other</option>
+                    </select>
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table" id="traininghistory">
-                    <thead class=" text-primary">
-                      <th>
-                        Date
-                      </th>
-                      <th>
-                        Distance
-                      </th>
-                      <th>
-                        Duration
-                      </th>
-                      <th >
-                        Avg HR
-                      </th>
-                      <th >
-                        Avg Speed
-                      </th>
-                      <th >
-                        Running Index
-                      </th>
-                      <th >
-                        Stress Score
-                      </th>
-                      <th >
-                        Action
-                      </th>
-                    </thead>
-                    <tbody class="text-white">
-                      
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
+             
+            <div class="col-md-12">
+                <div class="form-group">
+                  <label>Message</label>
+                  <input style="height: 200px;" type="text" class="form-control" value=""id="messageBody">
+                </div>
+              
+              <div  id="sendMessage"  class="btn mb-2 text-white ml-3" style="background-color: #212424;">Send message</div>
+            </div>
+            
+          </form>
+          <div class="jumbotron">
+            <h2 class="display-4">Give your feedback</h2>
+            <p class="lead">As the app is currently on the early stages of developement your feedback is very valuable. If you want to help me make this app better test the app and give feedback on the below subjects</p>
+            <hr class="my-4">
+            <p>- General user interface and user experience</p>
+            <p>- Loading speeds</p>
+            <p>- Bugs</p>
+            <p>- General user experience for the graphs</p>
+            <p>- Imports. Are they easy do you have any problem with strava import?</p>
+            <p>- Running program. How do you feel about its accuracy</p>
+            <p>- Mobile Experience</p>
           </div>
-        </div>
       </div>
+          
       <div class="loader-wrapper">
         <span class="logo-dot"></span>
         <svg width="108px" height="128px" viewBox="0 0 54 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
@@ -257,7 +245,7 @@
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/animation.js"></script>
-  <script src="../assets/js/core/traininghistory.js"></script>
+  <script src="../assets/js/core/contact.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
