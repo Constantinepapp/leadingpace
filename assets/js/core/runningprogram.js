@@ -328,7 +328,7 @@ function durationCalculate(tss,runType){
         var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
     } 
     if (runType == "Easy"){
-        var hr = 166
+        var hr = 164
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
@@ -368,7 +368,7 @@ function calculateActivitySpeed(runType){
         
     }
     if (runType == "Easy"){
-        var speed = AerobicSpeedCalculate()
+        var speed = AerobicSpeedCalculate()*0.95
         
     }
     if (runType == "Interval"){
