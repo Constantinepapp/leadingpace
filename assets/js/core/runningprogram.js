@@ -221,7 +221,7 @@ function createTableRow(activity,speed){
         <td class="text-white">
             <span class="text-info">${intervalTime}</span> min at <span class="text-${color}">${speed}</span> ${metric()} speed
             and
-            <span class="text-info">${intervalLowTime}</span> min at <span class="text-success">${speed*0.8}</span> ${metric()} speed
+            <span class="text-info">${intervalLowTime}</span> min at <span class="text-success">${(speed*0.8).toFixed(2)}</span> ${metric()} speed
         </td>
         <td class="text-info">
             ${estDistance.toFixed(0)} m
