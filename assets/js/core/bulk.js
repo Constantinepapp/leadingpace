@@ -122,8 +122,42 @@ function csvJSON(csv){
 
         
     } ; 
-    sendToDatabase(result)
+    csvToDatabase(result)
 }
+function csvToDatabase(result){
+
+    
+    console.log(JSON.stringify(result))
+    var token=window.localStorage.getItem('token')
+    const myHeaders={"x-access-token":token,"Content-Type": "application/json",'access-control-allow-origin':"*"}
+    
+    
+    
+    var link="https://leadingpace.pythonanywhere.com/bulk_import"
+    
+
+    fetch(link,{
+        method:'POST',
+        headers:myHeaders,
+        body: JSON.stringify(result)
+    })
+
+    .then(response =>{
+        if (response.status === 200){
+            alert("saved succesfully")
+            return response.json();
+        } else{
+            console.log('error');
+        }
+    })
+    .then(response =>{
+        console.debug(response);
+        
+    })
+
+
+}
+
 
 function sendToDatabase(activitiesList){
 
