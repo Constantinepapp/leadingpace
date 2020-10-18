@@ -27,7 +27,6 @@
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
-  <link href="../assets/scss/animation.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- CSS Files -->
@@ -35,9 +34,17 @@
   <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <script src="https://npmcdn.com/chart.js@latest/dist/Chart.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.3/chartjs-plugin-zoom.js"></script>
+  <link href="../assets/scss/animation.css" rel="stylesheet" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168226120-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-168226120-1');
+</script>
+
 </head>
 
 <body class="">
@@ -133,7 +140,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="#">Documentation / About</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -143,7 +150,7 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="../webapp/about.html">
+                <a class="nav-link" href="#">
                   <i class="now-ui-icons media-2_sound-wave"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Stats</span>
@@ -176,87 +183,55 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-lg" style="height: fit-content;margin-top: -30px;">
-        <canvas id="weeklymilageChart" height="100"></canvas>
-      </div>
-      <div class="content text-warning" style="margin-top:20px ;">
+      <div class="content text-warning"style="margin-top:100px">
         <div class="row">
-          <div class="col-lg-4">
-            <div class="">
-              <div class="card border-left-primary shadow h-100 py-2 text-white" style="background-color: rgb(41, 67, 68);">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">This Week</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"id="currentWeek">--</div>
-                    </div>
-                    <div class="col-auto">
-                      <img src="../assets/img/thunder.svg" style="width: 50px;height:50px">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="">
-              <div class="card border-left-primary shadow h-100 py-2 bg-dark">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Last 30 days</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="currentMonth">--</div>
-                    </div>
-                    <div class="col-auto">
-                      <img src="../assets/img/thunder.svg" style="width: 50px;height:50px">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="">
-              <div class="card border-left-primary shadow h-100 py-2 text-white" style="background-color: rgb(18, 44, 36);">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Average Last 30 days</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"id ="averageMonth">--</div>
-                    </div>
-                    <div class="col-auto">
-                      <img src="../assets/img/thunder.svg" style="width: 50px;height:50px">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <h1 style="color:wheat">Disclaimer</h1>
+            <p>Leading pace is created,owned and maintained by Konstantinos Pappas. The app is created using python and flask library for the backend api and vanilla javaScript for the front. No js framework is used. The app also uses the strava api for activities sync.</p>
+            <p>For more info go the Home page <a href="../index.html">Leading pace</a></p>
+          
+            <p>The app is in an early stage. As changes occur daily in the app users should backup their manual inputed data frequently to avoid data loss. Help the development of this app by giving feedback and report bugs to the developer</p>
+            <p>All icons are made by:</p>
+            <p>those-icons,eucalyp,kiranshastry,alfredo-hernandez,pixel-perfect,srip,nhor-phai,freepik</p>
+            <p>you can find them in <a href="https://www.flaticon.com">https://www.flaticon.com</a></p>
+            <p><br></p>
+            <p>The UI is made using as base style the Now UI dashboard by creative tim (core items,inputs,buttons,containers)</p>
+            <h1 style="color:wheat">Running Program</h1>
+            
+            <p>&nbsp; &nbsp;Leading pace takes into account your VO2max estimation heart rate zones,running paces and current fatigue-fitness from the training load page.Using this data it calculates the target stress score you need to achieve in the next month in order your form to be consistent to form target value ( -10 by default ). The accuracy is higher for the first and second week and drops a little for the last two weeks.&nbsp;</p>
+            <p>&nbsp; &nbsp; &nbsp; The estimation of the second,third and forth week <strong>will only be accurate if you achive your goal in the last week.&nbsp;</strong>However small deviations (&lt;10%) in your last weeks goal won&apos;t be a problem.</p>
+            <p>&nbsp; &nbsp; &nbsp; As your VO2max and your running paces change the estimated paces and distances for future workouts will also be recalculated to your current aerobic fitness so it is normal your workout&apos;s pace and distance to change. Tss will stay the same</p>
+            <p>&nbsp; &nbsp; &nbsp;This formula is based on fitness-fatigue curve which is based on scientific stats but it has it&apos;s flaws. So follow the program but listen to your body needs. It is adviced after every monthly program to have a &quot;lighter&quot; week to avoid injury before you start a new months program</p>
+            <p>&nbsp; &nbsp; &nbsp;If you are a begiener in running and you are not used to run for 10 or more minutes straight it is adviced to run-walk on your first week. In order to stay in the correct zones run at a little higher speed than your goal to counterbalance your walking paces.</p>
+            <h1 style="color:wheat">Training Load</h1>
+            <p><span style="font-weight: 800; color: rgb(231, 235, 47);">Fatigue </span>is a representation of acute training load. This is the impact that each individual workout has on the overall training load. A multiple hour workout, or a workout with very high intensity will have a greater ATL score than a recovery workout or a very short run. Fatigue is an exponentially weighted average of your training stress scores from the past 7 days which provides an estimate of your fatigue accounting for the workouts you have done recently.<br>
+
+            <span style="font-weight: 800; color: cyan;">Fitness or Chronic Training Load</span> is an indication of the cumulative effects that training has had over time. With consistent training and workouts this will continue to climb. During periods of lower training stress, recovery weeks and down times your CTL will decrease. You can even see periods of decrease when doing incredibly hard VO2 intervals. Because this is based on frequency, intensity and duration a change the decrease in duration can cause a downward shift in CTL. Fitness (CTL) is an exponentially weighted average of your last 42 days of training stress scores (TSS) and reflects the training you have done over the last 6 weeks. However, the workouts you did 15 days ago will impact your Fitness more than the workouts you did 30 days ago.
+                
+            <br><span style="font-weight: 800; color: rgb(252, 131, 122);">Form or Training Stress balance</span> is the difference between Chronic and Accute training loads resulting in an estimation of your level of fatigue/freshness. This is a gauge of where your fatigue level and a low or even a negative number is a good indication that the body is being stressed, which, with recovery, will ultimately lead to fitness gains.
+                
+            <br><br><a href="https://www.researchgate.net/publication/321637829_Performance_Estimation_using_the_Fitness-Fatigue_Model_with_Kalman_Filter_Feedback">source: Busso, 2003; Calvert, T. W., Banister, E. W., Savage, M. V., & Bach, T., 1976.</a>
+
+            
         </div>
-        <div class="loader-wrapper">
-          <span class="logo-dot"></span>
-          <svg width="108px" height="128px" viewBox="0 0 54 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-            <defs></defs>
-            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-              <path class="beat-loader" d="M0.5,38.5 L16,38.5 L19,25.5 L24.5,57.5 L31.5,7.5 L37.5,46.5 L43,38.5 L53.5,38.5" id="Path-2" stroke-width="2" sketch:type="MSShapeGroup"></path>
-            </g>
-          </svg>
-        </div>   
-        
+          <div class="loader-wrapper">
+            <span class="logo-dot"></span>
+            <svg width="108px" height="128px" viewBox="0 0 54 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+              <defs></defs>
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                <path class="beat-loader" d="M0.5,38.5 L16,38.5 L19,25.5 L24.5,57.5 L31.5,7.5 L37.5,46.5 L43,38.5 L53.5,38.5" id="Path-2" stroke-width="2" sketch:type="MSShapeGroup"></path>
+              </g>
+            </svg>
+          </div>   
+         
+         
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/animation.js"></script>
-  <script src="../assets/js/core/weeklyTss.js"></script>
+  <script src="../assets/js/core/tools.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-
-  <!-- Chart JS -->
   
-  <!--  Notifications Plugin    -->
-
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
   <script>

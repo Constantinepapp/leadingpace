@@ -151,7 +151,7 @@
           
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#pablo">
+              <a class="nav-link" href="../webapp/about.html">
                 <i class="now-ui-icons media-2_sound-wave"></i>
                 <p>
                   <span class="d-lg-none d-md-block">Stats</span>
@@ -285,7 +285,7 @@
                   </div>
                 </div>
                 <div class="col-md-3" align="center">
-                    <i><img src="../assets/img/question.svg" style="width: 50px;height:30px"></i>
+                    <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#runningprogramHelp" style="width: 50px;height:30px"></i>
                 </div>
               </div>
               <div class="card bg-dark" align="center" >
@@ -355,11 +355,33 @@
           
                   </div>
               </div>
-                <div class="row mt-5">
-                  <div class="col-md-4">
+              <div class="row mt-5">
+                <div class="col-md-4">
 
+              </div>
+              <div class="modal" tabindex="-1" role="dialog" id="runningprogramHelp">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-dark text-info">
+                      <h5 class="modal-title">How Running Program works</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body bg-dark text-white">
+                      <p>&nbsp; &nbsp; &nbsp; &nbsp;Leading pace takes into account your VO2max estimation heart rate zones,running paces and current fatigue-fitness from the training load page.Using this data it calculates the target stress score you need to achieve in the next month in order your form to be consistent to form target value ( -10 by default ). The accuracy is higher for the first and second week and drops a little for the last two weeks.&nbsp;</p>
+                      <p>&nbsp; &nbsp; &nbsp; The estimation of the second,third and forth week <strong>will only be accurate if you achive your goal in the last week.&nbsp;</strong>However small deviations ( &lt;10% ) in your last weeks goal won&apos;t be a problem.</p>
+                      <p>&nbsp; &nbsp; &nbsp; As your VO2max and your running paces change the estimated paces and distances for future workouts will also be recalculated to your current aerobic fitness so it is normal your workout&apos;s pace and distance to change. Tss will stay the same</p>
+                      <p>&nbsp; &nbsp; &nbsp;This formula is based on fitness-fatigue curve which is based on <a href="https://www.researchgate.net/publication/321637829_Performance_Estimation_using_the_Fitness-Fatigue_Model_with_Kalman_Filter_Feedback">scientific researches</a> but it has it&apos;s flaws. So follow the program but listen to your body needs. It is adviced after every monthly program to have a &quot;lighter&quot; week to avoid injury before you start a new months program</p>
+                      <p>&nbsp; &nbsp; &nbsp;If you are a begiener in running and you are not used to run for 10 or more minutes straight it is adviced to run-walk on your first week. In order to stay in the correct zones run at a little higher speed than your goal to counterbalance your walking paces.</p>
+                      
+                    </div>
+                    <div class="modal-footer bg-dark">
+                      <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    </div>
                   </div>
-                  
+                </div>
+              </div>    
                   
 
                
