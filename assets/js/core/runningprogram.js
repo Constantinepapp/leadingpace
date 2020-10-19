@@ -466,8 +466,9 @@ function timeConvert(time) {
 }
 function planChooser(){
     var planType = document.querySelector("#planChooser").value
-    
+    document.querySelector("#customCard").style = "display:none;"
     if (planType == "Custom"){
+        document.querySelector("#customCard").style = ""
         document.querySelector("#week1Chooser").disabled = false
         document.querySelector("#week2Chooser").disabled = false
         document.querySelector("#week3Chooser").disabled = false
