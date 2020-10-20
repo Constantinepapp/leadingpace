@@ -64,7 +64,9 @@ function tss_target(){
         
         return alert("please visit training load page first")
     }
-    var tss_target = (1.116*currentFitness-0.16*currentFatigue+11.9)*7 + 1.5/currentFitness
+    var form_target = -10
+    var tss_target = (1.116*currentFitness-0.16*currentFatigue+11.9)*7.7
+    alert(tss_target)
     createTimeStamp(tss_target,runningProgram)
 }   
 
@@ -125,33 +127,37 @@ function showRunningProgram(response){
     
     var programType = runningProgram
 
-    var percentageGoal = (tss_until_now/tss_target)*100
+    var weeksDurations = response.weekDates
+    
+    
+    var TotalStressScore = 0
+    for (var week=1;week<=program_duration;week++){
+        var stressScoreTarget = calculateStressScoreTarget(week,tss_target)
+        TotalStressScore =TotalStressScore+stressScoreTarget
+        var weekType = programType[week-1]
+        createTargetProgram(weekType,stressScoreTarget,week,program_runs_per_week,weeksDurations)
+    }
+    document.querySelector("#summaryTss").innerHTML = TotalStressScore.toFixed(0)
+    document.querySelector("#goalTss").innerHTML = TotalStressScore.toFixed(0)
+    var percentageGoal = (tss_until_now/TotalStressScore.toFixed(0))*100
     document.querySelector("#percentageGoal").innerHTML = percentageGoal.toFixed(0) + " %"
     document.querySelector("#percentageBar").setAttribute("style",`width: ${percentageGoal.toFixed(0)}%`)
     document.querySelector("#startDate").innerHTML = startdate
     document.querySelector("#endDate").innerHTML = enddate
     document.querySelector("#currentTss").innerHTML = tss_until_now.toFixed(0)
+
     
-    var TotalStressScore = 0
-    for (var week=1;week<=program_duration;week++){
-        var stressScoreTarget = calculateStressScoreTarget(week)
-        TotalStressScore =TotalStressScore+stressScoreTarget
-        var weekType = programType[week-1]
-        createTargetProgram(weekType,stressScoreTarget,week,program_runs_per_week)
-    }
-    document.querySelector("#summaryTss").innerHTML = TotalStressScore.toFixed(0)
-    document.querySelector("#goalTss").innerHTML = TotalStressScore.toFixed(0)
     
     
     
 }
 
-function createTargetProgram(weekType,tss_target,week,program_runs_per_week){
+function createTargetProgram(weekType,tss_target,week,program_runs_per_week,weeksDurations){
     
     const [runType,tss_activity] = runTypePick(weekType,program_runs_per_week)
 
     console.log(runType,tss_activity)
-    createWeekRow(week,weekType,runType)
+    createWeekRow(week,weekType,weeksDurations,runType)
     
     for(var i=1;i<=program_runs_per_week;i++){
         var duration = durationCalculate(tss_activity[i-1]*tss_target,runType[i-1])
@@ -227,7 +233,7 @@ function createTableRow(activity,speed){
             ${estDistance.toFixed(0)} m
         </td>
         <td class="text-warning">
-            ${activity.tss.toFixed(0)}
+            ${activity.tss.toFixed(1)}
         </td>`
     }
     else{
@@ -252,7 +258,7 @@ function createTableRow(activity,speed){
             ${activity.distance} m
         </td>
         <td class="text-warning">
-            ${activity.tss.toFixed(0)}
+            ${activity.tss.toFixed(1)}
         </td>`
     }
     
@@ -260,17 +266,17 @@ function createTableRow(activity,speed){
     table.appendChild(row);
 }
 
-function createWeekRow(week,runType){
+function createWeekRow(week,runType,weeksDurations){
     var table = document.querySelector("#weekplan")
     var row = document.createElement("tr")
-    
+    row.id = `${week}`
 
     row.innerHTML=`
         <td class="text-info">
-            <h5>${runType}</h5> 
+            <h5 class="text-warning">Week   - <span class="text-info"> ${week}</span></h5>
+            <p style="font-size:15px;">Starts at ${weeksDurations[week-1]}  (${runType})</p> 
         </td>
         <td class="text-white">
-            <h5>Week   - <span class="text-info"> ${week}</span></h5>
         </td>
         <td class="text-info">
            
@@ -337,19 +343,6 @@ function durationCalculate(tss,runType){
     
 }
 
-function duration_aerobic_one(){
-
-}
-
-function duration_tempo(){
-
-}
-
-function intervals(){
-
-}
-
-
 
 function calculateActivitySpeed(runType){
     var speed = AerobicSpeedCalculate()
@@ -386,8 +379,8 @@ function calculateActivitySpeed(runType){
 
 
 
-function calculateStressScoreTarget(week){
-    stressScoreTarget = 8.18*week+78.31
+function calculateStressScoreTarget(week,tss_target){
+    stressScoreTarget = 9.6*week+tss_target
     stressScoreTarget = stressScoreTarget
     return(stressScoreTarget)
 }
@@ -474,7 +467,8 @@ function planChooser(){
         document.querySelector("#week3Chooser").disabled = false
         document.querySelector("#week4Chooser").disabled = false
     }
-}   
+} 
+
     
 document.addEventListener("DOMContentLoaded",getDatabaseData)
 document.querySelector("#generateProgram").addEventListener("click",tss_target)
