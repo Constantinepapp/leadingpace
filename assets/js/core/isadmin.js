@@ -33,7 +33,9 @@ class UI {
                 var email=response.users[i].email
                 var age=response.users[i].age
                 var male=response.users[i].male
-                var entry = {"id":id,"username":username,"email":email,"age":age,"male":male}
+                var admin = response.users[i].admin
+                var activities = response.users[i].activities
+                var entry = {"id":id,"username":username,"email":email,"age":age,"male":male,"admin":admin,"activities":activities}
                 UI.showEntry(entry)
 
                 if (response.message){
@@ -68,14 +70,14 @@ class UI {
         <td>
         ${entry.age} <span class="text-info"></span>
         </td>
+        <td class="text-warning">
+        ${entry.admin}
+        </td>
         <td>
         ${entry.male} <span class="text-info"></span>
         </td>
-        <td class="text-success">
-        ${entry.runningIndex}
-        </td>
         <td class="text-warning">
-        ${entry.stressScore}
+        ${entry.activities}
         </td>
         <td>
           <div class="btn btn-danger deleteEntry" id=${entry.id}>
@@ -87,7 +89,7 @@ class UI {
         
 
     }
-
+    
     static deleteEntry(target){
         if (target.classList.contains('deleteEntry')){
             target.parentElement.parentElement.remove()
