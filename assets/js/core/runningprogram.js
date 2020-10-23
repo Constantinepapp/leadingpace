@@ -146,6 +146,7 @@ function showRunningProgram(response){
     document.querySelector("#startDate").innerHTML = startdate
     document.querySelector("#endDate").innerHTML = enddate
     document.querySelector("#currentTss").innerHTML = tss_until_now.toFixed(0)
+    document.querySelector("#totalMonthDistance").innerHTML = totalMonthDistance()
 
     
     
@@ -159,7 +160,6 @@ function createTargetProgram(weekType,tss_target,week,program_runs_per_week,week
 
     console.log(runType,tss_activity)
     createWeekRow(week,weekType,weeksDurations,runType)
-    
     for(var i=1;i<=program_runs_per_week;i++){
         var duration = durationCalculate(tss_activity[i-1]*tss_target,runType[i-1])
 
@@ -167,12 +167,12 @@ function createTargetProgram(weekType,tss_target,week,program_runs_per_week,week
  
 
         var est_distance = ((duration * speed*0.98)*1000/60).toFixed(0) 
-
         activity = new Activity(type=runType[i-1],duration,est_distance,tss=tss_activity[i-1]*tss_target)
         console.log(activity)
 
         createTableRow(activity,speed)
         }
+
     
     
 }
@@ -255,7 +255,7 @@ function createTableRow(activity,speed){
         <td class="text-white">
             <span class="text-info">${activity.duration}</span> min at <span class="text-${color}">${speed}</span> ${metric()} speed
         </td>
-        <td class="text-info">
+        <td class="text-info distanceForSum">
             ${activity.distance} m
         </td>
         <td class="text-warning">
@@ -373,7 +373,17 @@ function calculateActivitySpeed(runType){
     return (speed)
 }
 
+function totalMonthDistance(){
+    distanceList = document.querySelectorAll(".distanceForSum")
+    var totalMonthDist = 0
+    for (i=0;i<distanceList.length;i++){
+        distance = distanceList[i].innerHTML
+        distance = distance.replace("m", '')
+        totalMonthDist = totalMonthDist + parseInt(distance)
 
+    }
+    return((totalMonthDist/1000).toFixed(2)+"Km")
+}
 
 
 
