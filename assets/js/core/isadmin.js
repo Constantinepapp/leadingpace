@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="http://127.0.0.1:5000/admin_all"
+        const api="https://leadingpace.pythonanywhere.com/admin_all"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
@@ -110,7 +110,7 @@ class UI {
         
         var formData={"id":id_target}
         
-        var link="http://127.0.0.1:5000/admin_delete"
+        var link="https://leadingpace.pythonanywhere.com/admin_delete"
         
         fetch(link,{
             method:'DELETE',

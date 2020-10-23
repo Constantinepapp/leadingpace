@@ -64,7 +64,7 @@ class UI{
         
         
         
-        var link="http://127.0.0.1:5000/createentry"
+        var link="https://leadingpace.pythonanywhere.com/createentry"
         
     
         fetch(link,{

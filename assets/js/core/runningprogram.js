@@ -16,7 +16,7 @@ function createTimeStamp(tss_target,runningProgram,planType){
     
     
     
-    var link="http://127.0.0.1:5000/generateprogram"
+    var link="https://leadingpace.pythonanywhere.com/generateprogram"
     
     fetch(link,{
         method:'PUT',
@@ -74,7 +74,7 @@ function tss_target(){
 
 
 function getDatabaseData(){
-    const api="http://127.0.0.1:5000/showprogram"
+    const api="https://leadingpace.pythonanywhere.com/showprogram"
     const token = window.localStorage.getItem("token")
     if (token == null){
         window.location.replace("login.html")

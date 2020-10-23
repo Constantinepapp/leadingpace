@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="http://127.0.0.1:5000/dashboard"
+        const api="https://leadingpace.pythonanywhere.com/dashboard"
         const token = window.localStorage.getItem("token")
         if (token == null){
             window.location.replace("login.html")
