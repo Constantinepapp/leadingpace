@@ -230,7 +230,7 @@ function createTableRow(activity,speed){
             and
             <span class="text-info">${intervalLowTime}</span> min at <span class="text-success">${(speed*0.8).toFixed(2)}</span> ${metric()} speed
         </td>
-        <td class="text-info">
+        <td class="text-info distanceForSum">
             ${estDistance.toFixed(0)} m
         </td>
         <td class="text-warning">
