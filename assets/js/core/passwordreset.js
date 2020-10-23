@@ -4,7 +4,7 @@ function sendMail(){
     
     const myHeaders={"x-access-token":token,"Content-Type": "application/json",'access-control-allow-origin':"*"}
         
-    var link="https://leadingpace.pythonanywhere.com/new_password"
+    var link="http://127.0.0.1:5000/new_password"
     
         
     

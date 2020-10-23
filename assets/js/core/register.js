@@ -10,7 +10,7 @@ function signUp(){
         const myHeaders= new Headers();
         myHeaders.append('Content-Type',"application/json")
         
-        var link="https://leadingpace.pythonanywhere.com/register"
+        var link="http://127.0.0.1:5000/register"
     
         
     

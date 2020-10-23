@@ -288,6 +288,22 @@
                     <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#runningprogramHelp" style="width: 50px;height:30px"></i>
                 </div>
               </div>
+              <div class="row" align="center">
+                <div class="col-md-3" align="center">
+                </div>
+                <div class="col-md-6 ml-6" align="center">
+                  <div class="d-flex justify-content-center my-9">
+                    <form class="range-field w-75">
+                      <p class="text-info">Form target: <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan" id="targetForm"></span><i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#formTargetHelp" style="width: 50px;height:30px"></i></p>
+                      <input id="slider11" class="border-0" type="range" min="7" max="13" style="width: 300px;"/>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-md-3" align="center">
+                  
+                </div>
+                
+              </div>
               <div class="card bg-dark" align="center"id="customCard" style="display: none;" >
                 <div class="container" style="padding: 40px;">    
                   <div class="col-md-6">
@@ -345,12 +361,12 @@
                   </div>
                 </div>  
               </div>
-              <div class="row">
+              <div class="row" style="margin-top: 40px;">
                   <div class="col-md-3">
 
                   </div>
                   <div class="col-md-6 ml-6" align="center">
-                      <div class="btn btn-info btn-lg text-dark" id="generateProgram">Generate week's program</div>
+                      <div class="btn btn-info btn-lg text-dark" style="border-radius: 40px;" id="generateProgram">Generate running program</div>
                   </div>
                   <div class="col-md-3" align="center">
           
@@ -383,6 +399,28 @@
                   </div>
                 </div>
               </div>    
+              <div class="modal" tabindex="-1" role="dialog" id="formTargetHelp">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-dark text-info">
+                      <h5 class="modal-title">What form target to choose</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body bg-dark text-white">
+                      <p>If you are completely new to running and can't run even at a very slow pace for more than 20 minutes, if you are recovering from an injury or finding your past generated program too hard for you can drop the form target value below 10</p>
+                      <p>However for most people of all fitness capacities a form target of 10 is the sweet spot</p>
+                      <p>Form target has nothing to do with aerobic capacity. An experienced runner and a new runner can both use target form equal to 10 but the app will generate different programs for each one.So consider using a smaller than 10 form target for a period if you meet any of the above criteria</p>
+                      <p>Some of Leading pace's beginner programs will start you from a different form value in the first months</p>
+                      
+                    </div>
+                    <div class="modal-footer bg-dark">
+                      <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>    
                   
 
                
@@ -405,7 +443,18 @@
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
+  <script>
+    $(document).ready(function() {
+
+    const $valueSpan = $('.valueSpan');
+    const $value = $('#slider11');
+    $valueSpan.html($value.val());
+    $value.on('input change', () => {
+
+      $valueSpan.html($value.val());
+    });
+    });
+  </script>  <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script src="../assets/js/plugins/chartjs.min.js"></script>

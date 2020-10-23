@@ -16,7 +16,7 @@ function createTimeStamp(tss_target,runningProgram,planType){
     
     
     
-    var link="https://leadingpace.pythonanywhere.com/generateprogram"
+    var link="http://127.0.0.1:5000/generateprogram"
     
     fetch(link,{
         method:'PUT',
@@ -50,6 +50,7 @@ function tss_target(){
     const planType = document.querySelector("#planChooser").value
     const monthRuns = $("#planChooser").find('option:selected').data('weeklist')
     let runningProgram = monthRuns.split(",")
+    const targetForm = parseInt(document.querySelector("#targetForm").innerHTML)
     if (planType == "Custom"){
         const weekOne = document.querySelector("#week1Chooser").value
         const weekTwo = document.querySelector("#week2Chooser").value
@@ -65,15 +66,15 @@ function tss_target(){
         
         return alert("please visit training load page first")
     }
-    var form_target = -10
-    var tss_target = (1.116*currentFitness-0.16*currentFatigue+11.9)*7.7
+    const factor = targetForm+targetForm*0.19
+    var tss_target = (1.116*currentFitness-0.16*currentFatigue+factor)*7.7
     alert(tss_target)
     createTimeStamp(tss_target,runningProgram,planType)
 }   
 
 
 function getDatabaseData(){
-    const api="https://leadingpace.pythonanywhere.com/showprogram"
+    const api="http://127.0.0.1:5000/showprogram"
     const token = window.localStorage.getItem("token")
     if (token == null){
         window.location.replace("login.html")

@@ -1,6 +1,6 @@
 class UI {
     static callDatabase(){
-        const api="https://leadingpace.pythonanywhere.com/weeklymileage"
+        const api="http://127.0.0.1:5000/weeklymileage"
         const token = window.localStorage.getItem("token")
         var timeFrame = localStorage.getItem("timeFrame")
         if (token == null){
