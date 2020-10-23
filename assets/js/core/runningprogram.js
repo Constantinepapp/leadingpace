@@ -8,7 +8,7 @@ class Activity{
     }
 }
 
-function createTimeStamp(tss_target,runningProgram){
+function createTimeStamp(tss_target,runningProgram,planType){
     
 
     var token=window.localStorage.getItem('token')
@@ -21,7 +21,7 @@ function createTimeStamp(tss_target,runningProgram){
     fetch(link,{
         method:'PUT',
         headers:myHeaders,
-        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram})
+        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram,"planType":planType})
     })
 
     .then(response =>{
@@ -48,7 +48,8 @@ function tss_target(){
     var currentFitness=localStorage.getItem("currentFitness")
     var currentFatigue=localStorage.getItem("currentFatigue")
     const planType = document.querySelector("#planChooser").value
-    var runningProgram = ["Base","Aerobic","Aerobic-Tempo","Easy-LongRun-Tempo"]
+    const monthRuns = $("#planChooser").find('option:selected').data('weeklist')
+    let runningProgram = monthRuns.split(",")
     if (planType == "Custom"){
         const weekOne = document.querySelector("#week1Chooser").value
         const weekTwo = document.querySelector("#week2Chooser").value
@@ -67,7 +68,7 @@ function tss_target(){
     var form_target = -10
     var tss_target = (1.116*currentFitness-0.16*currentFatigue+11.9)*7.7
     alert(tss_target)
-    createTimeStamp(tss_target,runningProgram)
+    createTimeStamp(tss_target,runningProgram,planType)
 }   
 
 
@@ -98,7 +99,6 @@ function getDatabaseData(){
     })
     .then(response => {
         console.debug(response);
-
         showRunningProgram(response)
 
         console.log(response)
@@ -124,7 +124,7 @@ function showRunningProgram(response){
     var program_duration = 4
     var program_runs_per_week = 3
     var runningProgram = response.runningProgram
-    
+    var planType = response.planType
     var programType = runningProgram
 
     var weeksDurations = response.weekDates
@@ -137,6 +137,7 @@ function showRunningProgram(response){
         var weekType = programType[week-1]
         createTargetProgram(weekType,stressScoreTarget,week,program_runs_per_week,weeksDurations)
     }
+    document.querySelector("#monthProgramType").innerHTML = planType
     document.querySelector("#summaryTss").innerHTML = TotalStressScore.toFixed(0)
     document.querySelector("#goalTss").innerHTML = TotalStressScore.toFixed(0)
     var percentageGoal = (tss_until_now/TotalStressScore.toFixed(0))*100

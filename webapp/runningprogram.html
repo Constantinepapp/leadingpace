@@ -211,7 +211,7 @@
                       <td id="monthProgramType">
                         Month program
                       </td>
-                      <td>
+                      <td >
                         ---
                       </td>
                       <td>
@@ -271,8 +271,12 @@
                   <div class="form-group">
                     <label for="planChooser"class="text-warning">Plan Chooser</label>
                     <select class="form-control text-info bg-dark" id="planChooser">
-                      <option value="BasicPlan">Basic plan</option>
-                      <option value="Custom">Custom</option>
+                      <option value="Custom" data-weeklist="Base,Base,Base,Base">Custom</option>
+                      <optgroup label="Basic plan">
+                        <option data-weeklist="Base,Base,Base,Base" value="Basic plan Month 1">Month 1 (Base,Base,Base,Base)</option>
+                        <option data-weeklist="Aerobic,Aerobic,Aerobic,LongRun-Aerobic" value="Basic plan Month 1">Month 2 (Aerobic,Aerobic,Aerobic,LongRun-Aerobic)</option>
+                        <option data-weeklist="LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy" value="Basic plan Month 1">Month 3 (LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy)</option>
+                      </optgroup>
                     </select>
                     <div class="col-md-6 ml-6" align="center">
                       <div class="btn btn-warning btn-sm text-dark" id="planChooseButton" style="border-radius: 50px;">Choose program</div>
