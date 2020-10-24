@@ -33,9 +33,8 @@ function cooperTest(){
 }
 
 
-
-document.querySelector("#logout").addEventListener("click",logout)
 document.querySelector("#cooperCalculate").addEventListener("click",cooperTest)
+document.querySelector("#logout").addEventListener("click",logout)
 
 function logout(){
     window.localStorage.clear()
