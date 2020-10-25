@@ -205,7 +205,7 @@ function calcRunningIndex(entry){
     var distance = Number(entry.distance)
     var up = Number(entry.up)
     var down = Number(entry.down)
-    var d = distance + 6*up - 4*down
+    var d = distance + 3*up //d = distance + 6*up //- 4*down changed due to strava not provide down
     var RIO = (213.9/entry.duration) * Math.pow(d/1000,1.06) +3.5
     var runningIndex = RIO/x
 
@@ -340,18 +340,13 @@ class Activity{
         this.duration = duration.toFixed(2)
         this.date = activity.start_date
         this.hr = activity.average_heartrate
-        if (activity.elev_high){
-            this.up = activity.elev_high
+        if (activity.total_elevation_gain){
+            this.up = activity.total_elevation_gain
         }
         else{
             this.up = 0
         }
-        if (activity.elev_down){
-            this.down = activity.elev_down
-        }
-        else{
-            this.down = 0
-        }
+        this.down = 0
         
     }
 }
