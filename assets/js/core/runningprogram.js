@@ -8,7 +8,7 @@ class Activity{
     }
 }
 
-function createTimeStamp(tss_target,runningProgram,planType){
+function createTimeStamp(tss_target,runningProgram,planType,targetForm){
     
 
     var token=window.localStorage.getItem('token')
@@ -21,7 +21,7 @@ function createTimeStamp(tss_target,runningProgram,planType){
     fetch(link,{
         method:'PUT',
         headers:myHeaders,
-        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram,"planType":planType})
+        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram,"planType":planType,"targetForm":targetForm})
     })
 
     .then(response =>{
@@ -69,7 +69,7 @@ function tss_target(){
     const factor = targetForm+targetForm*0.19
     var tss_target = (1.116*currentFitness-0.16*currentFatigue+factor)*7.7
     alert(tss_target)
-    createTimeStamp(tss_target,runningProgram,planType)
+    createTimeStamp(tss_target,runningProgram,planType,targetForm)
 }   
 
 
@@ -127,13 +127,14 @@ function showRunningProgram(response){
     var runningProgram = response.runningProgram
     var planType = response.planType
     var programType = runningProgram
+    var targetForm = response.targetForm
 
     var weeksDurations = response.weekDates
     
     
     var TotalStressScore = 0
     for (var week=1;week<=program_duration;week++){
-        var stressScoreTarget = calculateStressScoreTarget(week,tss_target)
+        var stressScoreTarget = calculateStressScoreTarget(week,tss_target,targetForm)
         TotalStressScore =TotalStressScore+stressScoreTarget
         var weekType = programType[week-1]
         createTargetProgram(weekType,stressScoreTarget,week,program_runs_per_week,weeksDurations)
@@ -194,19 +195,19 @@ function runTypePick(weekType,program_runs_per_week){
     }
     if (weekType=="Easy-LongRun-Tempo"){
         runType = ["Long run","Easy","Tempo","Easy","Easy"]
-        ratio = [ratioFactor*1.25,ratioFactor*0.85,ratioFactor*0.9,ratioFactor,ratioFactor]
+        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     if (weekType=="LongRun-Aerobic"){
         runType = ["Long run","Aerobic","Aerobic","Easy","Base"]
-        ratio = [ratioFactor*1.25,ratioFactor*0.9,ratioFactor*0.9,ratioFactor,ratioFactor]
+        ratio = [ratioFactor*1.20,ratioFactor*0.95,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     if (weekType=="LongRun-Tempo-Easy"){
         runType = ["Long run","Easy","Tempo","Easy","Easy"]
-        ratio = [ratioFactor*1.25,ratioFactor*0.85,ratioFactor*0.9,ratioFactor,ratioFactor]
+        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     if (weekType=="LongRun-Interval-Easy"){
         runType = ["Long run","Easy","Interval","Easy","Easy"]
-        ratio = [ratioFactor*1.25,ratioFactor*0.85,ratioFactor*0.9,ratioFactor,ratioFactor]
+        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     
     return [runType,ratio]
@@ -391,8 +392,8 @@ function totalMonthDistance(){
 
 
 
-function calculateStressScoreTarget(week,tss_target){
-    stressScoreTarget = 9.6*week+tss_target
+function calculateStressScoreTarget(week,tss_target,targetForm){
+    stressScoreTarget = targetForm*0.96*week+tss_target
     stressScoreTarget = stressScoreTarget
     return(stressScoreTarget)
 }
