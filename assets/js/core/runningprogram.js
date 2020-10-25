@@ -149,10 +149,11 @@ function showRunningProgram(response){
     document.querySelector("#endDate").innerHTML = enddate
     document.querySelector("#currentTss").innerHTML = tss_until_now.toFixed(0)
     document.querySelector("#totalMonthDistance").innerHTML = totalMonthDistance()
+    document.querySelector("#targetFormTable").innerHTML = "Target Form : "+targetForm
 
     
     
-    
+   
     
 }
 
@@ -275,9 +276,9 @@ function createWeekRow(week,runType,weeksDurations){
     row.id = `${week}`
 
     row.innerHTML=`
-        <td class="text-info">
+        <td>
             <h5 class="text-warning">Week   - <span class="text-info"> ${week}</span></h5>
-            <p style="font-size:15px;">Starts at ${weeksDurations[week-1]}  (${runType})</p> 
+            <p class="text-info" style="font-size:15px;">Starts at <span class="text-warning">${weeksDurations[week-1]}</span>  (${runType})</p> 
         </td>
         <td class="text-white">
         </td>
