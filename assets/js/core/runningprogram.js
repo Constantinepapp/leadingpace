@@ -199,7 +199,7 @@ function runTypePick(weekType,program_runs_per_week){
     }
     if (weekType=="LongRun-Aerobic"){
         runType = ["Long run","Aerobic","Aerobic","Easy","Base"]
-        ratio = [ratioFactor*1.20,ratioFactor*0.95,ratioFactor*0.95,ratioFactor,ratioFactor]
+        ratio = [ratioFactor*1.10,ratioFactor*0.95,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     if (weekType=="LongRun-Tempo-Easy"){
         runType = ["Long run","Easy","Tempo","Easy","Easy"]
