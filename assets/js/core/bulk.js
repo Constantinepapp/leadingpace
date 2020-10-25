@@ -338,7 +338,7 @@ class Activity{
         this.distance = activity.distance
         const duration = activity.elapsed_time/60
         this.duration = duration.toFixed(2)
-        this.date = activity.start_date
+        this.date = activity.start_date_local
         this.hr = activity.average_heartrate
         if (activity.total_elevation_gain){
             this.up = activity.total_elevation_gain
