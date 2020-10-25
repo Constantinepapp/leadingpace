@@ -174,7 +174,7 @@ function logout(){
 function customAlert(message){
   document.querySelector(".alert").setAttribute("class",`alert alert-${message[0]}`)
   document.querySelector(".alertText").innerHTML = message[1]
-  setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 3000);
+  setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 10000);
 }
 
 
