@@ -3,11 +3,12 @@ class UI {
         const api="https://leadingpace.pythonanywhere.com/weeklymileage"
         const token = window.localStorage.getItem("token")
         var timeFrame = localStorage.getItem("timeFrame")
+        var timeScale = localStorage.getItem("timeScale")
         if (token == null){
             window.location.replace("login.html")
         }
 
-        const myHeaders={"x-access-token":token,"timeFrame":timeFrame}
+        const myHeaders={"x-access-token":token,"timeFrame":timeFrame,"timeScale":timeScale}
         
         fetch(api,{
             method:"GET",
@@ -44,13 +45,8 @@ class UI {
 
         var weeklymilage = response.weeklymilage
         var date = response.date
+        displayCards(weeklymilage)
 
-        var currentWeek = weeklymilage[weeklymilage.length - 1]
-        var currentMonth = weeklymilage[weeklymilage.length - 1] + weeklymilage[weeklymilage.length - 2] + weeklymilage[weeklymilage.length - 3] + weeklymilage[weeklymilage.length - 4] 
-        var averageMonth = (weeklymilage[weeklymilage.length - 1] + weeklymilage[weeklymilage.length - 2] + weeklymilage[weeklymilage.length - 3] + weeklymilage[weeklymilage.length - 4])/4 
-        document.querySelector("#currentWeek").innerHTML = currentWeek.toFixed(2)
-        document.querySelector("#currentMonth").innerHTML = currentMonth.toFixed(2)
-        document.querySelector("#averageMonth").innerHTML = averageMonth.toFixed(2)
         UI.screenWidth()
 
         UI.showChart(response)
@@ -61,11 +57,22 @@ class UI {
         
         var weeklymilage = response.weeklymilage
         var date = response.date
-       
-
         
-        
-
+        console.log(date)
+        console.log(weeklymilage)
+        const timeScale = localStorage.getItem("timeScale")
+        if (timeScale == "y"){
+            var timeScaleString = "Yearly Mileage"
+            var timeUnit ="year"
+        }
+        else if (timeScale == "m"){
+            var timeScaleString = "Monthly Mileage"
+            var timeUnit ="month"
+        }
+        else{
+            var timeScaleString = "Weekly Mileage"
+            var timeUnit ="week"
+        }
         //var dates = []
 
         //for (var i=0; i<Object.keys(chartFatigue).length;i++){
@@ -80,11 +87,11 @@ class UI {
                 labels:date,
                 datasets:[
                     {
-                        label:"Weekly mileage (km)",
+                        label:timeScaleString+"(km)",
                         fill:true,
                         borderColor:"rgb(0, 0, 255,1)",
-                        backgroundColor: "rgba(100, 187, 255,1)",
-                        pointBackgroundColor: "rgb(251, 187, 25,1)",
+                        backgroundColor: "rgba(255, 255, 255,1)",
+                        pointBackgroundColor: "rgb(0, 0, 255,1)",
                         borderWidth: 1,
                         pointHitRadius:4,
                         lineTension:0,
@@ -98,7 +105,7 @@ class UI {
                 legend:{
                     display:false,
                     labels:{
-                        fontColor:'rgb(255, 99, 132)'
+                        fontColor:'rgb(255, 255, 255)'
                     }
                 },
                 elements: {
@@ -134,12 +141,17 @@ class UI {
                             display: true,
                             labelString: 'Week'
                         },
-                        type: 'time',
-                        time: 
-                        {
-                        unit: 'month',
-                        displayFormats: { 'day': 'MMM D' }
-                        }
+                        gridLines: {
+                            offsetGridLines: false
+                          },
+                        categoryPercentage: 0.9,
+                        barPercentage: 0.4,
+                        type: 'category',
+                        //time: 
+                        //{
+                        //unit: timeUnit,
+                        //displayFormats: { 'day': 'MMM D','year':`YY`}
+                        //}
 
                     }],
                     yAxes: [{
@@ -162,6 +174,7 @@ class UI {
         })
     }
     static raceReadiness(response){
+        
         const marathonPercent = marathonReadiness(response.weeklymilage,42)
         const marathonBarColor = barColor(marathonPercent)
 
@@ -202,8 +215,49 @@ class UI {
 
 document.querySelector("#timeFrame").addEventListener("click",reloadGraph)
 
+function displayCards(weeklymilage){
+    var timeScale = localStorage.getItem("timeScale")
+
+    if (timeScale !="w"){
+        document.querySelector("#distanceReadinessCard").style = "display:none;"
+    }
+
+    if (timeScale == "w"){
+        var current = weeklymilage[weeklymilage.length - 1]
+        var last = weeklymilage[weeklymilage.length - 1] + weeklymilage[weeklymilage.length - 2] + weeklymilage[weeklymilage.length - 3] + weeklymilage[weeklymilage.length - 4] 
+        var average = (weeklymilage[weeklymilage.length - 1] + weeklymilage[weeklymilage.length - 2] + weeklymilage[weeklymilage.length - 3] + weeklymilage[weeklymilage.length - 4])/4 
+    }
+    else if (timeScale =="m"){
+        var current = weeklymilage[weeklymilage.length - 1]
+        var last = 0
+        for (var i = 1;i<weeklymilage.length;i++){
+            if (i<14){
+                last = last + weeklymilage[weeklymilage.length - i]
+            }
+        }
+        var average = last/12
+
+        document.querySelector("#current").innerHTML = "This Month"
+        document.querySelector("#last").innerHTML = "Last 12 Months"
+        document.querySelector("#average").innerHTML = "Average per Month"
+    }
+    else{
+        var current = weeklymilage[weeklymilage.length - 1]
+        var last = weeklymilage.reduce(function(acc, val) { return acc + val; }, 0)
+        var average = last/weeklymilage.length
+
+        document.querySelector("#current").innerHTML = "This Year"
+        document.querySelector("#last").innerHTML = "All time"
+        document.querySelector("#average").innerHTML = "Average per year"
+    }
+    document.querySelector("#currentWeek").innerHTML = current.toFixed(2)
+    document.querySelector("#currentMonth").innerHTML = last.toFixed(2)
+    document.querySelector("#averageMonth").innerHTML = average.toFixed(2)
+}
 function reloadGraph(){
     timeFrame = document.querySelector("#timeFrameSelection").value
+    timeScale = document.querySelector("#timeScaleSelection").value
+    localStorage.setItem("timeScale",timeScale)
     localStorage.setItem("timeFrame",timeFrame)
     window.location.replace("analysis.html")
 }

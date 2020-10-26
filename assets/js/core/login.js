@@ -58,6 +58,9 @@ function login(){
             window.localStorage.setItem("stravaRefreshToken",stravaRefreshToken)
             window.localStorage.setItem("measurementSystem",measurementSystem)
             window.localStorage.setItem("email",email)
+            window.localStorage.setItem("timeFrame","one")
+            window.localStorage.setItem("timeScale","w")
+
             window.location.replace("dashboard.html")
         }
     }).catch(error => {

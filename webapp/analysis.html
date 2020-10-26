@@ -193,7 +193,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">This Week</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="current">This Week</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="currentWeek">--</div>
                     </div>
                     <div class="col-auto">
@@ -210,7 +210,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Last 30 days</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="last">Last 30 days</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="currentMonth">--</div>
                     </div>
                     <div class="col-auto">
@@ -227,7 +227,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Average Last 30 days</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="average">Average Last 30 days</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"id="averageMonth">--</div>
                     </div>
                     <div class="col-auto">
@@ -250,7 +250,7 @@
         </div>   
         <div class="row container d-flex justify-content-center">
           <div class="col-xl-12">
-              <div class="card proj-progress-card">
+              <div class="card proj-progress-card" id="distanceReadinessCard">
                   <div class="card-block">
                     <h3 class="text-white">Distance Readiness</h3>
                       <div class="row">
@@ -295,6 +295,14 @@
                 <option value="all">All time</option>
               </select>
             </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1"class="text-warning">Timescale</label>
+              <select class="form-control text-info bg-dark" id="timeScaleSelection">
+                <option value="w">Week</option>
+                <option value="m">Month</option>
+                <option value="y">Year</option>
+              </select>
+            </div>
           </div>
       </div>
       <div class="row">
@@ -302,7 +310,7 @@
 
         </div>
         <div class="col-md-4 ml-4">
-            <div class="btn btn-info btn-md text-dark" style="margin-left:80px;" id="timeFrame">Timeframe</div>
+          <div class="btn btn-warning btn-sm text-dark" style="margin-left:80px; border-radius: 40px;" id="timeFrame">Reload</div>
         </div>
         <div class="col-md-4" align="center">
             
