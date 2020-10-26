@@ -8,7 +8,7 @@ class Activity{
     }
 }
 
-function createTimeStamp(tss_target,runningProgram,planType,targetForm){
+function createTimeStamp(tss_target,runningProgram,planType,targetForm,program_runs_per_week){
     
 
     var token=window.localStorage.getItem('token')
@@ -21,7 +21,7 @@ function createTimeStamp(tss_target,runningProgram,planType,targetForm){
     fetch(link,{
         method:'PUT',
         headers:myHeaders,
-        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram,"planType":planType,"targetForm":targetForm})
+        body: JSON.stringify({"tss_target":tss_target,"runningProgram":runningProgram,"planType":planType,"targetForm":targetForm,"program_runs_per_week":program_runs_per_week})
     })
 
     .then(response =>{
@@ -51,6 +51,7 @@ function tss_target(){
     const monthRuns = $("#planChooser").find('option:selected').data('weeklist')
     let runningProgram = monthRuns.split(",")
     const targetForm = parseInt(document.querySelector("#targetForm").innerHTML)
+    const program_runs_per_week = document.querySelector("#daysPerWeekChooser").value
     if (planType == "Custom"){
         const weekOne = document.querySelector("#week1Chooser").value
         const weekTwo = document.querySelector("#week2Chooser").value
@@ -69,7 +70,7 @@ function tss_target(){
     const factor = targetForm+targetForm*0.19
     var tss_target = (1.116*currentFitness-0.16*currentFatigue+factor)*7.7
     alert(tss_target)
-    createTimeStamp(tss_target,runningProgram,planType,targetForm)
+    createTimeStamp(tss_target,runningProgram,planType,targetForm,program_runs_per_week)
 }   
 
 
@@ -123,7 +124,7 @@ function showRunningProgram(response){
     var tss_target = response.tss_target
     var tss_until_now = response.tss_until_now
     var program_duration = 4
-    var program_runs_per_week = 3
+    var program_runs_per_week = response.program_runs_per_week
     var runningProgram = response.runningProgram
     var planType = response.planType
     var programType = runningProgram
@@ -199,7 +200,7 @@ function runTypePick(weekType,program_runs_per_week){
         ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     if (weekType=="LongRun-Aerobic"){
-        runType = ["Long run","Aerobic","Aerobic","Easy","Base"]
+        runType = ["Long run","Aerobic","Aerobic","Easy","Easy"]
         ratio = [ratioFactor*1.10,ratioFactor*0.95,ratioFactor*0.95,ratioFactor,ratioFactor]
     }
     if (weekType=="LongRun-Tempo-Easy"){
@@ -276,16 +277,17 @@ function createWeekRow(week,runType,weeksDurations){
     row.id = `${week}`
 
     row.innerHTML=`
-        <td>
+        <td style="background-color:#444444;">
             <h5 class="text-warning">Week   - <span class="text-info"> ${week}</span></h5>
-            <p class="text-info" style="font-size:15px;">Starts at <span class="text-warning">${weeksDurations[week-1]}</span>  (${runType})</p> 
+        
         </td>
-        <td class="text-white">
+        <td class="text-white" style="background-color:#444444;">
+        <p class="text-info" style="font-size:15px;">Starts at <span class="text-warning">${weeksDurations[week-1]}</span>  (${runType})</p> 
         </td>
-        <td class="text-info">
+        <td class="text-info" style="background-color:#444444;">
            
         </td>
-        <td class="text-warning">
+        <td class="text-warning" style="background-color:#444444;">
             
         </td>`
     
@@ -486,7 +488,6 @@ function planChooser(){
     
 document.addEventListener("DOMContentLoaded",getDatabaseData)
 document.querySelector("#generateProgram").addEventListener("click",tss_target)
-document.querySelector("#planChooseButton").addEventListener("click",planChooser)
 
 
 
