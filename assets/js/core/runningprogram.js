@@ -69,9 +69,14 @@ function tss_target(){
     }
     const factor = targetForm+targetForm*0.19
     var tss_target = (1.116*currentFitness-0.16*currentFatigue+factor)*7.7
-    alert(tss_target)
+    //alert(tss_target)
     createTimeStamp(tss_target,runningProgram,planType,targetForm,program_runs_per_week)
 }   
+
+
+
+
+//Show running program
 
 
 function getDatabaseData(){
@@ -116,7 +121,7 @@ function getDatabaseData(){
       });
 }
 
-
+////////////////////// CORE UI FUNCTIONS /////////////////////////////////////////////////////
 function showRunningProgram(response){
 
     var startdate = response.program_start
@@ -129,10 +134,10 @@ function showRunningProgram(response){
     var planType = response.planType
     var programType = runningProgram
     var targetForm = response.targetForm
-
     var weeksDurations = response.weekDates
     
-    
+
+    //This section creates the running program
     var TotalStressScore = 0
     for (var week=1;week<=program_duration;week++){
         var stressScoreTarget = calculateStressScoreTarget(week,tss_target,targetForm)
@@ -140,6 +145,9 @@ function showRunningProgram(response){
         var weekType = programType[week-1]
         createTargetProgram(weekType,stressScoreTarget,week,program_runs_per_week,weeksDurations)
     }
+    //This section creates the running program
+
+
     document.querySelector("#monthProgramType").innerHTML = planType
     document.querySelector("#summaryTss").innerHTML = TotalStressScore.toFixed(0)
     document.querySelector("#goalTss").innerHTML = TotalStressScore.toFixed(0)
@@ -158,6 +166,7 @@ function showRunningProgram(response){
     
 }
 
+//this function creates every week
 function createTargetProgram(weekType,tss_target,week,program_runs_per_week,weeksDurations){
     
     const [runType,tss_activity] = runTypePick(weekType,program_runs_per_week)
@@ -167,64 +176,37 @@ function createTargetProgram(weekType,tss_target,week,program_runs_per_week,week
     for(var i=1;i<=program_runs_per_week;i++){
         var duration = durationCalculate(tss_activity[i-1]*tss_target,runType[i-1])
 
-        var speed = calculateActivitySpeed(runType[i-1])
+        var {speedOriginal,speed} = calculateActivitySpeed(runType[i-1])
  
-
-        var est_distance = ((duration * speed*0.98)*1000/60).toFixed(0) 
+        var est_distance = distanceEstimation (duration,speedOriginal)
+        
         activity = new Activity(type=runType[i-1],duration,est_distance,tss=tss_activity[i-1]*tss_target)
         console.log(activity)
 
-        createTableRow(activity,speed)
+        createTableRow(activity,speed,speedOriginal)
+
         }
 
     
     
 }
 
-function runTypePick(weekType,program_runs_per_week){
-    //"Aerobic","Base","Aerobic-Tempo","Easy-longRun-Tempo"
-    var runType = ["Aerobic","Aerobic","Aerobic","Aerobic","Aerobic"]
-    var ratioFactor = 1/program_runs_per_week
-    var ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
-
-    if (weekType=="Base"){
-        runType = ["Base","Base","Base","Base","Base"]
-        ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
-    }
-    if (weekType=="Aerobic-Tempo"){
-        runType = ["Aerobic","Aerobic","Tempo","Easy","Easy"]
-        ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
-    }
-    if (weekType=="Easy-LongRun-Tempo"){
-        runType = ["Long run","Easy","Tempo","Easy","Easy"]
-        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
-    }
-    if (weekType=="LongRun-Aerobic"){
-        runType = ["Long run","Aerobic","Aerobic","Easy","Easy"]
-        ratio = [ratioFactor*1.10,ratioFactor*0.95,ratioFactor*0.95,ratioFactor,ratioFactor]
-    }
-    if (weekType=="LongRun-Tempo-Easy"){
-        runType = ["Long run","Easy","Tempo","Easy","Easy"]
-        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
-    }
-    if (weekType=="LongRun-Interval-Easy"){
-        runType = ["Long run","Easy","Interval","Easy","Easy"]
-        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
-    }
-    
-    return [runType,ratio]
-}
-
-
-function createTableRow(activity,speed){
+function createTableRow(activity,speed,speedOriginal){
     var table = document.querySelector("#weekplan")
     var row = document.createElement("tr")
     var color = "success"
+    const measurementSystem = localStorage.getItem("measurementSystem")
     if (activity.type == "Interval"){
         color = "danger"
         var intervalTime = (activity.duration/3).toFixed(0)
         var intervalLowTime = (activity.duration*2/3).toFixed(0)
-        var estDistance = intervalTime * speed*1000/60 + intervalLowTime *0.8* speed*1000/60
+        var estDistance = intervalTime * speedOriginal*1000/60 + intervalLowTime *0.8* speedOriginal*1000/60
+        if (measurementSystem == "Imperial min/mile"){
+            estDistance = estDistance/1000 *0.60
+        }
+        if (measurementSystem == "Imperial mile/hr"){
+            estDistance = estDistance/1000 *0.60
+        }
         row.innerHTML=`
         <td class="text-${color}">
             ${activity.type} 1-2 ratio
@@ -297,53 +279,108 @@ function createWeekRow(week,runType,weeksDurations){
     
 }
 
+////////////////////// CORE UI FUNCTIONS /////////////////////////////////////////////////////
+
+
+
+
+////////////////////// SECONDARY FUNCTIONS //////////////////////////////////////////////////
+
+function runTypePick(weekType,program_runs_per_week){
+    //"Aerobic","Base","Aerobic-Tempo","Easy-longRun-Tempo"
+    var runType = ["Aerobic","Aerobic","Aerobic","Aerobic","Aerobic"]
+    var ratioFactor = 1/program_runs_per_week
+    var ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
+
+    if (weekType=="Base"){
+        runType = ["Base","Base","Base","Base","Base"]
+        ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
+    }
+    if (weekType=="Aerobic-Tempo"){
+        runType = ["Aerobic","Aerobic","Tempo","Easy","Easy"]
+        ratio = [ratioFactor,ratioFactor,ratioFactor,ratioFactor,ratioFactor]
+    }
+    if (weekType=="Easy-LongRun-Tempo"){
+        runType = ["Long run","Easy","Tempo","Easy","Easy"]
+        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
+    }
+    if (weekType=="LongRun-Aerobic"){
+        runType = ["Long run","Aerobic","Aerobic","Easy","Easy"]
+        ratio = [ratioFactor*1.10,ratioFactor*0.95,ratioFactor*0.95,ratioFactor,ratioFactor]
+    }
+    if (weekType=="LongRun-Tempo-Easy"){
+        runType = ["Long run","Easy","Tempo","Easy","Easy"]
+        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
+    }
+    if (weekType=="LongRun-Interval-Easy"){
+        runType = ["Long run","Easy","Interval","Easy","Easy"]
+        ratio = [ratioFactor*1.20,ratioFactor*0.85,ratioFactor*0.95,ratioFactor,ratioFactor]
+    }
+    
+    return [runType,ratio]
+}
+
+
+
+
+
 function durationCalculate(tss,runType){
 
-    var hour_lthr = 165
+    
     var rest = localStorage.getItem("rest_hr")
     var maxh = localStorage.getItem("max_hr")
+    var lactate = localStorage.getItem("lactate_th")
+    var male = localStorage.getItem("male")
+    var k = 1.92
+    if (male=="false"){
+        k = 1.67
+    }
+    
+    var hthr = (lactate-rest)/(maxh-rest)
+    var hour_lthr = 60 * hthr *0.64* Math.exp(k*hthr)
 
+    console.log(hthr,hour_lthr,k)
 
 
     if (runType == "Tempo"){
-        var hr = 176
+        var hr = maxh*0.89
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))  
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))  
     }
     if (runType == "Aerobic"){
-        var hr = 169
+        var hr = maxh*0.85
     
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))    
     }
     if (runType == "Long run"){
-        var hr = 164
+        var hr = maxh*0.83
 
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))     
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))     
     }
     if (runType == "Base"){
-        var hr = 157
+        var hr = maxh*0.78
        
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))     
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))     
     } 
     if (runType == "Interval"){
-        var hr = 197
+        var hr = maxh
       
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))    
     } 
     if (runType == "Easy"){
-        var hr = 164
+        var hr = maxh*0.83
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(1.92*hrr))    
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))    
     } 
     return (duration.toFixed(0))
     
@@ -374,26 +411,61 @@ function calculateActivitySpeed(runType){
         var speed = IntervalSpeedCalculate()
         
     }
-    speed = convertMetrics(speed)
-    return (speed)
+    speedConvert = convertMetrics(speed)
+    return ({"speedOriginal":speed.toFixed(2),"speed":speedConvert})
+}
+
+
+function distanceEstimation (duration,speed){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+    var est_distance = ((duration * speed*0.98)*1000/60).toFixed(0) 
+    if (measurementSystem == "Imperial mile/hr"){
+        est_distance = (est_distance/1000)*0.621371192
+        return(est_distance.toFixed(2))
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        est_distance = (est_distance/1000)*0.621371192
+        return(est_distance.toFixed(2))
+    }
+    else{
+        return(est_distance)
+    }
 }
 
 function totalMonthDistance(){
     distanceList = document.querySelectorAll(".distanceForSum")
-    var totalMonthDist = 0
-    for (i=0;i<distanceList.length;i++){
-        distance = distanceList[i].innerHTML
-        distance = distance.replace("m", '')
-        totalMonthDist = totalMonthDist + parseInt(distance)
+    const measurementSystem = localStorage.getItem("measurementSystem")
 
+    if (measurementSystem == "Imperial mile/hr"){
+        var totalMonthDist = 0
+        for (i=0;i<distanceList.length;i++){
+            distance = distanceList[i].innerHTML
+            distance = distance.replace("m", '')
+            totalMonthDist = totalMonthDist + parseFloat(distance)
+        }
+        return(totalMonthDist.toFixed(2)+" Miles")
     }
-    return((totalMonthDist/1000).toFixed(2)+"Km")
+    if (measurementSystem == "Imperial min/mile"){
+        var totalMonthDist = 0
+        for (i=0;i<distanceList.length;i++){
+            distance = distanceList[i].innerHTML
+            distance = distance.replace("m", '')
+            totalMonthDist = totalMonthDist + parseFloat(distance)
+        }
+        return(totalMonthDist.toFixed(2)+" Miles")
+    }
+    else{
+        var totalMonthDist = 0
+        for (i=0;i<distanceList.length;i++){
+            distance = distanceList[i].innerHTML
+            distance = distance.replace("m", '')
+            totalMonthDist = totalMonthDist + parseInt(distance)
+
+        }
+        return((totalMonthDist/1000).toFixed(2)+" Km")
+    }
+    
 }
-
-
-
-
-
 
 function calculateStressScoreTarget(week,tss_target,targetForm){
     stressScoreTarget = targetForm*0.96*week+tss_target
@@ -420,6 +492,25 @@ function IntervalSpeedCalculate(){
     var speed=(runningIndex * 0.2979) - 0.8774
     return (speed)
 }
+
+function planChooser(){
+    var planType = document.querySelector("#planChooser").value
+    document.querySelector("#customCard").style = "display:none;"
+    if (planType == "Custom"){
+        document.querySelector("#customCard").style = ""
+        document.querySelector("#week1Chooser").disabled = false
+        document.querySelector("#week2Chooser").disabled = false
+        document.querySelector("#week3Chooser").disabled = false
+        document.querySelector("#week4Chooser").disabled = false
+    }
+} 
+
+////////////////////// SECONDARY FUNCTIONS //////////////////////////////////////////////////
+
+
+
+
+////////////////////// HELPER FUNCTIONS //////////////////////////////////////////////////
 
 
 function convertMetrics(speed){
@@ -449,7 +540,7 @@ function convertMetrics(speed){
 }
 function metric(){
     const measurementSystem = localStorage.getItem("measurementSystem")
-    if (measurementSystem == "Imperial miles/hr"){
+    if (measurementSystem == "Imperial mile/hr"){
         return ("mile/hr")
     }
     if (measurementSystem == "Imperial min/mile"){
@@ -463,6 +554,8 @@ function metric(){
     }
 }
 
+
+
 function timeConvert(time) {
     var min = Math.floor(time)
     var sec = time % 60-Math.floor(time)
@@ -473,17 +566,7 @@ function timeConvert(time) {
     }
     return (min+':'+sec);
 }
-function planChooser(){
-    var planType = document.querySelector("#planChooser").value
-    document.querySelector("#customCard").style = "display:none;"
-    if (planType == "Custom"){
-        document.querySelector("#customCard").style = ""
-        document.querySelector("#week1Chooser").disabled = false
-        document.querySelector("#week2Chooser").disabled = false
-        document.querySelector("#week3Chooser").disabled = false
-        document.querySelector("#week4Chooser").disabled = false
-    }
-} 
+
 
     
 document.addEventListener("DOMContentLoaded",getDatabaseData)
