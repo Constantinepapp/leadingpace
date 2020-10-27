@@ -3,10 +3,13 @@ function signUp(){
     const username=document.getElementById('usernameRegister').value
     const password=document.getElementById('passwordRegister').value
     const confirmPass=document.getElementById('confirmPasswordRegister').value
+    const male=document.getElementById('sexRegister').value
+    const age=document.getElementById('ageRegister').value
+    
 
-    passwordCheck = passwordCheck(password,confirmPass)
+    passwordChecked = passwordCheck(password,confirmPass)
 
-    if (passwordCheck==true){
+    if (passwordChecked==true){
         const myHeaders= new Headers();
         myHeaders.append('Content-Type',"application/json")
         
@@ -14,7 +17,7 @@ function signUp(){
     
         
     
-        var formData={"email":email,"password":password,"username":username}
+        var formData={"email":email,"password":password,"username":username,"age":age,"male":male}
     
         fetch(link,{
             method:'POST',

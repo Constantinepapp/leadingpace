@@ -114,13 +114,13 @@ class UI {
                     }
                 },
                 pan: {
-                    enabled: true,
+                    enabled: false,
                     mode: "xy",
                     speed: 10,
                     threshold: 10
-                  },
+                },
                 zoom: {
-                    enabled: true,
+                    enabled: false,
                     drag: false,
                     mode: "xy",
                     limits: {
@@ -144,9 +144,8 @@ class UI {
                         gridLines: {
                             offsetGridLines: false
                           },
-                        categoryPercentage: 0.9,
-                        barPercentage: 0.4,
-                        type: 'category',
+                        
+                        type: 'category'
                         //time: 
                         //{
                         //unit: timeUnit,

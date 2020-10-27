@@ -24,6 +24,18 @@ svg {
   right: 0;
   margin: auto;
 }
+.logo-dot-text{
+  height: 150px;
+  width: 400px;
+  display: inline-block;
+  position: fixed;
+  color: aliceblue;
+  top: 300px;
+  bottom: 0;
+  left: 200px;
+  right: 0;
+  margin: auto;
+}
 
 .beat-loader {
   stroke: #eca41c;
@@ -34,6 +46,7 @@ svg {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
+
 
 @-webkit-keyframes draw {
   to {
