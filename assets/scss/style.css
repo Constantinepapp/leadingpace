@@ -226,7 +226,7 @@ ul li a{
     
 }
 .analytics{
-    background-image: url(../img/analytics.jpg);
+    background-image: url(../img/runner.jpg);
     background-size: cover;
     
 }
@@ -259,11 +259,11 @@ ul li a{
     align-items: center;
     text-align: center;
     font-size: 2rem;
-    background-image: linear-gradient(#131111,#111111)
+    background-image: linear-gradient(#333131,#0c0c0c)
 }
 
 .dev-log{
-    background-image: url(../img/analytics.jpg);
+    background-image: url(../img/runner.jpg);
     background-size: cover;
     
 }
