@@ -49,12 +49,21 @@ class UI {
         var VO2max=response.VO2max
         document.querySelector("#VO2max").innerHTML = VO2max
         // show trend
-        var median_two = response.median[response.median.length-2]
-        var median_three = response.median[response.median.length-3]
-        var y =  [median_three,median_two,median]
-        var x = [1,2,3]
-        var slope = linearRegression(y,x).toFixed(2)
-        document.querySelector("#trend").innerHTML = slope
+        var list = []
+        for (var i = 1;i<15;i++){
+          list.unshift(response.median[response.median.length-i])
+        }
+        
+      
+        var x = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+        var slope = linearRegression(list,x).toFixed(2)
+        if (slope == "NaN"){
+          document.querySelector("#trend").innerHTML = "--"
+        }
+        else{
+          document.querySelector("#trend").innerHTML = slope
+        }
+        
         //render chart
 
         
