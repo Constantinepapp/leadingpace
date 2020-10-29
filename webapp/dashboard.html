@@ -237,6 +237,17 @@
             </div>
           </div>
         </div>
+        <div class="row mt-5">
+          <div class="col-md-4">
+
+          </div>
+          <div class="col-md-4">
+              <h5 class="btn btn-lg text-info" data-toggle="modal" data-target="#inaccurateValues" style="background-color: rgb(15, 15, 15);">Innaccurate running program/Abnormal Values ?</h5>
+          </div>
+          <div class="col-md-4">
+              
+          </div>
+        </div>
        
         <div class="alert alert-info collapse" role="alert">
           <p class="alertText text-dark" style="font-weight: 800;">This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.</p>
@@ -419,7 +430,34 @@
     </div>
   </div>
 </div>
-      
+<div class="modal" tabindex="-1" role="dialog" id="inaccurateValues">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-info">
+        <h5 class="modal-title">Innaccurate Values and running program</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark text-white">
+        <p>If you have inaccurate Vo2max Values,Running index or running program check this area first before reporting the problem</p>
+        <h5 class="text-warning">Correct your Max and Rest heart rate.</h5>
+        <p>Max and Rest heart rate is the base of leading pace's algorithm. If your Max and Rest values are inaccurate all values would be extremely off.Change them in the User Profile tab</p>
+        <h5 class="text-warning">Delete and re import activities after changing max and rest heart rate</h5>
+        <p>Changing your max heart rate won't change your past activities data, it will affect only future activities, so after changing your heart rate delete and reimport your data</p>
+        <h5 class="text-warning">Train in lower/higher form target</h5>
+        <p>If a running program is too fast/hard consider lowering form target for the first months.</p>
+        <h5 class="text-warning">If nothing worked</h5>
+        <p>Contact me through the contact page. As the app is still in developement, the algorithm may have bugs or need calibrations and changes. Feel free to contact me</p>
+       
+        
+      </div>
+      <div class="modal-footer bg-dark">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>       
   <div class="loader-wrapper">
     <span class="logo-dot"></span>
     <svg width="108px" height="128px" viewBox="0 0 54 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
