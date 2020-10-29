@@ -252,10 +252,10 @@
                             <form class="md-form">
                                 <div class="file-field big">
                                   <h4 class="text-warning"><span  class="text-info"><a href="../webapp/user.html" class="btn btn-warning"> Warning : Change your Max-Rest Heart rate before importing Activities</a></span></h4>
-                                  <div class="btn buttonAnimated" style="border-radius: 30px; background-color: rgb(243, 97, 29);" id="stravaAuth"><img src="https://img.icons8.com/windows/32/000000/strava.png"/> Link Strava</div>
+                                  <div class="btn buttonAnimated" style="border-radius: 30px; background-color: rgb(243, 97, 29);" data-toggle="modal" data-target="#stravaSyncModal" ><img src="https://img.icons8.com/windows/32/000000/strava.png"/> Link Strava</div>
                                   <h5>Current Status: <span id="conectivityStatus">Not connected</span></h5>
                                   <div class="input-group form-group" id="sync">
-                                    <div class="btn buttonAnimated" style="border-radius: 30px;" id="syncActivities">Sync Activities:Link to strava first</div>
+                                    <div class="btn buttonAnimated"  style="border-radius: 30px;" id="syncActivities">Sync Activities:Link to strava first</div>
                                     
                                 </div>
                                 <h5 id="syncMessage" style="color: green;"></h5>
@@ -276,6 +276,28 @@
           </div>
         </div>
     </div>
+    <div class="modal" tabindex="-1" role="dialog" id="stravaSyncModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-info">
+            <h5 class="modal-title">Strava Auth</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-dark text-white">
+            <h2 class="text-warning">Important!</h2>
+            <h5>Set your correct Maximum and Rest heart rate BEFORE syncing your activities.</h5>
+            <div class="btn btn-info text-white"><a href="./user.html">Set Max/Rest heart rate</a></div>
+            
+          </div>
+          <div class="modal-footer bg-dark">
+            <div class="btn buttonAnimated" style="border-radius: 30px; background-color: rgb(243, 97, 29); margin-right: 20px;" id="stravaAuth" ><img src="https://img.icons8.com/windows/32/000000/strava.png" style="font-weight: 700;font-size: medium;color: black;"> Pair with Strava</div>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> 
         
   </div>
    <!--Modal import export-->
