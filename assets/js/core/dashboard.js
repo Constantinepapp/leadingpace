@@ -43,6 +43,8 @@ class UI {
         //show running index
         var median = response.median
         median = median[median.length-1]
+              
+           
         document.querySelector("#median").innerHTML = median
         checkRunningIndex(median)
         localStorage.setItem("runningIndex",median)
