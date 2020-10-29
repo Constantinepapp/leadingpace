@@ -56,6 +56,8 @@ class UI {
     static showChart(response){
         
         var weeklymilage = response.weeklymilage
+        console.log(weeklymilage)
+        weeklymilage = metricsValues(weeklymilage)
         var date = response.date
         
         console.log(date)
@@ -87,7 +89,7 @@ class UI {
                 labels:date,
                 datasets:[
                     {
-                        label:timeScaleString+"(km)",
+                        label:timeScaleString+`(${metric()})`,
                         fill:true,
                         borderColor:"rgb(0, 0, 255,1)",
                         backgroundColor: "rgba(255, 255, 255,1)",
@@ -236,6 +238,8 @@ function displayCards(weeklymilage){
         }
         var average = last/12
 
+
+
         document.querySelector("#current").innerHTML = "This Month"
         document.querySelector("#last").innerHTML = "Last 12 Months"
         document.querySelector("#average").innerHTML = "Average per Month"
@@ -249,9 +253,10 @@ function displayCards(weeklymilage){
         document.querySelector("#last").innerHTML = "All time"
         document.querySelector("#average").innerHTML = "Average per year"
     }
-    document.querySelector("#currentWeek").innerHTML = current.toFixed(2)
-    document.querySelector("#currentMonth").innerHTML = last.toFixed(2)
-    document.querySelector("#averageMonth").innerHTML = average.toFixed(2)
+
+    document.querySelector("#currentWeek").innerHTML = metricsSingleValue(current)+`  ${metric()}`
+    document.querySelector("#currentMonth").innerHTML = metricsSingleValue(last)+`  ${metric()}`
+    document.querySelector("#averageMonth").innerHTML = metricsSingleValue(average)+`  ${metric()}`
 }
 function reloadGraph(){
     timeFrame = document.querySelector("#timeFrameSelection").value
@@ -304,6 +309,49 @@ function barColor(value){
         barColor = "red"
     }
     return(barColor)
+}
+
+function metricsValues(weeklymilage){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+    if (measurementSystem == "Imperial mile/hr"){
+        weeklymilage = weeklymilage.map(distance =>(distance*0.62).toFixed(2))
+        return (weeklymilage)
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        weeklymilage = weeklymilage.map(distance =>(distance*0.62).toFixed(2))
+        return (weeklymilage.toFixed(2))
+    }
+    else{
+        return (weeklymilage)
+    }
+
+}
+function metricsSingleValue(distance){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+    if (measurementSystem == "Imperial mile/hr"){
+        distance = (distance*0.62).toFixed(2)
+        return (distance)
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        distance = (distance*0.62).toFixed(2)
+        return (distance)
+    }
+    else{
+        return (distance)
+    }
+
+}
+function metric(){
+    const measurementSystem = localStorage.getItem("measurementSystem")
+    if (measurementSystem == "Imperial mile/hr"){
+        return ("miles")
+    }
+    if (measurementSystem == "Imperial min/mile"){
+        return ("mins")
+    }
+    else{
+        return("km")
+    }
 }
 document.querySelector("#logout").addEventListener("click",logout)
 

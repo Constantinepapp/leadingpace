@@ -44,6 +44,7 @@ class UI {
         var median = response.median
         median = median[median.length-1]
         document.querySelector("#median").innerHTML = median
+        checkRunningIndex(median)
         localStorage.setItem("runningIndex",median)
         // show Vo2max
         var VO2max=response.VO2max
@@ -187,7 +188,21 @@ function customAlert(message){
 }
 
 
+function checkRunningIndex(runningIndex){
+  if (runningIndex<30){
+    document.querySelector("#median").style = "color:red;"
+  }
+  else if (runningIndex<40){
+    document.querySelector("#median").style = "color:yellow;"
+  }
+  else if (runningIndex<50){
+    document.querySelector("#median").style = "color:blue;"
+  }
+  else{
+    document.querySelector("#median").style = "color:green;"
+  }
 
+}
 
 function linearRegression(y,x){
   var slope = 0;
