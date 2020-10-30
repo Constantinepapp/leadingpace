@@ -263,13 +263,35 @@ ul li a{
 }
 
 .dev-log{
-    background-image: url(../img/runner.jpg);
+    background-image: url(../img/analytics.jpg);
     background-size: cover;
     
 }
 
 
 
+#fourth-section{
+    min-height: 100vh;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    font-size: 2rem;
+    background-image: linear-gradient(#333131,#616161)
+}
+
+#left{
+    display:inline-block;
+    width:50%;   
+    margin-left:50px;
+    vertical-align:middle;    
+    color:white;  
+}
+#forthImage{  
+    vertical-align:middle;
+    display:inline-block;   
+    margin-top:10%;
+    width:35%;
+} 
 
 
 @media only screen and (min-width:760px){

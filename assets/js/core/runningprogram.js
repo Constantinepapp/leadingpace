@@ -338,32 +338,34 @@ function durationCalculate(tss,runType){
     
     var hthr = (lactate-rest)/(maxh-rest)
     var hour_lthr = 60 * hthr *0.64* Math.exp(k*hthr)
+    var reserve = maxh - rest
 
     console.log(hthr,hour_lthr,k)
 
 
     if (runType == "Tempo"){
-        var hr = maxh*0.89
+        var hr = parseInt(rest) + reserve * 0.85
+        console.log(hr,"hereeee")
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(k*hrr))  
     }
     if (runType == "Aerobic"){
-        var hr = maxh*0.85
+        var hr = parseInt(rest) + reserve * 0.80
     
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(k*hrr))    
     }
     if (runType == "Long run"){
-        var hr = maxh*0.83
+        var hr = parseInt(rest) + reserve * 0.72
 
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(k*hrr))     
     }
     if (runType == "Base"){
-        var hr = maxh*0.78
+        var hr = parseInt(rest) + reserve * 0.70
        
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100

@@ -270,119 +270,121 @@
 
                 </div>
                 <div class="col-md-6" align="center">
-                  <div class="form-group">
-                    <label for="planChooser"class="text-warning">Plan Chooser</label>
-                    <select class="form-control text-info bg-dark" id="planChooser" onchange="planChooser();">
-                      <option value="Custom" data-weeklist="Base,Base,Base,Base">Custom</option>
-                      <optgroup label="Basic plan">
-                        <option data-weeklist="Base,Base,Base,Base" value="Basic plan Base period">Base period (Base,Base,Base,Base)</option>
-                        <option selected="selected" data-weeklist="Aerobic,Aerobic,Aerobic,LongRun-Aerobic" value="Basic plan Month 1">Month 1 (Aerobic,Aerobic,Aerobic,LongRun-Aerobic)</option>
-                        <option data-weeklist="LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy" value="Basic plan Month 2">Month 2 (LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy)</option>
-                        <option data-weeklist="LongRun-Tempo-Easy,LongRun-Interval-Easy,LongRun-Tempo-Easy,LongRun-Interval-Easy" value="Basic plan Month 3">Month 3 (LongRun-Tempo-Easy,LongRun-Interval-Easy,LongRun-Tempo-Easy,LongRun-Interval-Easy)</option>
-                      </optgroup>
-                    </select>
-                    <div class="col-md-6 ml-6" align="center" style="margin-top: 10px;">
-                      <label for="daysPerWeekChooser"class="text-warning">How many days per week?</label>
-                      <select class="form-control text-info bg-dark" id="daysPerWeekChooser">
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </div>
-                  </div>
+                  <div class="btn btn-lg btn-warning text-dark" data-toggle="modal" data-target="#selectRunningProgramModal" style="font-weight: 800;">Create Running Program</div>
                  </div>
                 <div class="col-md-3" align="center">
                     <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#runningprogramHelp" style="width: 50px;height:30px"></i>
                 </div>
               </div>
-              <div class="row" align="center">
-                <div class="col-md-3" align="center">
+              <div class="modal" tabindex="-1" role="dialog" id="selectRunningProgramModal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-dark text-info">
+                      <h5 class="modal-title" style="font-weight: 900;">Choose running program</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body bg-dark text-white">
+                      <div class="form-group">
+                        <label for="planChooser"class="text-warning">Plan Chooser</label>
+                        <select class="form-control text-info bg-dark" id="planChooser" onchange="planChooser();">
+                          <option value="Custom" data-weeklist="Base,Base,Base,Base">Custom</option>
+                          <optgroup label="Basic plan">
+                            <option data-weeklist="Base,Base,Base,Base" value="Basic plan Base period">Base period (Base,Base,Base,Base)</option>
+                            <option selected="selected" data-weeklist="Aerobic,Aerobic,Aerobic,LongRun-Aerobic" value="Basic plan Month 1">Month 1 (Aerobic,Aerobic,Aerobic,LongRun-Aerobic)</option>
+                            <option data-weeklist="LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy" value="Basic plan Month 2">Month 2 (LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy)</option>
+                            <option data-weeklist="LongRun-Tempo-Easy,LongRun-Interval-Easy,LongRun-Tempo-Easy,LongRun-Interval-Easy" value="Basic plan Month 3">Month 3 (LongRun-Tempo-Easy,LongRun-Interval-Easy,LongRun-Tempo-Easy,LongRun-Interval-Easy)</option>
+                          </optgroup>
+                          <optgroup label="beyond c25k + distance">
+                            <option data-weeklist="Base,Base,Base,Base" value="beyond c25k + distance Base period">Base period (Base,Base,Base,Base)</option>
+                            <option selected="selected" data-weeklist="Aerobic,LongRun-Aerobic,LongRun-Aerobic,LongRun-Tempo-Easy" value="beyond c25k + distance Month 1">Month 1 (Aerobic,Aerobic,Aerobic,LongRun-Aerobic)</option>
+                            <option data-weeklist="LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Aerobic,LongRun-Tempo-Easy" value="beyond c25k + distance Month 2">Month 2 (LongRun-Aerobic,LongRun-Tempo-Easy,LongRun-Tempo-Easy,LongRun-Tempo-Easy)</option>
+                            <option data-weeklist="LongRun-Aerobic,LongRun-Interval-Easy,LongRun-Aerobic,LongRun-Tempo-Easy" value="beyond c25k + distance Month 3">Month 3 (LongRun-Aerobic,LongRun-Interval-Easy,LongRun-Aerobic,LongRun-Tempo-Easy)</option>
+                          </optgroup>
+                        </select>
+                          <label for="daysPerWeekChooser"class="text-warning">How many days per week?</label>
+                          <select class="form-control text-info bg-dark" id="daysPerWeekChooser">
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
+                          <div class="card" style="background-color: #292e33; margin-top: 20px;">
+                            <div class="d-flex justify-content-center my-9">
+                              <form class="range-field w-75">
+                                <p class="text-info">Form target: <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan" id="targetForm"></span><i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#formTargetHelp" style="width: 50px;height:30px"></i></p>
+                                <input id="slider11" class="border-0" type="range" min="5" max="15" style="width: 300px;"/>
+                              </form>
+                            </div>
+                          </div>
+                          
+                      </div>
+                      <div class="card bg-dark" align="center" id="customCard" style="display: none;" >
+                        <div class="container" style="padding: 10px;">    
+                          <div class="col-md-6">
+                            <h4 class="text-warning">Custom Planner</h4>
+                            <div class="form-group">
+                              <label for="week1Chooser"class="text-warning">Week 1</label>
+                              <select class="form-control text-info bg-dark" id="week1Chooser" disabled="true">
+                                <option>Base</option>
+                                <option>Aerobic</option>
+                                <option>LongRun-Aerobic</option>
+                                <option>Aerobic-Tempo</option>
+                                <option>Easy-LongRun-Tempo</option>
+                                <option>LongRun-Interval-Easy</option>                      
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="week2Chooser"class="text-warning">Week 2</label>
+                              <select class="form-control text-info bg-dark" id="week2Chooser" disabled>
+                                <option>Base</option>
+                                <option>Aerobic</option>
+                                <option>LongRun-Aerobic</option>
+                                <option>Aerobic-Tempo</option>
+                                <option>Easy-LongRun-Tempo</option>
+                                <option>LongRun-Interval-Easy</option>    
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="week3Chooser"class="text-warning">Week 3</label>
+                              <select class="form-control text-info bg-dark" id="week3Chooser" disabled>
+                                <option>Base</option>
+                                <option>Aerobic</option>
+                                <option>LongRun-Aerobic</option>
+                                <option>Aerobic-Tempo</option>
+                                <option>Easy-LongRun-Tempo</option>
+                                <option>LongRun-Interval-Easy</option>    
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="week4Chooser"class="text-warning">Week 4</label>
+                              <select class="form-control text-info bg-dark" id="week4Chooser" disabled>
+                                <option>Base</option>
+                                <option>Aerobic</option>
+                                <option>LongRun-Aerobic</option>
+                                <option>Aerobic-Tempo</option>
+                                <option>Easy-LongRun-Tempo</option>
+                                <option>LongRun-Interval-Easy</option>    
+                              </select>
+                            </div>
+                          </div>
+                        </div>  
+                      </div>
+                      
+                    </div>
+                    <div class="modal-footer bg-dark">
+                      <div class="btn btn-warning text-dark" style="border-radius: 40px; margin-right: 30px;" id="generateProgram">Generate</div>
+                      <button type="button" class="btn btn-info" style="border-radius: 30px;" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-6 ml-6" align="center">
-                  <div class="d-flex justify-content-center my-9">
-                    <form class="range-field w-75">
-                      <p class="text-info">Form target: <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan" id="targetForm"></span><i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#formTargetHelp" style="width: 50px;height:30px"></i></p>
-                      <input id="slider11" class="border-0" type="range" min="5" max="15" style="width: 300px;"/>
-                    </form>
-                  </div>
-                </div>
-                <div class="col-md-3" align="center">
-                  
-                </div>
-                
-              </div>
-              <div class="card bg-dark" align="center"id="customCard" style="display: none;" >
-                <div class="container" style="padding: 40px;">    
-                  <div class="col-md-6">
-                    <h3 class="text-warning">Custom Planner</h3>
-                    <div class="form-group">
-                      <label for="week1Chooser"class="text-warning">Week 1</label>
-                      <select class="form-control text-info bg-dark" id="week1Chooser" disabled="true">
-                        <option>Base</option>
-                        <option>Aerobic</option>
-                        <option>LongRun-Aerobic</option>
-                        <option>Aerobic-Tempo</option>
-                        <option>Easy-LongRun-Tempo</option>
-                        <option>LongRun-Interval-Easy</option>                      
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="week2Chooser"class="text-warning">Week 2</label>
-                      <select class="form-control text-info bg-dark" id="week2Chooser" disabled>
-                        <option>Base</option>
-                        <option>Aerobic</option>
-                        <option>LongRun-Aerobic</option>
-                        <option>Aerobic-Tempo</option>
-                        <option>Easy-LongRun-Tempo</option>
-                        <option>LongRun-Interval-Easy</option>    
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="week3Chooser"class="text-warning">Week 3</label>
-                      <select class="form-control text-info bg-dark" id="week3Chooser" disabled>
-                        <option>Base</option>
-                        <option>Aerobic</option>
-                        <option>LongRun-Aerobic</option>
-                        <option>Aerobic-Tempo</option>
-                        <option>Easy-LongRun-Tempo</option>
-                        <option>LongRun-Interval-Easy</option>    
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="week4Chooser"class="text-warning">Week 4</label>
-                      <select class="form-control text-info bg-dark" id="week4Chooser" disabled>
-                        <option>Base</option>
-                        <option>Aerobic</option>
-                        <option>LongRun-Aerobic</option>
-                        <option>Aerobic-Tempo</option>
-                        <option>Easy-LongRun-Tempo</option>
-                        <option>LongRun-Interval-Easy</option>    
-                      </select>
-                    </div>
-                  </div>
-                </div>  
-              </div>
-              <div class="row" style="margin-top: 40px;">
-                  <div class="col-md-3">
-
-                  </div>
-                  <div class="col-md-6 ml-6" align="center">
-                      <div class="btn btn-info btn-lg text-dark" style="border-radius: 40px;" id="generateProgram">Generate running program</div>
-                  </div>
-                  <div class="col-md-3" align="center">
-          
-                  </div>
-              </div>
-              <div class="row mt-5">
-                <div class="col-md-4">
-
-              </div>
+              </div> 
               <div class="modal" tabindex="-1" role="dialog" id="runningprogramHelp">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">

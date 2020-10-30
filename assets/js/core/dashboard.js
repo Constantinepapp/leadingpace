@@ -195,7 +195,7 @@ function checkRunningIndex(runningIndex){
     document.querySelector("#median").style = "color:red;"
   }
   else if (runningIndex<40){
-    document.querySelector("#median").style = "color:yellow;"
+    document.querySelector("#median").style = "color:#FDBC48;"
   }
   else if (runningIndex<50){
     document.querySelector("#median").style = "color:blue;"

@@ -256,7 +256,7 @@ function displayCards(weeklymilage){
 
     document.querySelector("#currentWeek").innerHTML = metricsSingleValue(current)+`  ${metric()}`
     document.querySelector("#currentMonth").innerHTML = metricsSingleValue(last)+`  ${metric()}`
-    document.querySelector("#averageMonth").innerHTML = metricsSingleValue(average)+`  ${metric()}`
+    document.querySelector("#averageMonth").innerHTML = metricsSingleValue(average.toFixed(2))+`  ${metric()}`
 }
 function reloadGraph(){
     timeFrame = document.querySelector("#timeFrameSelection").value
@@ -279,13 +279,13 @@ function marathonReadiness(weeklymilage,distance){
         readiness = readiness*1.7
     }
     if (distance==21){
-        readiness = readiness*3
+        readiness = readiness*2.9
     }
     if (distance==10){
-        readiness = readiness*4.2
+        readiness = readiness*3.7
     }
     if (distance==5){
-        readiness = readiness*10
+        readiness = readiness*7
     }
     
     if (readiness>100){
