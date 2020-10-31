@@ -47,10 +47,10 @@ class UI {
         //document.querySelector("#aerSpeed").innerHTML = convertMetrics(response.aerobicSpeed)
         //document.querySelector("#aerobicOneSpeed").innerHTML = convertMetrics(response.aerobicOneSpeed)
 
-        var aerobicSpeed = AerobicSpeedCalculate()
-        var threSpeed = TempoSpeedCalculate()
-        var baseSpeed = BaseSpeedCalculate()
-        var intervalSpeed = IntervalSpeedCalculate()
+        var aerobicSpeed = AerobicSpeedCalculate(60)
+        var threSpeed = TempoSpeedCalculate(60)
+        var baseSpeed = BaseSpeedCalculate(60)
+        var intervalSpeed = IntervalSpeedCalculate(60)
 
         document.querySelector("#aerSpeed").innerHTML = convertMetrics(aerobicSpeed)
         document.querySelector("#threSpeed").innerHTML = convertMetrics(threSpeed)
@@ -100,33 +100,37 @@ function timeConvert(time) {
     return (min+':'+sec);
 }
     
-function AerobicSpeedCalculate(){
+function AerobicSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
-    var factor = 0.857    ///percent of max (hr/max)
-    var x = factor*1.45-0.30
-    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
-
+    var factor = 0.857868    ///percent of max (hr/max)
+    var x = (factor*1.45)-0.30
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
+    
     return (speed)
 }
-function BaseSpeedCalculate(){
+function BaseSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
     var factor = 0.76    ///percent of max (hr/max)
     var x = factor*1.45-0.30
-    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
     return (speed)
 }
-function TempoSpeedCalculate(){
+function TempoSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
     var factor = 0.895   ///percent of max (hr/max)
     var x = factor*1.45-0.30
-    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
     return (speed)
 }
-function IntervalSpeedCalculate(){
+function IntervalSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
     var factor = 1    ///percent of max (hr/max)
     var x = factor*1.45-0.30
-    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
     return (speed)
 }
     

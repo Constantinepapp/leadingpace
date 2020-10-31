@@ -210,6 +210,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800 text-danger"id="intervalSpeed">--</div><div class="metric"></div>
                     </div>
                     <div class="col-auto">
+                      <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#estimatedSpeedHelp" style="width: 50px;height:30px"></i>
                       <img src="../assets/img/exercise.svg" style="width: 50px;height:50px">
                     </div>
                   </div>
@@ -249,6 +250,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800" id="threSpeed">--</div><div class="metric"></div>
                       </div>
                       <div class="col-auto">
+                        <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#estimatedSpeedHelp" style="width: 50px;height:30px"></i>
                         <img src="../assets/img/exercise.svg" style="width: 50px;height:50px">
                       </div>
                     </div>
@@ -288,6 +290,7 @@
                         <div class="h5 mb-0 font-weight-bold text-success" id="aerSpeed">--</div><div class="metric"></div>
                       </div>
                       <div class="col-auto">
+                        <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#estimatedSpeedHelp" style="width: 50px;height:30px"></i>
                         <img src="../assets/img/exercise.svg" style="width: 50px;height:50px">
                       </div>
                     </div>
@@ -309,6 +312,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800" id="aer1">--</div>
                       </div>
                       <div class="col-auto">
+                        
                         <img src="../assets/img/heart.svg" style="width: 50px;height:50px">
                       </div>
                     </div>
@@ -326,6 +330,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800 text-info" id="aerobicOneSpeed">--</div><div class="metric"></div>
                       </div>
                       <div class="col-auto">
+                        <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#estimatedSpeedHelp" style="width: 50px;height:30px"></i>
                         <img src="../assets/img/exercise.svg" style="width: 50px;height:50px">
                       </div>
                     </div>
@@ -342,7 +347,30 @@
                 <path class="beat-loader" d="M0.5,38.5 L16,38.5 L19,25.5 L24.5,57.5 L31.5,7.5 L37.5,46.5 L43,38.5 L53.5,38.5" id="Path-2" stroke-width="2" sketch:type="MSShapeGroup"></path>
               </g>
             </svg>
-          </div>   
+          </div> 
+          
+          <div class="modal" tabindex="-1" role="dialog" id="estimatedSpeedHelp">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-dark text-info">
+                  <h5 class="modal-title">How Running Program works</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                  <p class="text-warning">All paces in the app are calculated as Maximum speed to stay in the training zone</p>
+                  <p>Leading pace uses your last activities to estimate your target pace to train in each training zone</p>
+                  <p>This speeds are calculated for an <span class="text-warning">1 hour training session</span>. Training speeds for sub or over 1 hour training sessions are slightly different</p>
+                  <p>This happens due to the cardiac drift</p>
+                  <p>In running program tab your activity duration is estimated too so the paces there are slightly different and more accurate</p>
+                </div>
+                <div class="modal-footer bg-dark">
+                  <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>    
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/animation.js"></script>
