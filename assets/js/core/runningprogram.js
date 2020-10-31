@@ -176,7 +176,7 @@ function createTargetProgram(weekType,tss_target,week,program_runs_per_week,week
     for(var i=1;i<=program_runs_per_week;i++){
         var duration = durationCalculate(tss_activity[i-1]*tss_target,runType[i-1])
 
-        var {speedOriginal,speed} = calculateActivitySpeed(runType[i-1])
+        var {speedOriginal,speed} = calculateActivitySpeed(duration,runType[i-1])
  
         var est_distance = distanceEstimation (duration,speedOriginal)
         
@@ -343,29 +343,30 @@ function durationCalculate(tss,runType){
     console.log(hthr,hour_lthr,k)
 
 
-    if (runType == "Tempo"){
-        var hr = parseInt(rest) + reserve * 0.85
-        console.log(hr,"hereeee")
-        var hrr = (hr-rest)/(maxh-rest)
-        var trimp = hour_lthr * tss/100
-        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))  
-    }
+    
     if (runType == "Aerobic"){
-        var hr = parseInt(rest) + reserve * 0.80
+        var hr = 0.857868*maxh///parseInt(rest) + reserve * 0.80
     
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(k*hrr))    
     }
+    if (runType == "Tempo"){
+        var hr = 0.8934*maxh////parseInt(rest) + reserve * 0.85
+        
+        var hrr = (hr-rest)/(maxh-rest)
+        var trimp = hour_lthr * tss/100
+        var duration = trimp/(hrr*0.64*Math.exp(k*hrr))  
+    }
     if (runType == "Long run"){
-        var hr = parseInt(rest) + reserve * 0.72
+        var hr = 0.8071*maxh
 
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(k*hrr))     
     }
     if (runType == "Base"){
-        var hr = parseInt(rest) + reserve * 0.70
+        var hr = 0.7614*maxh//parseInt(rest) + reserve * 0.70
        
         var hrr = (hr-rest)/(maxh-rest)
         var trimp = hour_lthr * tss/100
@@ -384,33 +385,33 @@ function durationCalculate(tss,runType){
         var trimp = hour_lthr * tss/100
         var duration = trimp/(hrr*0.64*Math.exp(k*hrr))    
     } 
-    return (duration.toFixed(0))
+    return (duration.toFixed(2))
     
 }
 
 
-function calculateActivitySpeed(runType){
-    var speed = AerobicSpeedCalculate()
+function calculateActivitySpeed(duration,runType){
+    var speed = AerobicSpeedCalculate(duration)
     if (runType == "Tempo"){
-        var speed = TempoSpeedCalculate()
+        var speed = TempoSpeedCalculate(duration)
         
     }
     if (runType == "Long run"){
-        var aerobicSpeed = AerobicSpeedCalculate()
-        var baseSpeed = BaseSpeedCalculate()
+        var aerobicSpeed = AerobicSpeedCalculate(duration)
+        var baseSpeed = BaseSpeedCalculate(duration)
         var speed = (parseFloat(aerobicSpeed)+parseFloat(baseSpeed))/2
         
     }
     if (runType == "Base"){
-        var speed = BaseSpeedCalculate()
+        var speed = BaseSpeedCalculate(duration)
         
     }
     if (runType == "Easy"){
-        var speed = AerobicSpeedCalculate()*0.95
+        var speed = AerobicSpeedCalculate(duration)*0.95
         
     }
     if (runType == "Interval"){
-        var speed = IntervalSpeedCalculate()
+        var speed = IntervalSpeedCalculate(duration)
         
     }
     speedConvert = convertMetrics(speed)
@@ -420,7 +421,7 @@ function calculateActivitySpeed(runType){
 
 function distanceEstimation (duration,speed){
     const measurementSystem = localStorage.getItem("measurementSystem")
-    var est_distance = ((duration * speed*0.98)*1000/60).toFixed(0) 
+    var est_distance = ((duration * speed)*1000/60).toFixed(0) 
     if (measurementSystem == "Imperial mile/hr"){
         est_distance = (est_distance/1000)*0.621371192
         return(est_distance.toFixed(2))
@@ -474,24 +475,37 @@ function calculateStressScoreTarget(week,tss_target,targetForm){
     stressScoreTarget = stressScoreTarget
     return(stressScoreTarget)
 }
-function AerobicSpeedCalculate(){
+function AerobicSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
-    var speed=(runningIndex-5.668)/3.82
+    var factor = 0.857868    ///percent of max (hr/max)
+    var x = (factor*1.45)-0.30
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
+    
     return (speed)
 }
-function BaseSpeedCalculate(){
+function BaseSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
-    var speed=(0.21*runningIndex) - 0.68
+    var factor = 0.76    ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
     return (speed)
 }
-function TempoSpeedCalculate(){
+function TempoSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
-    var speed=(runningIndex-2.84)/3.75
+    var factor = 0.895   ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
     return (speed)
 }
-function IntervalSpeedCalculate(){
+function IntervalSpeedCalculate(duration){
     const runningIndex = localStorage.getItem("runningIndex")
-    var speed=(runningIndex * 0.2979) - 0.8774
+    var factor = 1    ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var distanceKm = Math.pow(((x*runningIndex -3.5)/213.9)*duration,1/1.06)
+    var speed = (60/duration)*distanceKm
     return (speed)
 }
 

@@ -43,11 +43,20 @@ class UI {
         document.querySelector("#aer3").innerHTML = response.aer3
         document.querySelector("#aer2").innerHTML = response.aer2
         document.querySelector("#aer1").innerHTML = response.aer1
-        document.querySelector("#threSpeed").innerHTML = convertMetrics(response.threSpeed)
-        document.querySelector("#aerSpeed").innerHTML = convertMetrics(response.aerobicSpeed)
-        document.querySelector("#intervalSpeed").innerHTML = convertMetrics(response.intervalSpeed)
-        document.querySelector("#aerobicOneSpeed").innerHTML = convertMetrics(response.aerobicOneSpeed)
+        //document.querySelector("#threSpeed").innerHTML = convertMetrics(response.threSpeed)
+        //document.querySelector("#aerSpeed").innerHTML = convertMetrics(response.aerobicSpeed)
+        //document.querySelector("#aerobicOneSpeed").innerHTML = convertMetrics(response.aerobicOneSpeed)
 
+        var aerobicSpeed = AerobicSpeedCalculate()
+        var threSpeed = TempoSpeedCalculate()
+        var baseSpeed = BaseSpeedCalculate()
+        var intervalSpeed = IntervalSpeedCalculate()
+
+        document.querySelector("#aerSpeed").innerHTML = convertMetrics(aerobicSpeed)
+        document.querySelector("#threSpeed").innerHTML = convertMetrics(threSpeed)
+        document.querySelector("#aerobicOneSpeed").innerHTML = convertMetrics(baseSpeed)
+        document.querySelector("#intervalSpeed").innerHTML = convertMetrics(intervalSpeed)
+        
         localStorage.setItem("aerobicSpeed",response.aerobicSpeed)
         localStorage.setItem("tempoSpeed",response.threSpeed)        
 
@@ -91,7 +100,35 @@ function timeConvert(time) {
     return (min+':'+sec);
 }
     
-    
+function AerobicSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var factor = 0.857    ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+
+    return (speed)
+}
+function BaseSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var factor = 0.76    ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+    return (speed)
+}
+function TempoSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var factor = 0.895   ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+    return (speed)
+}
+function IntervalSpeedCalculate(){
+    const runningIndex = localStorage.getItem("runningIndex")
+    var factor = 1    ///percent of max (hr/max)
+    var x = factor*1.45-0.30
+    var speed = Math.pow((x*runningIndex -3.5)/3.56,1/1.06)
+    return (speed)
+}
     
 document.addEventListener("DOMContentLoaded",UI.callDatabase)
 
