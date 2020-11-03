@@ -34,7 +34,8 @@ class UI {
                 var avgHr=response.entries[i].avgHr
                 var runningIndex= response.entries[i].runningIndex
                 var stressScore=response.entries[i].stressScore
-                var entry = {"id":id,"date": date,"duration":duration,"distance":distance,"avgHr":avgHr,"runningIndex":runningIndex,"stressScore":stressScore}
+                var counts = response.entries[i].counts
+                var entry = {"id":id,"date": date,"duration":duration,"distance":distance,"avgHr":avgHr,"runningIndex":runningIndex,"stressScore":stressScore,"counts":counts}
                 UI.showEntry(entry)
 
                 if (response.message){
@@ -53,9 +54,12 @@ class UI {
         var table = document.querySelector("#traininghistory")
         var row = document.createElement("tr")
         row.setAttribute("class","text-white")
-
+        var checked = "checked"
         var averageSpeed = calcAverageSpeed(entry).toFixed(1)
-
+        if (entry.counts == false){
+            checked = ""
+        }
+        
         row.innerHTML=`
         <td>
             ${entry.date}
@@ -78,6 +82,16 @@ class UI {
         <td class="text-warning">
         ${entry.stressScore}
         </td>
+        <td class="text-warning">
+            <div class="custom-control  custom-checkbox">
+                <input type="checkbox" 
+                        class="custom-control-input countsForFitness" 
+                        id=${entry.id} name=${entry.id} ${checked}>
+                <label class="custom-control-label" 
+                        for=${entry.id}>
+                </label>
+            </div>
+        </td>
         <td>
           <div class="btn btn-danger deleteEntry" id=${entry.id}>
             DELETE
@@ -96,8 +110,57 @@ class UI {
             UI.deleteDatabaseEntry(id_target)
         }
     }
+    static countsFitness(target){
+        if (target.classList.contains('countsForFitness')){
+            var checkbox = document.querySelector('.countsForFitness')
+            var isChecked = checkbox.checked
+            var id_target=target.id
+            console.log(id_target,isChecked)
+            UI.countsForFitnessDatabase(id_target,isChecked)
+        }
+    }
+
+    static countsForFitnessDatabase(id_target,isChecked){
+        var token=window.localStorage.getItem('token')
+        
+        
+        const myHeaders=new Headers()
+        
+        myHeaders.append("Content-Type","application/json");
+        myHeaders.append("x-access-token",token);
+        
+        var formData={"id":id_target,"counts":isChecked}
+        
+        var link="https://leadingpace.pythonanywhere.com/countsforfitness"
+        
+        fetch(link,{
+            method:'PUT',
+            headers:myHeaders,
+            body: JSON.stringify(formData)
+        })
+        .then(response =>{
+            if (response.status === 200){
+                console.log("success")
+                return response.json();
+            }else{
+                console.log("error");
+                console.log("Token expired log in again ")
+                window.localStorage.clear();
+                window.location.replace("login.html")
+            }
+        })
+        .then(response =>{
+            console.log(response);
 
 
+            if (response.message){
+                customAlert(response.message)
+            }
+        })
+        
+    }
+
+    
     static deleteDatabaseEntry(id_target){
         var token=window.localStorage.getItem('token')
         
@@ -150,6 +213,10 @@ function calcAverageSpeed(entry){
 
 document.querySelector("#traininghistory").addEventListener("click",(e)=>{
     UI.deleteEntry(e.target);
+})
+
+document.querySelector("#traininghistory").addEventListener("change",(e)=>{
+    UI.countsFitness(e.target);
 })
 
 document.addEventListener("DOMContentLoaded",UI.callDatabase)

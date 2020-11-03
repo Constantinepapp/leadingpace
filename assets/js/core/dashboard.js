@@ -82,8 +82,8 @@ class UI {
 
         var dates=response.date;
         //create date objects from strings
-        
-        
+        var min = Math.min(...chartMedian)
+        var max = Math.max(...chartMedian)
     
         const ctx = document.querySelector("#runningIndexChart")
         var runningIndexChart = new Chart(ctx, {
@@ -155,8 +155,8 @@ class UI {
                           labelString: 'Value'
                         },
                         ticks: {
-                          suggestedMin: 35,   
-                          suggestedMax: 45
+                          min  : min-10,
+                          max : max+10
                         },
                       }]
                     }

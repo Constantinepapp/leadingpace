@@ -254,8 +254,8 @@ function displayCards(weeklymilage){
         document.querySelector("#average").innerHTML = "Average per year"
     }
 
-    document.querySelector("#currentWeek").innerHTML = metricsSingleValue(current)+`  ${metric()}`
-    document.querySelector("#currentMonth").innerHTML = metricsSingleValue(last)+`  ${metric()}`
+    document.querySelector("#currentWeek").innerHTML = metricsSingleValue(current.toFixed(2))+`  ${metric()}`
+    document.querySelector("#currentMonth").innerHTML = metricsSingleValue(last.toFixed(2))+`  ${metric()}`
     document.querySelector("#averageMonth").innerHTML = metricsSingleValue(average.toFixed(2))+`  ${metric()}`
 }
 function reloadGraph(){
