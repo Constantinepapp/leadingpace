@@ -35,7 +35,9 @@ class UI {
                 var male=response.users[i].male
                 var admin = response.users[i].admin
                 var activities = response.users[i].activities
-                var entry = {"id":id,"username":username,"email":email,"age":age,"male":male,"admin":admin,"activities":activities}
+                var number_login = response.users[i].number_login
+                var last_login = response.users[i].last_login
+                var entry = {"id":id,"username":username,"email":email,"age":age,"male":male,"admin":admin,"activities":activities,"last_login":last_login,"number_login":number_login}
                 UI.showEntry(entry)
 
                 if (response.message){
@@ -78,6 +80,12 @@ class UI {
         </td>
         <td class="text-warning">
         ${entry.activities}
+        </td>
+        <td class="text-warning">
+        ${entry.last_login}
+        </td>
+        <td class="text-warning">
+        ${entry.number_login}
         </td>
         <td>
           <div class="btn btn-danger deleteEntry" id=${entry.id}>
