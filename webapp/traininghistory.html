@@ -220,6 +220,7 @@
                       </th>
                       <th >
                         Counts
+                        <i><img src="../assets/img/question.svg" data-toggle="modal" data-target="#countsForFitnessHelp" style="width: 20px;height:15px"></i>
                       </th>
                       <th >
                         Action
@@ -244,7 +245,34 @@
             <path class="beat-loader" d="M0.5,38.5 L16,38.5 L19,25.5 L24.5,57.5 L31.5,7.5 L37.5,46.5 L43,38.5 L53.5,38.5" id="Path-2" stroke-width="2" sketch:type="MSShapeGroup"></path>
           </g>
         </svg>
-      </div>   
+      </div>  
+      <div class="modal" tabindex="-1" role="dialog" id="countsForFitnessHelp">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-info">
+              <h5 class="modal-title">Include/Exclude activity</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body bg-dark text-white">
+              <p>By default all activities count on your fitness estimation. There are times were a single or multiple activities create not representative data. In this case it is adviced to exclude these activities from fitness estimation.</p>
+              <p>Excluded activities <span class="text-warning"> still count on your weekly/monthly mileage,fatigue/training load estimation and running program progress.</span> The app just ignores this values when the Running Index,VO2max, and training paces are calculated</p>
+              <p>When to exclude an activity?</p>
+              <ul>
+                <li>Faulty Heart rate data</li>
+                <li>Running activities that contain to much walking in between</li>
+                <li>Sessions shorter than 15 minutes</li>
+                <li>Extremely hilly terrain</li>
+                <li>For any other reason you think an activity is not representative of your fitness</li>
+              </ul>
+            </div>
+            <div class="modal-footer bg-dark">
+              <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>    
       
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
