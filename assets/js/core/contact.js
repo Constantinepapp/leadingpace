@@ -1,14 +1,16 @@
 
 class Entry{
-    constructor(){
+    constructor(email){
         this.subject = document.querySelector("#subjectPicker").value
-        this.body = document.querySelector("#messageBody").value
+        this.body = document.querySelector("#messageBody").value +"                 Send by       " +email
+        
     }
 }
 class UI{
 
     static sendMessage(){
-        var messageForSend = new Entry()
+        const email = localStorage.getItem("email")
+        var messageForSend = new Entry(email)
         
 
         
@@ -18,6 +20,7 @@ class UI{
         const myHeaders={"x-access-token":token,"Content-Type": "application/json",'access-control-allow-origin':"*"}
         
         
+
         
         var link="https://leadingpace.pythonanywhere.com/contact"
         
