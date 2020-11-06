@@ -68,7 +68,9 @@ function tss_target(){
         return alert("please visit training load page first")
     }
     const factor = targetForm+targetForm*0.19
-    var tss_target = (1.116*currentFitness-0.16*currentFatigue+factor)*7.7
+    var form = currentFatigue-currentFitness
+    alert(form)
+    var tss_target = (1.116*currentFitness-0.16*currentFatigue+factor)*(7.7-form*0.03)
     //alert(tss_target)
     createTimeStamp(tss_target,runningProgram,planType,targetForm,program_runs_per_week)
 }   

@@ -48,7 +48,7 @@ class UI {
         var form = response.form
         var currentForm = form[Object.keys(form)[Object.keys(form).length-31]]
         localStorage.setItem("currentFitness",currentFitness)
-        localStorage.setItem("currentFatiygue",currentFatigue)
+        localStorage.setItem("currentFatigue",currentFatigue)
         //render chart bigDashboardChart
         document.querySelector("#currentFatigue").innerHTML = currentFatigue.toFixed(1)
         document.querySelector("#currentFitness").innerHTML = currentFitness.toFixed(1)
