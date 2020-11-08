@@ -424,16 +424,24 @@ class StravaUI {
         const activitiesList = []
         for (var i=0;i<activities.length-1;i++){
             if (activities[i].type == "Run"){
-                var entryForSave = new Activity(activities[i])
-                entryForSave.runningIndex = calcRunningIndex(entryForSave)
-                var output = calcTrimpTss(entryForSave)
-                entryForSave.tss = output[1]
-                entryForSave.trimp = output[0]
-                activitiesList.push(entryForSave)
+                if (activities[i].average_heartrate){
+                    var entryForSave = new Activity(activities[i])
+                    entryForSave.runningIndex = calcRunningIndex(entryForSave)
+                    var output = calcTrimpTss(entryForSave)
+                    entryForSave.tss = output[1]
+                    entryForSave.trimp = output[0]
+                    activitiesList.push(entryForSave)
+                }
                 
             }
         }
-        sendToDatabase(activitiesList)
+        if (activitiesList.length>1){
+            sendToDatabase(activitiesList)
+        }
+        else{
+            alert('Heart rate data missing')
+        }
+        
     }
     
 
