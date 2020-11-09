@@ -179,7 +179,7 @@ function sendToDatabase(activitiesList){
 
     .then(response =>{
         if (response.status === 200){
-            console.log(response.message)
+            
             return response.json();
         } else{
             console.log('error');
@@ -187,6 +187,9 @@ function sendToDatabase(activitiesList){
     })
     .then(response =>{
         console.debug(response);
+        if (response.message){
+            customAlert(response.message)
+        }
         
     })
 
@@ -272,7 +275,7 @@ function syncActivitiesAppear(){
 }
 
 function stravaAuth(){
-    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.netlify.app/webapp/bulk&exchange_token&approval_prompt=force&scope=activity:read_all"
+    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.net/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
     window.open(url)
     
 }
@@ -300,7 +303,7 @@ function linkToStrava(){
 
     .then(response =>{
         if (response.status === 200){
-            logout()
+            
             return response.json();
         } else{
             console.log('error');
@@ -311,13 +314,15 @@ function linkToStrava(){
     .then(response => {
         console.debug(response);
         if (response.data){
-
-            syncActivitiesAppear()
-
             console.log(response)
             console.log(response.data.access_token)
-            logout()
+            localStorage.setItem("stravaConnected",response.strava_connected)
+            localStorage.setItem("stravaRefreshToken",response.data)
+            syncActivitiesAppear()
             
+        }
+        if (response.message){
+            customAlert(response.message)
         }
         
       }).catch(error => {
@@ -384,6 +389,9 @@ class StravaUI {
                     const accessToken = response.access_token
                     StravaUI.getActivities(accessToken)
             
+                }
+                if (response.message){
+                    customAlert(response.message)
                 }
                 
               }).catch(error => {
@@ -459,6 +467,12 @@ function splitUrl(url){
     return (str4)
 }
 
+function customAlert(message){
+    document.querySelector(".alert").setAttribute("class",`alert alert-${message[0]}`)
+    document.querySelector(".alertText").innerHTML = message[1]
+    setTimeout(function(){ document.querySelector(".alert").setAttribute("class","alert alert-info collapse"); }, 10000);
+}
+  
 
 function logout(){
     window.localStorage.clear()
