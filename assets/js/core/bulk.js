@@ -248,18 +248,7 @@ function formatDate(date) {
 
 
 document.querySelector("#logout").addEventListener("click",logout)
-
-
-
-
 document.querySelector("#stravaAuth").addEventListener("click",stravaAuth)
-
-function stravaAuth(){
-    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.netlify.app/webapp/bulk.html&exchange_token&approval_prompt=force&scope=activity:read_all"
-    window.open(url)
-    
-}
-
 document.addEventListener("DOMContentLoaded",checkUrl)
 
 function checkUrl(){
@@ -268,7 +257,7 @@ function checkUrl(){
     if (stravaStatus == "true"){
         syncActivitiesAppear()
     }
-    if (currentUrl.includes("state")){
+    if (currentUrl.includes("code")){
         if (document.querySelector("#conectivityStatus").innerHTML == "Not connected"){
             linkToStrava()
         }
@@ -280,6 +269,12 @@ function syncActivitiesAppear(){
     document.querySelector("#conectivityStatus").style = "color:green"
     document.querySelector("#syncActivities").style ="border-radius: 30px; background-color:green"
     document.querySelector("#syncActivities").innerHTML ="Sync Activities"
+}
+
+function stravaAuth(){
+    url = "http://www.strava.com/oauth/authorize?client_id=54636&response_type=code&redirect_uri=https://leadingpace.netlify.app/webapp/bulk&exchange_token&approval_prompt=force&scope=activity:read_all"
+    window.open(url)
+    
 }
 
 function linkToStrava(){
@@ -355,41 +350,47 @@ class StravaUI {
         const token = localStorage.getItem("token")
         const refreshTokenLink="https://leadingpace.pythonanywhere.com/strava_refresh_token"
         const refreshToken = window.localStorage.getItem("stravaRefreshToken")
-        const myHeaders = {"x-access-token":token,
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json' }
-        const myBody = {refreshToken:refreshToken}
-
-
-        fetch(refreshTokenLink,{
-            method: 'POST',
-            headers: myHeaders,
-            body:JSON.stringify(myBody)
-        })
-        .then(response =>{
-            if (response.status === 200){
+        if (refreshToken=="null"){
+            alert("Link strava first")
+        }
+        else{
+            const myHeaders = {"x-access-token":token,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json' }
+            const myBody = {refreshToken:refreshToken}
+    
+    
+            fetch(refreshTokenLink,{
+                method: 'POST',
+                headers: myHeaders,
+                body:JSON.stringify(myBody)
+            })
+            .then(response =>{
+                if (response.status === 200){
+                    
+                    return response.json();
+                } else{
+                    console.log('error');
+                    console.log("Something Went Wrong ")
+                   
+                    
+                    
+                }
+            })
+            .then(response => {
                 
-                return response.json();
-            } else{
-                console.log('error');
-                console.log("Something Went Wrong ")
-               
-                
-                
-            }
-        })
-        .then(response => {
+                if (response.access_token){
+                    console.log(response.access_token)
+                    const accessToken = response.access_token
+                    StravaUI.getActivities(accessToken)
             
-            if (response.access_token){
-                console.log(response.access_token)
-                const accessToken = response.access_token
-                StravaUI.getActivities(accessToken)
+                }
+                
+              }).catch(error => {
+                console.error(error);
+              });
+        }
         
-            }
-            
-          }).catch(error => {
-            console.error(error);
-          });
 
     }
     
