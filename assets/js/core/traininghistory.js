@@ -20,7 +20,7 @@ class UI {
                 localStorage.setItem("retry",parseInt(localStorage.getItem("retry"))+1)
                 if (parseInt(localStorage.getItem("retry"))<3){
                   
-                    setTimeout(function (){UI.callDatabase()}, 1000)  
+                    setTimeout(function (){UI.callDatabase()}, 2000)  
                 }
                 else{
                   console.log("Token expired log in again ")
