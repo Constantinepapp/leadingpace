@@ -26,13 +26,21 @@ function createTimeStamp(tss_target,runningProgram,planType,targetForm,program_r
 
     .then(response =>{
         if (response.status === 200){
+            localStorage.setItem("retry",0)
             window.location.reload(true)
             return response.json();
         } else{
-            console.log('error');
-            console.log("Token expired log in again ")
-            window.localStorage.clear();
-            window.location.replace("login.html")
+            localStorage.setItem("retry",parseInt(localStorage.getItem("retry"))+1)
+            if (parseInt(localStorage.getItem("retry"))<3){
+              
+                setTimeout(function (){UI.callDatabase()}, 2000)  
+            }
+            else{
+              console.log("Token expired log in again ")
+              window.localStorage.clear();
+              window.location.replace("login.html")
+              throw new Error('Something went wrong on api server!');
+            }
             
         }
     })
@@ -202,6 +210,7 @@ function createTableRow(activity,speed,speedOriginal){
         color = "danger"
         var intervalTime = (activity.duration/3).toFixed(0)
         var intervalLowTime = (activity.duration*2/3).toFixed(0)
+        
         var estDistance = intervalTime * speedOriginal*1000/60 + intervalLowTime *0.8* speedOriginal*1000/60
         if (measurementSystem == "Imperial min/mile"){
             estDistance = estDistance/1000 *0.60
@@ -216,7 +225,7 @@ function createTableRow(activity,speed,speedOriginal){
         <td class="text-white">
             <span class="text-info">${intervalTime}</span> min at <span class="text-${color}">${speed}</span> ${metric()} speed
             and
-            <span class="text-info">${intervalLowTime}</span> min at <span class="text-success">${(speed*0.8).toFixed(2)}</span> ${metric()} speed
+            <span class="text-info">${intervalLowTime}</span> min at <span class="text-success">${convertMetrics(speedOriginal*0.8)}</span> ${metric()} speed
         </td>
         <td class="text-info distanceForSum">
             ${estDistance.toFixed(0)} m

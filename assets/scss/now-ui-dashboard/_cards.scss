@@ -1,112 +1,222 @@
 .card{
-    border: 0;
-    border-radius: $border-radius-small;
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-    box-shadow: $box-shadow;
-
-    [data-notify="container"].alert {
-      min-width: auto;
-      left: unset !important;
-      right: unset !important;
-    }
-
-    .card-body{
-        padding: 15px 15px 10px 15px;
-
-        &.table-full-width{
-            padding-left: 0;
-            padding-right: 0;
-        }
-    }
-
-    .card-header{
-      &:not([data-background-color]){
-        background-color: transparent;
-      }
-      padding: 15px 15px 0;
-      border: 0;
-
-      .card-title{
-          margin-top: 10px;
-      }
-    }
-
-    .map{
-        border-radius: $border-radius-small;
-
-        &.map-big{
-          height: 400px;
-        }
-    }
-
-    &[data-background-color="orange"]{
-        background-color: $primary-color;
-
-        .card-header{
-            background-color: $primary-color;
-        }
-
-        .card-footer{
-            .stats{
-                color: $white-color;
-            }
-        }
-    }
-
-    &[data-background-color="red"]{
-        background-color: $danger-color;
-    }
-
-    &[data-background-color="yellow"]{
-        background-color: $warning-color;
-    }
-
-    &[data-background-color="blue"]{
-        background-color: $info-color;
-    }
-
-    &[data-background-color="green"]{
-        background-color: $success-color;
-    }
+    border-radius: $border-radius-base;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05),0 0 0 1px rgba(63,63,68,.1);
+    background-color: #FFFFFF;
+    margin-bottom: 30px;
 
     .image{
+        width: 100%;
         overflow: hidden;
-        height: 200px;
+        height: 260px;
+        border-radius: $border-radius-base $border-radius-base 0 0;
         position: relative;
-    }
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
 
-    .avatar{
-        width: 30px;
-        height: 30px;
-        overflow: hidden;
-        border-radius: 50%;
-        margin-bottom: 15px;
+        img {
+            width: 100%;
+        }
+    }
+    .filter{
+        position: absolute;
+        z-index: 2;
+        background-color: rgba(0,0,0,.68);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+
+        @include opacity(0);
+
+        .btn{
+            @include vertical-align();
+        }
+    }
+    &:hover .filter{
+        @include opacity(1);
+    }
+    .btn-hover{
+        @include opacity(0);
+    }
+    &:hover .btn-hover{
+        @include opacity(1);
+    }
+    .content{
+        padding: 15px 15px 10px 15px;
+    }
+    .header{
+        padding: 15px 15px 0;
+    }
+    .category,
+    label{
+        font-size: $font-size-base;
+        font-weight: $font-weight-normal;
+        color: $dark-gray;
+        margin-bottom: 0px;
+
+        i{
+            font-size: $font-paragraph;
+        }
     }
 
     label{
         font-size: $font-size-small;
         margin-bottom: 5px;
-        color: $dark-gray;
+        text-transform: uppercase;
     }
 
-    .card-footer{
-        background-color: transparent;
-        border: 0;
+    .title{
+        margin: $none;
+        color: $black-color;
+        font-weight: $font-weight-light;
+    }
+    .avatar{
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+    .description{
+        font-size: $font-size-base;
+        color: #333;
+    }
+    .footer{
+        padding: 0;
+        background-color: $transparent-bg;
+        line-height: 30px;
 
-
-        .stats{
-            i{
-                margin-right: 5px;
-                position: relative;
-                top: 2px;
-            }
+        .legend{
+            padding: 5px 0;
         }
 
-        .btn{
-            margin: 0;
+        hr{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    .stats{
+        color: #a9a9a9;
+    }
+    .footer div{
+        display: inline-block;
+    }
+
+    .author{
+        font-size: $font-size-small;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+    }
+    .author i{
+        font-size: $font-size-base;
+    }
+    h6{
+        font-size: $font-size-small;
+        margin: 0;
+    }
+    &.card-separator:after{
+        height: 100%;
+        right: -15px;
+        top: 0;
+        width: 1px;
+        background-color: $medium-gray;
+        content: "";
+        position: absolute;
+    }
+
+    .ct-chart{
+        margin: 30px 0 30px;
+        height: 245px;
+    }
+
+    .table{
+        tbody td:first-child,
+        thead th:first-child{
+            padding-left: 15px;
+        }
+
+        tbody td:last-child,
+        thead th:last-child{
+            padding-right: 15px;
+        }
+    }
+
+    .alert{
+        border-radius: $border-radius-base;
+        position: relative;
+
+        &.alert-with-icon{
+            padding-left: 65px;
+        }
+    }
+}
+.card-user{
+    .image{
+        height: 110px;
+    }
+    .image-plain{
+        height: 0;
+        margin-top: 110px;
+    }
+    .author{
+        text-align: center;
+        text-transform: none;
+        margin-top: -70px;
+    }
+    .avatar{
+        width: 124px;
+        height: 124px;
+        border: 5px solid #FFFFFF;
+        position: relative;
+        margin-bottom: 15px;
+
+        &.border-gray{
+            border-color: #EEEEEE;
+        }
+    }
+    .title{
+        line-height: 24px;
+    }
+    .content{
+        min-height: 240px;
+    }
+}
+
+.card-user,
+.card-price{
+    .footer{
+        padding: 5px 15px 10px;
+    }
+    hr{
+        margin: 5px 15px;
+    }
+}
+.card-plain{
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+
+    .image{
+        border-radius: 4px;
+    }
+}
+
+.card-stats{
+    .icon-big{
+        font-size: 3em;
+        min-height: 64px;
+        i{
+            font-weight: bold;
+            line-height: 59px;
+        }
+    }
+    .numbers{
+        font-size: 2em;
+        text-align: right;
+        p {
+           margin: 0;
         }
     }
 }

@@ -33,13 +33,20 @@ class UI{
         
             .then(response =>{
                 if (response.status === 200){
+                    localStorage.setItem("retry",0)
                     return response.json();
                 } else{
-                    console.log('error');
-                    console.log("Token expired log in again ")
-                    window.localStorage.clear();
-                    window.location.replace("login.html")
-                    
+                    localStorage.setItem("retry",parseInt(localStorage.getItem("retry"))+1)
+                    if (parseInt(localStorage.getItem("retry"))<3){
+                      
+                        setTimeout(function (){UI.callDatabase()}, 2000)  
+                    }
+                    else{
+                      console.log("Token expired log in again ")
+                      window.localStorage.clear();
+                      window.location.replace("login.html")
+                      throw new Error('Something went wrong on api server!');
+                    }
                 }
             })
             .then(response =>{

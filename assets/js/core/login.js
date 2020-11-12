@@ -60,6 +60,7 @@ function login(){
             window.localStorage.setItem("email",email)
             window.localStorage.setItem("timeFrame","one")
             window.localStorage.setItem("timeScale","w")
+            window.localStorage.setItem("retry","0")
 
             window.location.replace("dashboard.html")
         }

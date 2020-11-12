@@ -1,51 +1,77 @@
-.footer{
-    padding: 24px 0;
-
-    &.footer-default{
-        background-color: #f2f2f2;
-    }
-
-    nav{
-        display: inline-block;
-        float: left;
-        padding-left: 7px;
-    }
-
-    ul{
-        margin-bottom: 0;
-        padding: 0;
+.footer{    
+    background-color: $white-color;
+    line-height: $line-height;
+    
+    nav > ul{
         list-style: none;
-
-        li{
-            display: inline-block;
-
-            a{
-                color: inherit;
-                padding: $padding-base-vertical;
-                font-size: $font-size-small;
-                text-transform: uppercase;
-                text-decoration: none;
-
-                &:hover{
-                    text-decoration: none;
-                }
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        
+        a:not(.btn){
+            color: $dark-gray;
+            display: block;
+            margin-bottom: 3px;
+            &:hover,
+            &:focus{
+                color: $default-states-color;
             }
         }
     }
-
-    &.fixed-bottom{
-      width: calc(100% - 80px);
-      margin-left: auto;
+    .social-area{
+        padding: 15px 0;
+        h5{
+            padding-bottom: 15px;
+        }
     }
-
+    .social-area > a:not(.btn){
+       color: $dark-gray;
+       display: inline-block;
+       vertical-align: top;
+       padding: $padding-social-a;
+       font-size: $font-size-large-navbar;
+       font-weight: normal;
+       line-height: $line-height;
+       text-align: center;
+       &:hover,
+       &:focus{
+           color: $default-states-color;
+       }
+    }
     .copyright{
-        font-size: $font-size-small;
-        line-height: 1.8;
+        color: $default-states-color;
+        padding: 10px 15px;
+        margin: 10px 3px;
+        line-height: 20px;
+        font-size: $font-size-base;
     }
-
-    &:after{
-        display: table;
-        clear: both;
-        content: " ";
+    hr{
+        border-color: $medium-gray;
+    }
+    .title{
+        color: $default-states-color;
     }
 }
+
+.footer-default{
+    background-color: $smoke-bg;
+}
+
+.footer:not(.footer-big){
+    nav > ul{
+       font-size: $font-size-base;
+       li{
+            margin-left: 20px;
+            float: left;
+        }
+        a{
+            padding: 10px 0px;
+            margin: 10px 10px 10px 0px;
+        }
+    }
+}
+
+
+
+
+
