@@ -80,11 +80,15 @@ The app consists of a completely seperated and language agnostic front and back 
 
 ## Back end
 
-The Back end consists of a python(flask) REST api and a MySQL database. The app uses Json web token for user authentication.
+* Python(flask) REST api 
+* MySQL database
+* SQLAlchemy ORM
+* Bcrypt (hash encryption) 
+* Json web token authentication.
 
 ## Front end
 
-On the other hand the front end consist of plain vanilla javaScript without any use of frameworks or external libraries. No npm modules are installed, no babel or webpack just plain js code. Some cdns are used but were mainly avoided.
+The front end consist of plain vanilla javaScript without any use of frameworks or external libraries. No npm modules are installed, no babel or webpack just plain js code. Some cdns are used but were mainly avoided.
 
 Every html page has a unique js file with all the code the page needs to work. The only mean of communication between the web app's pages is the local storage and the back end api. All api calls were made using the **fetch** function using custom code to handle bad requests and retries.
 
@@ -96,7 +100,6 @@ Every html page has a unique js file with all the code the page needs to work. T
 * the lack of third party libraries made the developement  hard as in most cases custom code had to be written to solve problems that are easily and better solved by well known libraries 
 
 In the version 3 of the app the whole front end was rewriten using react js to solve all of the above problems. The backend became a simple CRUD REST API as most of the proccesses are now done on the front end. Using state and third party libraries also ensured that all the calculations the app needs are only calculated when input data are changed, which increases the app performance tenfold.
-
 
 
 
