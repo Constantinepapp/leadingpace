@@ -18,7 +18,6 @@
         1. [Back end](#Back-end)
         1. [Front end](#Front-end)
         1. Strava external API
-    1. Function
     1. [From vanilla javaScript to React](#From-vanilla-javaScript-to-React)
 
 ## Disclaimer
