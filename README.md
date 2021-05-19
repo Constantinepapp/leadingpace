@@ -5,7 +5,7 @@
 * **Functionality**
     1. [Disclaimer](#Disclaimer)
     1. [The app](#The-app)
-    1. [Running Index-VO2max](#Running Index-VO2max)
+    1. [Running Index-VO2max](#Running-Index-VO2max)
     1. [Fitness-Fatigue](Fitness-Fatigue)
     1. [Running Program](RunningProgram)
     1. [Training Zones](TrainingZones)
