@@ -14,13 +14,12 @@
 
      
 * **Code documentation**
-    1. [Stack](Stack)
-        1. Front end
-        1. Back end
-        1. Database
+    1. [Stack](#Stack)
+        1. [Back end](#Back-end)
+        1. [Front end](#Front-end)
         1. Strava external API
     1. Function
-    1. New App (React)
+    1. [From vanilla javaScript to React](#From-vanilla-javaScript-to-React)
 
 ## Disclaimer
 
@@ -66,5 +65,38 @@ If you are a begiener in running and you are not used to run for 10 or more minu
 Training zones in this app are calculated using the karvonen formula.The Karvonen Formula is a mathematical formula that helps you determine your target heart rate (HR) training zone. The formula uses maximum and resting heart rate with the desired training intensity to get a target heart rate.Target Heart Rate = [(max HR − resting HR) × %Intensity] + resting HR example
 
 Training speeds in each zone are calculated using your weighted average VO2max from your last 10 activities
+
+
+
+
+
+
+
+# Code documentation
+
+## Stack
+
+The app consists of a completely seperated and language agnostic front and back end(REST API) deployed on different servers and communicating throught cross origin requests. 
+
+## Back end
+
+The Back end consists of a python(flask) REST api and a MySQL database. The app uses Json web token for user authentication.
+
+## Front end
+
+On the other hand the front end consist of plain vanilla javaScript without any use of frameworks or external libraries. No npm modules are installed, no babel or webpack just plain js code. Some cdns are used but were mainly avoided.
+
+Every html page has a unique js file with all the code the page needs to work. The only mean of communication between the web app's pages is the local storage and the back end api. All api calls were made using the **fetch** function using custom code to handle bad requests and retries.
+
+# From vanilla javaScript to React
+
+* Neither the front or the back end has any "memory" or state which slows down the performance of the app when user data reach the thousands, as the same processes have to run all over again as the user browses throught the web app.
+* Too many processes are controlled and run on the backend server which puts too much strain on the server 
+* Scaling is hard as new and more complicated features are developed. 
+* the lack of third party libraries made the developement  hard as in most cases custom code had to be written to solve problems that are easily and better solved by well known libraries 
+
+In the version 3 of the app the whole front end was rewriten using react js to solve all of the above problems. The backend became a simple CRUD REST API as most of the proccesses are now done on the front end. Using state and third party libraries also ensured that all the calculations the app needs are only calculated when input data are changed, which increases the app performance tenfold.
+
+
 
 
