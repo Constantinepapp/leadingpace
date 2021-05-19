@@ -3,9 +3,9 @@
 ## Table of content
 
 * **Functionality**
-    1. [Disclaimer](Disclaimer)
-    1. [The app](Theapp)
-    1. [Running Index-VO2max](RunningIndex-VO2max)
+    1. [Disclaimer](#Disclaimer)
+    1. [The app](#Theapp)
+    1. [Running Index-VO2max](#RunningIndex-VO2max)
     1. [Fitness-Fatigue](Fitness-Fatigue)
     1. [Running Program](RunningProgram)
     1. [Training Zones](TrainingZones)
