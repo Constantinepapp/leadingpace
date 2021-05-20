@@ -13,7 +13,7 @@
 
 
      
-* **Code documentation**
+* **Code implementation**
     1. [Stack](#Stack)
         1. [Back end](#Back-end)
         1. [Front end](#Front-end)
@@ -71,7 +71,7 @@ Training speeds in each zone are calculated using your weighted average VO2max f
 
 
 
-# Code documentation
+# Code implementation
 
 ## Stack
 
